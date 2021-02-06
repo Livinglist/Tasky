@@ -8,10 +8,26 @@
 import SwiftUI
 
 struct ProjectView: View {
-    var projectViewModel: ProjectViewModel
+    @ObservedObject var projectViewModel: ProjectViewModel
     @State var showContent: Bool = false
     @State var viewState = CGSize.zero
     @State var showAlert = false
+    @State var progressValue:Float
+    
+    init(projectViewModel: ProjectViewModel) {
+        self.projectViewModel = projectViewModel
+        let completedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
+            if task.taskStatus == .completed {
+                return true
+            }
+            return false
+        }.count)
+        let total = Float(projectViewModel.project.tasks.count)
+        let val = completedCount/total
+        self._progressValue = State(initialValue: val)
+        
+        print("The progress value is \(val) \(self.progressValue)")
+    }
     
     var body: some View {
         NavigationLink(destination: TaskListView(projectViewModel: projectViewModel)){
@@ -26,6 +42,7 @@ struct ProjectView: View {
                         Spacer()
                     }.padding(.leading, 12)
                     Spacer()
+                    //ProgressBar(value: $progressValue, color: Color(.)).frame(height: 24).padding()
                 }
                 .frame(width: geometry.size.width, height: 120)
                 .background(Color.orange)

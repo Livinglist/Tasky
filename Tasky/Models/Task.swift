@@ -30,6 +30,7 @@ struct Task: Identifiable, Codable, Equatable{
     var content: String
     var taskStatus: TaskStatus
     var timestamp: Double
+    var dueTimestamp: Double?
     
     static func == (lhs: Self, rhs: Self) -> Bool {
             lhs.id == rhs.id

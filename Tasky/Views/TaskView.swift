@@ -10,6 +10,7 @@ import SwiftUI
 struct TaskView: View {
     var task: Task
     var onRemovePressed: (String) -> ()
+    var onStatusChanged: (String, TaskStatus) ->()
     
     var body: some View {
         let dateFormatter = DateFormatter()
@@ -38,6 +39,39 @@ struct TaskView: View {
             .frame(width: geometry.size.width, height: 120)
             .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
             .shadow(color: Color(.orange).opacity(0.3), radius: 3, x: 2, y: 2).contextMenu {
+                if self.task.taskStatus != TaskStatus.awaiting{
+                    Button(action: {
+                        onStatusChanged(self.task.id, TaskStatus.awaiting)
+                    }) {
+                        Text("Await")
+                        //Image(systemName: "trash")
+                    }
+                }
+                if self.task.taskStatus != TaskStatus.inProgress{
+                    Button(action: {
+                        onStatusChanged(self.task.id, TaskStatus.inProgress)
+                    }) {
+                        Text("In Progress")
+                        //Image(systemName: "trash")
+                    }
+                }
+                if self.task.taskStatus != TaskStatus.completed{
+                    Button(action: {
+                        onStatusChanged(self.task.id, TaskStatus.completed)
+                    }) {
+                        Text("Complete")
+                        //Image(systemName: "trash")
+                    }
+                }
+                if self.task.taskStatus != TaskStatus.aborted{
+                    Button(action: {
+                        onStatusChanged(self.task.id, TaskStatus.aborted)
+                    }) {
+                        Text("Abort")
+                        //Image(systemName: "trash")
+                    }
+                }
+                Divider()
                 Button(action: {
                     onRemovePressed(self.task.id)
                 }) {
@@ -51,6 +85,10 @@ struct TaskView: View {
 
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskView(task: Task(id: "", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in })
+        VStack(alignment: .leading){
+            TaskView(task: Task(id: "", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
+            TaskView(task: Task(id: "1", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
+            TaskView(task: Task(id: "2", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
+        }
     }
 }

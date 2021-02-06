@@ -12,6 +12,7 @@ struct ProjectListView: View {
     @ObservedObject var authService: AuthService
     @ObservedObject var projectListViewModel = ProjectListViewModel()
     @State var showForm = false
+    @State var showAlert = false
     
     var body: some View {
         NavigationView {
@@ -32,13 +33,8 @@ struct ProjectListView: View {
             }
             .navigationBarTitle("My Projects")
             // swiftlint:disable multiple_closures_with_trailing_closure
-            .navigationBarItems(leading: Button(action: {
-                                                    do {
-                                                        try AuthService.signOut()
-                                                        
-                                                    } catch {
-                                                        
-                                                    }  }) {
+            .navigationBarItems(leading: Button(action: {showAlert = true
+                                                      }) {
                 Text(AwesomeIcon.signOutAlt.rawValue)
                     .font(.awesome(style: .solid, size: 24))
             } ,trailing: Button(action: { showForm.toggle() }) {
@@ -47,6 +43,17 @@ struct ProjectListView: View {
             })
         }.navigationBarBackButtonHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
+        .alert(isPresented: $showAlert) {
+            Alert(title: Text("Sign out?"), message: Text(""), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Yes"), action: {
+                showAlert = false
+                do {
+                    try AuthService.signOut()
+                    
+                } catch {
+                    
+                }
+            }))
+        }
     }
 }
 

@@ -34,11 +34,26 @@ class ProjectViewModel: ObservableObject, Identifiable {
     
     func removeTask(withId id: String){
         self.project.tasks.removeAll { (task) -> Bool in
-            if id == task.id {
+            if task.id == id {
                 return true
             }
             return false
         }
+        projectRepository.update(project)
+    }
+    
+    func updateTaskStatus(withId id: String, to taskStatus: TaskStatus){
+        let index = project.tasks.firstIndex(where: { task -> Bool in
+            if task.id == id {
+                return true
+            }
+            return false
+        })!
+        
+        let task = project.tasks.remove(at: index)
+        
+        let newTask = Task(id: task.id, title: task.title, content: task.content, taskStatus: taskStatus, timestamp: task.timestamp)
+        project.tasks.append(newTask)
         projectRepository.update(project)
     }
     
