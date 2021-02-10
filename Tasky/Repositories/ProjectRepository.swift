@@ -64,8 +64,6 @@ class ProjectRepository: ObservableObject {
     
     func fetchProject(index: Int = 0){
         let doc = listFromFetchingProject[index]
-        let data = doc.data()
-        let projectId = doc.documentID
         var project = try? doc.data(as: Project.self)
         
         fetchTasksFromDocRef(docRef: doc.reference){ (tasks: [Task]) in
@@ -85,13 +83,13 @@ class ProjectRepository: ObservableObject {
     func fetchTasks(docRef: DocumentReference){
         DispatchQueue.main.async {
             docRef.collection("tasks").getDocuments { (querySnapshot, err) in
-                if let err  = err {
+                if err != nil {
                     print("Error fetching tasks")
                     return
                 }
                 
                 self.fetchedTasks = querySnapshot?.documents.compactMap{ document in
-                    var task = try? document.data(as: Task.self)
+                    let task = try? document.data(as: Task.self)
                     return task
                 } ?? []
             }
@@ -192,10 +190,10 @@ class ProjectRepository: ObservableObject {
     func remove(task: Task, from project: Project){
         guard let projectId = project.id else { return }
         
-        do {
-            try store.collection("projects").document(projectId).collection("tasks").document(task.id).delete()
-        } catch {
-            fatalError("Unable to update project: \(error.localizedDescription).")
+        store.collection("projects").document(projectId).collection("tasks").document(task.id).delete { error in
+            if let error = error {
+                print("Unable to remove task: \(error.localizedDescription)")
+            }
         }
     }
     
@@ -203,7 +201,7 @@ class ProjectRepository: ObservableObject {
         print("removing project")
         guard let projectId = project.id else { return }
         
-        store.collection(path).document(projectId).delete { error in
+        store.collection("projects").document(projectId).delete { error in
             if let error = error {
                 print("Unable to remove project: \(error.localizedDescription)")
             }

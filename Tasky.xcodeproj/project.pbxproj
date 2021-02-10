@@ -50,16 +50,17 @@
 		E525647F25CE3BC200EFCEC1 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */; };
 		E54ECFA325D378C700646421 /* FASwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E54ECFA225D378C700646421 /* FASwiftUI */; };
 		E54ECFA825D3793C00646421 /* icons.json in Resources */ = {isa = PBXBuildFile; fileRef = E54ECFA725D3793C00646421 /* icons.json */; };
-		E54ED00C25D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = E54ED00825D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf */; };
-		E54ED00D25D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = E54ED00925D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf */; };
 		E54ED00E25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = E54ED00A25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf */; };
-		E54ED00F25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = E54ED00B25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf */; };
 		E54FC37925CCCD8000DA0656 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54FC37825CCCD8000DA0656 /* TaskView.swift */; };
 		E54FC38E25CCD3DB00DA0656 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54FC38D25CCD3DB00DA0656 /* TaskListView.swift */; };
 		E54FC39325CCE35B00DA0656 /* NewTaskForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54FC39225CCE35B00DA0656 /* NewTaskForm.swift */; };
 		E588450125D24C5D0008A371 /* EmailSignInForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588450025D24C5D0008A371 /* EmailSignInForm.swift */; };
 		E588450625D364ED0008A371 /* UpdateProjectForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588450525D364ED0008A371 /* UpdateProjectForm.swift */; };
 		E588E8D525D383A3005F3903 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588E8D425D383A3005F3903 /* UserService.swift */; };
+		E588E8E025D3A186005F3903 /* Font Awesome 5 Brands-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = E588E8DF25D3A186005F3903 /* Font Awesome 5 Brands-Regular-400.otf */; };
+		E588E8E525D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = E588E8E425D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf */; };
+		E588E8EA25D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = E588E8E925D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf */; };
+		E588E8EF25D3D5F5005F3903 /* TaskDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,10 +111,7 @@
 		E5047FF125CB9F6200DD6C32 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		E54ECFA725D3793C00646421 /* icons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = icons.json; sourceTree = "<group>"; };
-		E54ED00825D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Brands-Regular-400.otf"; path = "../../../Downloads/Font Awesome 5 Brands-Regular-400.otf"; sourceTree = "<group>"; };
-		E54ED00925D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Pro-Regular-400.otf"; path = "../../../Downloads/Font Awesome 5 Pro-Regular-400.otf"; sourceTree = "<group>"; };
 		E54ED00A25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Pro-Light-300.otf"; sourceTree = "<group>"; };
-		E54ED00B25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Pro-Solid-900.otf"; path = "../../../Downloads/Font Awesome 5 Pro-Solid-900.otf"; sourceTree = "<group>"; };
 		E54ED01325D37B2C00646421 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E54FC37825CCCD8000DA0656 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		E54FC38D25CCD3DB00DA0656 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
@@ -121,6 +119,10 @@
 		E588450025D24C5D0008A371 /* EmailSignInForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInForm.swift; sourceTree = "<group>"; };
 		E588450525D364ED0008A371 /* UpdateProjectForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProjectForm.swift; sourceTree = "<group>"; };
 		E588E8D425D383A3005F3903 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		E588E8DF25D3A186005F3903 /* Font Awesome 5 Brands-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Brands-Regular-400.otf"; sourceTree = "<group>"; };
+		E588E8E425D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Pro-Regular-400.otf"; sourceTree = "<group>"; };
+		E588E8E925D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Pro-Solid-900.otf"; sourceTree = "<group>"; };
+		E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,11 +188,11 @@
 		5E9849B125C401C200AD938C /* Tasky */ = {
 			isa = PBXGroup;
 			children = (
+				E588E8E925D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf */,
+				E588E8E425D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf */,
+				E588E8DF25D3A186005F3903 /* Font Awesome 5 Brands-Regular-400.otf */,
 				E54ED01325D37B2C00646421 /* Info.plist */,
-				E54ED00825D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf */,
 				E54ED00A25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf */,
-				E54ED00925D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf */,
-				E54ED00B25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf */,
 				E54ECFA725D3793C00646421 /* icons.json */,
 				5E984A6425C487D700AD938C /* Tasky.entitlements */,
 				5E984A1B25C4029000AD938C /* Repositories */,
@@ -269,6 +271,7 @@
 				E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */,
 				E588450025D24C5D0008A371 /* EmailSignInForm.swift */,
 				E588450525D364ED0008A371 /* UpdateProjectForm.swift */,
+				E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -416,13 +419,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				E54ED00E25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf in Resources */,
-				E54ED00C25D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf in Resources */,
 				5E9849BA25C401C300AD938C /* Preview Assets.xcassets in Resources */,
+				E588E8E525D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf in Resources */,
 				5E9849E625C4021000AD938C /* GoogleService-Info.plist in Resources */,
 				E54ECFA825D3793C00646421 /* icons.json in Resources */,
 				5E9849B725C401C300AD938C /* Assets.xcassets in Resources */,
-				E54ED00F25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf in Resources */,
-				E54ED00D25D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf in Resources */,
+				E588E8EA25D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf in Resources */,
+				E588E8E025D3A186005F3903 /* Font Awesome 5 Brands-Regular-400.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E984A6025C40AAE00AD938C /* NewProjectForm.swift in Sources */,
+				E588E8EF25D3D5F5005F3903 /* TaskDetailSheet.swift in Sources */,
 				E54FC39325CCE35B00DA0656 /* NewTaskForm.swift in Sources */,
 				5E9849BC25C401C300AD938C /* Persistence.swift in Sources */,
 				5E9849B525C401C200AD938C /* ContentView.swift in Sources */,
@@ -634,6 +638,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Tasky/Preview Content\"";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
@@ -661,6 +666,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"Tasky/Preview Content\"";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;

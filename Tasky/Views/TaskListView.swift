@@ -8,13 +8,20 @@
 import SwiftUI
 import FASwiftUI
 
+enum ActiveSheet: Identifiable {
+    case newTaskForm, editProjectForm
+    
+    var id: Int {
+        hashValue
+    }
+}
 
 
 struct TaskListView: View {
     @ObservedObject var projectViewModel: ProjectViewModel
-    @State var showForm: Bool = false
-    @State var showUpdateProjectForm: Bool = false
+    @State var activeSheet: ActiveSheet?
     @State var selectedTaskStatus: TaskStatus = .awaiting
+    @State var showDeleteAlert: Bool = false
     @State var progressValue: Float
     
     init(projectViewModel: ProjectViewModel) {
@@ -25,7 +32,13 @@ struct TaskListView: View {
             }
             return false
         }.count)
-        let total = Float(projectViewModel.project.tasks.count)
+        let abortedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
+            if task.taskStatus == .aborted {
+                return true
+            }
+            return false
+        }.count)
+        let total = Float(projectViewModel.project.tasks.count) - abortedCount
         let val = total == 0 ? 0.0 : (completedCount/total)
         self._progressValue = State(initialValue: val)
     }
@@ -40,28 +53,46 @@ struct TaskListView: View {
                     Text("Completed").tag(TaskStatus.completed)
                     Text("Aborted").tag(TaskStatus.aborted)
                 }).pickerStyle(SegmentedPickerStyle()).padding(.horizontal, 16)
-                taskListOf(taskStatus: selectedTaskStatus).animation(.easeIn)
+                taskListOf(taskStatus: selectedTaskStatus).animation(.easeInOut(duration: 0.20))
             }
         }
-        
         .navigationBarTitle("\(projectViewModel.project.name)")
-        .navigationBarItems(trailing: HStack{
-            Button(action: { showUpdateProjectForm.toggle() }) {
-                FAText(iconName: "edit", size: 23)
-            }.padding(.trailing, 12).sheet(isPresented: $showUpdateProjectForm) {
-                withAnimation{
-                    UpdateProjectForm(projectViewModel: projectViewModel)
+        .navigationBarItems(trailing: Menu {
+            Button(action: { activeSheet = .editProjectForm }) {
+                HStack{
+                    Image(systemName: "square.and.pencil")
+                    Text("Edit")
                 }
             }
+//            .padding(.trailing, 12).sheet(isPresented: $showUpdateProjectForm) {
+//                withAnimation{
+//                    UpdateProjectForm(projectViewModel: projectViewModel)
+//                }
+//            }
 
-            Button(action: { showForm.toggle() }) {
-                FAText(iconName: "plus", size: 26)
-            }.sheet(isPresented: $showForm) {
-                withAnimation{
-                    NewTaskForm(projectViewModel: projectViewModel)
-                }
+            Button(action: { activeSheet = .newTaskForm }) {
+                Text("Add a task")
+                Image(systemName: "plus")
             }
-        })
+            Divider()
+            Button(action: { showDeleteAlert = true }) {
+                Text("Delete")
+                    Image(systemName: "trash")
+            }
+        } label:{
+            Image(systemName: "ellipsis").font(.system(size: 24))
+        }.sheet(item: $activeSheet){ item in
+            switch item {
+            case .newTaskForm:
+                NewTaskForm(projectViewModel: projectViewModel)
+            case .editProjectForm:
+                UpdateProjectForm(projectViewModel: projectViewModel)
+            }
+        }.alert(isPresented: $showDeleteAlert, content: {
+            Alert(title: Text("Delete this project?"), message: Text("This project will be deleted permanently."), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Okay"), action: {
+                projectViewModel.delete()
+            }))
+        }))
     }
     
     func taskListOf(taskStatus: TaskStatus) -> some View {
@@ -90,7 +121,13 @@ struct TaskListView: View {
                                     }
                                     return false
                                 }.count)
-                                let total = Float(projectViewModel.project.tasks.count)
+                                let abortedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
+                                    if task.taskStatus == .aborted {
+                                        return true
+                                    }
+                                    return false
+                                }.count)
+                                let total = Float(projectViewModel.project.tasks.count) - abortedCount
                                 let val = completedCount/total
                                 self.progressValue = val
                             }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TaskView: View {
     @ObservedObject var userService: UserService = UserService()
+    @State var showDetailSheet: Bool = false
     var task: Task
     var onRemovePressed: (String) -> ()
     var onStatusChanged: (String, TaskStatus) ->()
@@ -18,7 +19,7 @@ struct TaskView: View {
         dateFormatter.dateFormat = "MMM dd,yyyy"
         let dateFromTimestamp = Date(timeIntervalSince1970: TimeInterval(TimeInterval(self.task.timestamp)))
         let dateString = dateFormatter.string(from: dateFromTimestamp)
-        
+
         if task.creatorId != nil {
             userService.fetchUserBy(id: task.creatorId ?? "")
         }
@@ -26,11 +27,15 @@ struct TaskView: View {
         return GeometryReader { geometry in
             VStack(alignment: .leading) {
                 HStack{
-                    Text("\(task.title)").font(.title)
+                    if self.task.taskStatus == .completed {
+                        Text("\(task.title)").font(.headline).strikethrough().lineLimit(1)
+                    }else{
+                        Text("\(task.title)").font(.headline).lineLimit(1)
+                    }
                     Spacer()
                 }.padding(.leading, 12).padding(.top, 8)
                 HStack{
-                    Text("\(self.task.content)").font(.body).foregroundColor(.black).opacity(0.8)
+                    Text("\(self.task.content)").font(.subheadline).foregroundColor(.black).opacity(0.8)
                     Spacer()
                 }.padding(.leading, 12)
                 Spacer()
@@ -43,13 +48,14 @@ struct TaskView: View {
             .cornerRadius(8)
             .frame(width: geometry.size.width, height: 120)
             .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-            .shadow(color: Color(.orange).opacity(0.3), radius: 3, x: 2, y: 2).contextMenu {
+            .shadow(color: Color(.orange).opacity(0.3), radius: 3, x: 2, y: 2)
+            .contextMenu {
                 if self.task.taskStatus != TaskStatus.awaiting{
                     Button(action: {
                         onStatusChanged(self.task.id, TaskStatus.awaiting)
                     }) {
                         Text("Await")
-                        //Image(systemName: "trash")
+                        Image(systemName: "tortoise")
                     }
                 }
                 if self.task.taskStatus != TaskStatus.inProgress{
@@ -57,7 +63,7 @@ struct TaskView: View {
                         onStatusChanged(self.task.id, TaskStatus.inProgress)
                     }) {
                         Text("In Progress")
-                        //Image(systemName: "trash")
+                        Image(systemName: "hourglass")
                     }
                 }
                 if self.task.taskStatus != TaskStatus.completed{
@@ -65,7 +71,7 @@ struct TaskView: View {
                         onStatusChanged(self.task.id, TaskStatus.completed)
                     }) {
                         Text("Complete")
-                        //Image(systemName: "trash")
+                        Image(systemName: "checkmark.shield")
                     }
                 }
                 if self.task.taskStatus != TaskStatus.aborted{
@@ -73,7 +79,7 @@ struct TaskView: View {
                         onStatusChanged(self.task.id, TaskStatus.aborted)
                     }) {
                         Text("Abort")
-                        //Image(systemName: "trash")
+                        Image(systemName: "xmark.shield")
                     }
                 }
                 Divider()
@@ -83,6 +89,11 @@ struct TaskView: View {
                     Text("Remove")
                     Image(systemName: "trash")
                 }
+            }.onTapGesture {
+                self.showDetailSheet.toggle()
+            }.sheet(isPresented: $showDetailSheet){
+                let fullName = "\(self.userService.user?.firstName ?? "") \(self.userService.user?.lastName ?? "")"
+                TaskDetailSheet(task: self.task, creatorName: fullName)
             }
         }
     }

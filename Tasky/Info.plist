@@ -2,13 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Font Awesome 5 Pro-Light-300.otf</string>
-		<string>Font Awesome 5 Pro-Regular-400.otf</string>
-		<string>Font Awesome 5 Pro-Solid-900.otf</string>
-		<string>Font Awesome 5 Brands-Regular-400.otf</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -24,9 +17,16 @@
 	<key>CFBundleShortVersionString</key>
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Font Awesome 5 Pro-Light-300.otf</string>
+		<string>Font Awesome 5 Pro-Regular-400.otf</string>
+		<string>Font Awesome 5 Pro-Solid-900.otf</string>
+		<string>Font Awesome 5 Brands-Regular-400.otf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

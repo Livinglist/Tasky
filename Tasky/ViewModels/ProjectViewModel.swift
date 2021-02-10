@@ -52,7 +52,7 @@ class ProjectViewModel: ObservableObject, Identifiable {
         
         let task = project.tasks.remove(at: index)
         
-        let newTask = Task(id: task.id, title: task.title, content: task.content, taskStatus: taskStatus, timestamp: task.timestamp)
+        let newTask = Task(id: task.id, title: task.title, content: task.content, taskStatus: taskStatus, timestamp: task.timestamp, dueTimestamp: task.dueTimestamp, creatorId: task.creatorId, assigneesId: task.assigneesId)
         project.tasks.append(newTask)
         projectRepository.update(project)
     }
