@@ -25,12 +25,10 @@
 		5E9849F925C4024900AD938C /* FirebaseFirestoreSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 5E9849F825C4024900AD938C /* FirebaseFirestoreSwift-Beta */; };
 		5E9849FB25C4024900AD938C /* FirebaseInAppMessaging-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 5E9849FA25C4024900AD938C /* FirebaseInAppMessaging-Beta */; };
 		5E9849FD25C4024900AD938C /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5E9849FC25C4024900AD938C /* FirebaseAuth */; };
-		5E9849FF25C4024900AD938C /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5E9849FE25C4024900AD938C /* FirebaseAnalytics */; };
 		5E984A0125C4024900AD938C /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 5E984A0025C4024900AD938C /* FirebaseStorage */; };
 		5E984A0325C4024900AD938C /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 5E984A0225C4024900AD938C /* FirebaseFirestore */; };
 		5E984A0525C4024900AD938C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 5E984A0425C4024900AD938C /* FirebaseDatabase */; };
 		5E984A0725C4024900AD938C /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 5E984A0625C4024900AD938C /* FirebaseFunctions */; };
-		5E984A0925C4024900AD938C /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 5E984A0825C4024900AD938C /* FirebaseCrashlytics */; };
 		5E984A0B25C4024900AD938C /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 5E984A0A25C4024900AD938C /* FirebaseRemoteConfig */; };
 		5E984A0D25C4024900AD938C /* FirebaseStorageSwift-Beta in Frameworks */ = {isa = PBXBuildFile; productRef = 5E984A0C25C4024900AD938C /* FirebaseStorageSwift-Beta */; };
 		5E984A1D25C402AA00AD938C /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E984A1C25C402AA00AD938C /* Project.swift */; };
@@ -47,13 +45,21 @@
 		5E984A6925C4898F00AD938C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E984A6825C4898F00AD938C /* LoginView.swift */; };
 		E5047FDD25CB89FD00DD6C32 /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = E5047FDC25CB89FD00DD6C32 /* iPhoneNumberField */; };
 		E5047FE225CB8A2C00DD6C32 /* PhoneLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5047FE125CB8A2C00DD6C32 /* PhoneLoginView.swift */; };
-		E5047FE825CB91C900DD6C32 /* FontAwesomeSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E5047FE725CB91C900DD6C32 /* FontAwesomeSwiftUI */; };
 		E5047FED25CB9EF300DD6C32 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5047FEC25CB9EF300DD6C32 /* Task.swift */; };
 		E5047FF225CB9F6200DD6C32 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5047FF125CB9F6200DD6C32 /* User.swift */; };
 		E525647F25CE3BC200EFCEC1 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */; };
+		E54ECFA325D378C700646421 /* FASwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E54ECFA225D378C700646421 /* FASwiftUI */; };
+		E54ECFA825D3793C00646421 /* icons.json in Resources */ = {isa = PBXBuildFile; fileRef = E54ECFA725D3793C00646421 /* icons.json */; };
+		E54ED00C25D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = E54ED00825D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf */; };
+		E54ED00D25D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = E54ED00925D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf */; };
+		E54ED00E25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = E54ED00A25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf */; };
+		E54ED00F25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = E54ED00B25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf */; };
 		E54FC37925CCCD8000DA0656 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54FC37825CCCD8000DA0656 /* TaskView.swift */; };
 		E54FC38E25CCD3DB00DA0656 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54FC38D25CCD3DB00DA0656 /* TaskListView.swift */; };
 		E54FC39325CCE35B00DA0656 /* NewTaskForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54FC39225CCE35B00DA0656 /* NewTaskForm.swift */; };
+		E588450125D24C5D0008A371 /* EmailSignInForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588450025D24C5D0008A371 /* EmailSignInForm.swift */; };
+		E588450625D364ED0008A371 /* UpdateProjectForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588450525D364ED0008A371 /* UpdateProjectForm.swift */; };
+		E588E8D525D383A3005F3903 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588E8D425D383A3005F3903 /* UserService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,7 +87,6 @@
 		5E9849B925C401C300AD938C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5E9849BB25C401C300AD938C /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5E9849BE25C401C300AD938C /* Tasky.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tasky.xcdatamodel; sourceTree = "<group>"; };
-		5E9849C025C401C300AD938C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5E9849C525C401C400AD938C /* TaskyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5E9849C925C401C400AD938C /* TaskyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskyTests.swift; sourceTree = "<group>"; };
 		5E9849CB25C401C400AD938C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -104,9 +109,18 @@
 		E5047FEC25CB9EF300DD6C32 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E5047FF125CB9F6200DD6C32 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		E54ECFA725D3793C00646421 /* icons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = icons.json; sourceTree = "<group>"; };
+		E54ED00825D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Brands-Regular-400.otf"; path = "../../../Downloads/Font Awesome 5 Brands-Regular-400.otf"; sourceTree = "<group>"; };
+		E54ED00925D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Pro-Regular-400.otf"; path = "../../../Downloads/Font Awesome 5 Pro-Regular-400.otf"; sourceTree = "<group>"; };
+		E54ED00A25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Pro-Light-300.otf"; sourceTree = "<group>"; };
+		E54ED00B25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Font Awesome 5 Pro-Solid-900.otf"; path = "../../../Downloads/Font Awesome 5 Pro-Solid-900.otf"; sourceTree = "<group>"; };
+		E54ED01325D37B2C00646421 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E54FC37825CCCD8000DA0656 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		E54FC38D25CCD3DB00DA0656 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		E54FC39225CCE35B00DA0656 /* NewTaskForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskForm.swift; sourceTree = "<group>"; };
+		E588450025D24C5D0008A371 /* EmailSignInForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInForm.swift; sourceTree = "<group>"; };
+		E588450525D364ED0008A371 /* UpdateProjectForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProjectForm.swift; sourceTree = "<group>"; };
+		E588E8D425D383A3005F3903 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,12 +136,10 @@
 				5E984A0725C4024900AD938C /* FirebaseFunctions in Frameworks */,
 				5E984A0D25C4024900AD938C /* FirebaseStorageSwift-Beta in Frameworks */,
 				5E984A0325C4024900AD938C /* FirebaseFirestore in Frameworks */,
-				5E9849FF25C4024900AD938C /* FirebaseAnalytics in Frameworks */,
 				5E9849F925C4024900AD938C /* FirebaseFirestoreSwift-Beta in Frameworks */,
-				E5047FE825CB91C900DD6C32 /* FontAwesomeSwiftUI in Frameworks */,
 				5E9849F325C4024900AD938C /* FirebaseInstallations in Frameworks */,
 				5E9849F725C4024900AD938C /* FirebaseDynamicLinks in Frameworks */,
-				5E984A0925C4024900AD938C /* FirebaseCrashlytics in Frameworks */,
+				E54ECFA325D378C700646421 /* FASwiftUI in Frameworks */,
 				5E984A0525C4024900AD938C /* FirebaseDatabase in Frameworks */,
 				5E9849FD25C4024900AD938C /* FirebaseAuth in Frameworks */,
 				5E9849FB25C4024900AD938C /* FirebaseInAppMessaging-Beta in Frameworks */,
@@ -174,6 +186,12 @@
 		5E9849B125C401C200AD938C /* Tasky */ = {
 			isa = PBXGroup;
 			children = (
+				E54ED01325D37B2C00646421 /* Info.plist */,
+				E54ED00825D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf */,
+				E54ED00A25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf */,
+				E54ED00925D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf */,
+				E54ED00B25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf */,
+				E54ECFA725D3793C00646421 /* icons.json */,
 				5E984A6425C487D700AD938C /* Tasky.entitlements */,
 				5E984A1B25C4029000AD938C /* Repositories */,
 				5E984A1A25C4028100AD938C /* Services */,
@@ -185,7 +203,6 @@
 				5E9849B425C401C200AD938C /* ContentView.swift */,
 				5E9849B625C401C300AD938C /* Assets.xcassets */,
 				5E9849BB25C401C300AD938C /* Persistence.swift */,
-				5E9849C025C401C300AD938C /* Info.plist */,
 				5E9849BD25C401C300AD938C /* Tasky.xcdatamodeld */,
 				5E9849B825C401C300AD938C /* Preview Content */,
 				5E984A4D25C4091800AD938C /* AppDelegate.swift */,
@@ -250,6 +267,8 @@
 				E54FC38D25CCD3DB00DA0656 /* TaskListView.swift */,
 				E54FC39225CCE35B00DA0656 /* NewTaskForm.swift */,
 				E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */,
+				E588450025D24C5D0008A371 /* EmailSignInForm.swift */,
+				E588450525D364ED0008A371 /* UpdateProjectForm.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -258,6 +277,7 @@
 			isa = PBXGroup;
 			children = (
 				5E984A3325C404E500AD938C /* AuthService.swift */,
+				E588E8D425D383A3005F3903 /* UserService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -294,16 +314,14 @@
 				5E9849F825C4024900AD938C /* FirebaseFirestoreSwift-Beta */,
 				5E9849FA25C4024900AD938C /* FirebaseInAppMessaging-Beta */,
 				5E9849FC25C4024900AD938C /* FirebaseAuth */,
-				5E9849FE25C4024900AD938C /* FirebaseAnalytics */,
 				5E984A0025C4024900AD938C /* FirebaseStorage */,
 				5E984A0225C4024900AD938C /* FirebaseFirestore */,
 				5E984A0425C4024900AD938C /* FirebaseDatabase */,
 				5E984A0625C4024900AD938C /* FirebaseFunctions */,
-				5E984A0825C4024900AD938C /* FirebaseCrashlytics */,
 				5E984A0A25C4024900AD938C /* FirebaseRemoteConfig */,
 				5E984A0C25C4024900AD938C /* FirebaseStorageSwift-Beta */,
 				E5047FDC25CB89FD00DD6C32 /* iPhoneNumberField */,
-				E5047FE725CB91C900DD6C32 /* FontAwesomeSwiftUI */,
+				E54ECFA225D378C700646421 /* FASwiftUI */,
 			);
 			productName = Tasky;
 			productReference = 5E9849AF25C401C200AD938C /* Tasky.app */;
@@ -379,7 +397,7 @@
 			packageReferences = (
 				5E9849EF25C4024900AD938C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E5047FDB25CB89FD00DD6C32 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
-				E5047FE625CB91C800DD6C32 /* XCRemoteSwiftPackageReference "FontAwesomeSwiftUI" */,
+				E54ECFA125D378C600646421 /* XCRemoteSwiftPackageReference "FASwiftUI" */,
 			);
 			productRefGroup = 5E9849B025C401C200AD938C /* Products */;
 			projectDirPath = "";
@@ -397,9 +415,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E54ED00E25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf in Resources */,
+				E54ED00C25D37AC400646421 /* Font Awesome 5 Brands-Regular-400.otf in Resources */,
 				5E9849BA25C401C300AD938C /* Preview Assets.xcassets in Resources */,
 				5E9849E625C4021000AD938C /* GoogleService-Info.plist in Resources */,
+				E54ECFA825D3793C00646421 /* icons.json in Resources */,
 				5E9849B725C401C300AD938C /* Assets.xcassets in Resources */,
+				E54ED00F25D37AC400646421 /* Font Awesome 5 Pro-Solid-900.otf in Resources */,
+				E54ED00D25D37AC400646421 /* Font Awesome 5 Pro-Regular-400.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -439,9 +462,12 @@
 				E54FC37925CCCD8000DA0656 /* TaskView.swift in Sources */,
 				E5047FED25CB9EF300DD6C32 /* Task.swift in Sources */,
 				5E984A5625C40A1C00AD938C /* ProjectListView.swift in Sources */,
+				E588E8D525D383A3005F3903 /* UserService.swift in Sources */,
 				E525647F25CE3BC200EFCEC1 /* ProgressBar.swift in Sources */,
 				5E984A6925C4898F00AD938C /* LoginView.swift in Sources */,
 				5E984A2F25C404D400AD938C /* ProjectView.swift in Sources */,
+				E588450625D364ED0008A371 /* UpdateProjectForm.swift in Sources */,
+				E588450125D24C5D0008A371 /* EmailSignInForm.swift in Sources */,
 				E54FC38E25CCD3DB00DA0656 /* TaskListView.swift in Sources */,
 				5E984A2A25C404B800AD938C /* ProjectViewModel.swift in Sources */,
 				5E9849B325C401C200AD938C /* TaskyApp.swift in Sources */,
@@ -606,6 +632,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Tasky/Preview Content\"";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
@@ -616,11 +643,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = jiaqifeng.tasky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -630,6 +659,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Tasky/Preview Content\"";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
@@ -640,11 +670,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.0.1;
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = jiaqifeng.tasky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -790,9 +822,9 @@
 				minimumVersion = 0.5.4;
 			};
 		};
-		E5047FE625CB91C800DD6C32 /* XCRemoteSwiftPackageReference "FontAwesomeSwiftUI" */ = {
+		E54ECFA125D378C600646421 /* XCRemoteSwiftPackageReference "FASwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/onmyway133/FontAwesomeSwiftUI";
+			repositoryURL = "https://github.com/mattmaddux/FASwiftUI.git";
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 1.0.4;
@@ -836,11 +868,6 @@
 			package = 5E9849EF25C4024900AD938C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
-		5E9849FE25C4024900AD938C /* FirebaseAnalytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5E9849EF25C4024900AD938C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalytics;
-		};
 		5E984A0025C4024900AD938C /* FirebaseStorage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E9849EF25C4024900AD938C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -861,11 +888,6 @@
 			package = 5E9849EF25C4024900AD938C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFunctions;
 		};
-		5E984A0825C4024900AD938C /* FirebaseCrashlytics */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5E9849EF25C4024900AD938C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseCrashlytics;
-		};
 		5E984A0A25C4024900AD938C /* FirebaseRemoteConfig */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5E9849EF25C4024900AD938C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -881,10 +903,10 @@
 			package = E5047FDB25CB89FD00DD6C32 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */;
 			productName = iPhoneNumberField;
 		};
-		E5047FE725CB91C900DD6C32 /* FontAwesomeSwiftUI */ = {
+		E54ECFA225D378C700646421 /* FASwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E5047FE625CB91C800DD6C32 /* XCRemoteSwiftPackageReference "FontAwesomeSwiftUI" */;
-			productName = FontAwesomeSwiftUI;
+			package = E54ECFA125D378C600646421 /* XCRemoteSwiftPackageReference "FASwiftUI" */;
+			productName = FASwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 

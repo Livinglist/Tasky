@@ -7,9 +7,8 @@
 
 import Foundation
 
-//struct User: Identifiable, Codable {
-//    var id: ObjectIdentifier
-//
-//    var userId: String
-//    var userName: String
-//}
+struct TaskyUser: Identifiable, Codable {
+    var id: String
+    var firstName: String
+    var lastName: String
+}

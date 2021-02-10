@@ -32,15 +32,15 @@ class ProjectViewModel: ObservableObject, Identifiable {
         projectRepository.update(project)
     }
     
-    func removeTask(withId id: String){
-        self.project.tasks.removeAll { (task) -> Bool in
-            if task.id == id {
-                return true
-            }
-            return false
-        }
-        projectRepository.update(project)
-    }
+    //    func removeTask(withId id: String){
+    //        self.project.tasks.removeAll { (task) -> Bool in
+    //            if task.id == id {
+    //                return true
+    //            }
+    //            return false
+    //        }
+    //        projectRepository.update(project)
+    //    }
     
     func updateTaskStatus(withId id: String, to taskStatus: TaskStatus){
         let index = project.tasks.firstIndex(where: { task -> Bool in
@@ -57,11 +57,15 @@ class ProjectViewModel: ObservableObject, Identifiable {
         projectRepository.update(project)
     }
     
+    func remove(task: Task){
+        projectRepository.remove(task: task, from: self.project)
+    }
+    
     func update(project: Project) {
         projectRepository.update(project)
     }
     
-    func remove() {
+    func delete() {
         projectRepository.remove(project)
     }
 }

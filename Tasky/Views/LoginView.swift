@@ -8,7 +8,7 @@
 import SwiftUI
 import CryptoKit
 import FirebaseAuth
-import FontAwesomeSwiftUI
+import FASwiftUI
 import AuthenticationServices
 
 struct LoginView: View {
@@ -63,9 +63,7 @@ struct LoginView: View {
             VStack{
                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/){
                     HStack{
-                        Text(AwesomeIcon.phone.rawValue)
-                            .font(.awesome(style: .solid, size: 12))
-                            .foregroundColor(.white)
+                        FAText(iconName: "phone", size: 14).foregroundColor(.white)
                         Text("Sign in with Phone").foregroundColor(.white)
                     }.frame(width: 280, height: 45, alignment: .center).background(Color(.orange)).overlay(
                         RoundedRectangle(cornerRadius: 0)
@@ -73,9 +71,7 @@ struct LoginView: View {
                 }.cornerRadius(6.0).padding(.bottom, 6)
                 Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/){
                     HStack{
-                        Text(AwesomeIcon.google.rawValue)
-                            .font(.awesome(style: .brand, size: 12))
-                            .foregroundColor(.white)
+                        FAText(iconName: "google", size: 14).foregroundColor(.white)
                         Text("Sign in with Gmail").foregroundColor(.white)
                     }.frame(width: 280, height: 45, alignment: .center).background(Color(.systemBlue)).overlay(
                         RoundedRectangle(cornerRadius: 0)

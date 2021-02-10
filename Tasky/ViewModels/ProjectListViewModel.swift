@@ -20,7 +20,8 @@ class ProjectListViewModel: ObservableObject {
 
   init() {
     projectRepository.$projects.map { projects in
-      projects.map(ProjectViewModel.init)
+        print(projects)
+        return projects.map(ProjectViewModel.init)
     }
     .assign(to: \.projectViewModels, on: self)
     .store(in: &cancellables)

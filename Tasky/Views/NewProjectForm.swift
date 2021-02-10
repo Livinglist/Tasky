@@ -8,23 +8,17 @@
 import SwiftUI
 
 struct NewProjectForm: View {
-  @State var question: String = ""
-  @State var answer: String = ""
+  @State var projectName: String = ""
+
   @Environment(\.presentationMode) var presentationMode
   @ObservedObject var projectListViewModel: ProjectListViewModel
 
   var body: some View {
     VStack(alignment: .center, spacing: 30) {
       VStack(alignment: .leading, spacing: 10) {
-        Text("Question")
+        Text("Name")
           .foregroundColor(.gray)
-        TextField("Enter the question", text: $question)
-          .textFieldStyle(RoundedBorderTextFieldStyle())
-      }
-      VStack(alignment: .leading, spacing: 10) {
-        Text("Answer")
-          .foregroundColor(.gray)
-        TextField("Enter the answer", text: $answer)
+        TextField("Enter the project name", text: $projectName)
           .textFieldStyle(RoundedBorderTextFieldStyle())
       }
 
@@ -38,11 +32,10 @@ struct NewProjectForm: View {
   }
 
   private func addProject() {
-    // 1
-    let project = Project(name: question, tasks: [], userId: AuthService().user?.uid)
-    // 2
+    let project = Project(name: projectName, tasks: [], managerId: AuthService().user?.uid, timestamp: Date().timeIntervalSince1970)
+
     projectListViewModel.add(project)
-    // 3
+
     presentationMode.wrappedValue.dismiss()
   }
 }

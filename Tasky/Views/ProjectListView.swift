@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import FontAwesomeSwiftUI
+import FASwiftUI
 
 struct ProjectListView: View {
     @ObservedObject var authService: AuthService
@@ -35,11 +35,9 @@ struct ProjectListView: View {
             // swiftlint:disable multiple_closures_with_trailing_closure
             .navigationBarItems(leading: Button(action: {showAlert = true
                                                       }) {
-                Text(AwesomeIcon.signOutAlt.rawValue)
-                    .font(.awesome(style: .solid, size: 24))
+                FAText(iconName: "sign-out", size: 24)
             } ,trailing: Button(action: { showForm.toggle() }) {
-                Image(systemName: "plus")
-                    .font(.title)
+                FAText(iconName: "plus", size: 26)
             })
         }.navigationBarBackButtonHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())

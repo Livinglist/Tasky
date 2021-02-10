@@ -10,7 +10,7 @@ import SwiftUI
 struct NewTaskForm: View {
     @State var title: String = ""
     @State var content: String = ""
-    @State var selectedDate: Date = Date()
+    @State var selectedDate: Date = Date().advanced(by: 86400) //86400 seconds == 1 day
     @State var enableDueDate: Bool = false
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var projectViewModel: ProjectViewModel
@@ -27,7 +27,7 @@ struct NewTaskForm: View {
                     Text("With Due Date")
                 })
                 if enableDueDate {
-                    DatePicker("",selection: $selectedDate)
+                    DatePicker("", selection: $selectedDate)
                 }
             }
             
@@ -39,7 +39,11 @@ struct NewTaskForm: View {
     }
     
     private func addTask() {
-        let task = Task(id: UUID().uuidString, title: title, content: content, taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970, dueTimestamp: enableDueDate ? selectedDate.timeIntervalSince1970: nil)
+        if self.title.isEmpty {
+            return
+        }
+        
+        let task = Task(id: UUID().uuidString, title: title, content: content, taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970, dueTimestamp: enableDueDate ? selectedDate.timeIntervalSince1970: nil, creatorId: AuthService().user?.uid)
         
         projectViewModel.addTask(task: task)
         
@@ -49,7 +53,7 @@ struct NewTaskForm: View {
 
 struct NewTaskForm_Previews: PreviewProvider {
     static var previews: some View {
-        NewTaskForm(projectViewModel: ProjectViewModel(project: Project(id: "", name: "", tasks: [], userId: "")))
+        NewTaskForm(projectViewModel: ProjectViewModel(project: Project(id: "", name: "", tasks: [], managerId: "",timestamp: Date().timeIntervalSince1970)))
     }
 }
 

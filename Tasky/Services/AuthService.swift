@@ -19,6 +19,7 @@ class AuthService: ObservableObject {
     
     init() {
         addListeners()
+        self.user = Auth.auth().currentUser
     }
     
     static func signIn(withEmail email: String, password: String) {
@@ -26,7 +27,7 @@ class AuthService: ObservableObject {
         Auth.auth().signIn(withEmail: email, password: password) { (authResult : AuthDataResult?, error : Error?) in
             
         }
-
+        
         //    if Auth.auth().currentUser == nil {
         //      Auth.auth().signInAnonymously()
         //    }
@@ -38,26 +39,26 @@ class AuthService: ObservableObject {
             verificationCode: verificationCode)
         
         Auth.auth().signIn(with: credential) { (authResult, error) in
-          if let error = error {
-            let authError = error as NSError
-            if (authError.code == AuthErrorCode.secondFactorRequired.rawValue) {
-              // The user is a multi-factor user. Second factor challenge is required.
-              let resolver = authError.userInfo[AuthErrorUserInfoMultiFactorResolverKey] as! MultiFactorResolver
-              var displayNameString = ""
-              for tmpFactorInfo in (resolver.hints) {
-                displayNameString += tmpFactorInfo.displayName ?? ""
-                displayNameString += " "
-              }
-              
-            } else {
-              
-              return
+            if let error = error {
+                let authError = error as NSError
+                if (authError.code == AuthErrorCode.secondFactorRequired.rawValue) {
+                    // The user is a multi-factor user. Second factor challenge is required.
+                    let resolver = authError.userInfo[AuthErrorUserInfoMultiFactorResolverKey] as! MultiFactorResolver
+                    var displayNameString = ""
+                    for tmpFactorInfo in (resolver.hints) {
+                        displayNameString += tmpFactorInfo.displayName ?? ""
+                        displayNameString += " "
+                    }
+                    
+                } else {
+                    
+                    return
+                }
+                // ...
+                return
             }
+            // User is signed in
             // ...
-            return
-          }
-          // User is signed in
-          // ...
         }
         
     }
@@ -77,6 +78,26 @@ class AuthService: ObservableObject {
     
     static func signOut() throws {
         try Auth.auth().signOut()
+    }
+    
+    //Check whether or not the user is first time user, if not we will ask user to enter their first and last name.
+    static func userExists(userId: String) -> Bool{
+        let docRef = Firestore.firestore().collection("users").document(userId)
+        var doc:DocumentSnapshot?
+        docRef.getDocument { (document, error) in
+            if document?.exists ?? false {
+                print("Document data: \(document!.data()!)")
+            } else {
+                print("Document does not exist")
+            }
+            
+            doc = document
+        }
+        
+        if doc?.exists ?? false {
+            return true
+        }
+        return false
     }
     
     private func addListeners() {

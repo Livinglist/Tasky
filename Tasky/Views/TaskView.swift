@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TaskView: View {
+    @ObservedObject var userService: UserService = UserService()
     var task: Task
     var onRemovePressed: (String) -> ()
     var onStatusChanged: (String, TaskStatus) ->()
@@ -17,6 +18,10 @@ struct TaskView: View {
         dateFormatter.dateFormat = "MMM dd,yyyy"
         let dateFromTimestamp = Date(timeIntervalSince1970: TimeInterval(TimeInterval(self.task.timestamp)))
         let dateString = dateFormatter.string(from: dateFromTimestamp)
+        
+        if task.creatorId != nil {
+            userService.fetchUserBy(id: task.creatorId ?? "")
+        }
         
         return GeometryReader { geometry in
             VStack(alignment: .leading) {
@@ -31,7 +36,7 @@ struct TaskView: View {
                 Spacer()
                 HStack{
                     Spacer()
-                    Text("created on \(dateString) by George").font(.footnote).foregroundColor(.black).opacity(0.5).padding(.trailing, 12).padding(.bottom, 8)
+                    Text("created on \(dateString) by \(self.userService.user?.firstName ?? "") \(self.userService.user?.lastName ?? "")").font(.footnote).foregroundColor(.black).opacity(0.5).padding(.trailing, 12).padding(.bottom, 8)
                 }.padding(.leading, 12)
             }
             .background(Color.orange)

@@ -26,7 +26,8 @@ struct ProjectView: View {
         let val = completedCount/total
         self._progressValue = State(initialValue: val)
         
-        print("The progress value is \(val) \(self.progressValue)")
+        print("inside view")
+        print(projectViewModel.project.tasks)
     }
     
     var body: some View {
@@ -115,8 +116,9 @@ struct ProjectView: View {
 
 struct ProjectView_Previews: PreviewProvider {
     static var previews: some View {
-        let project = testData[0]
-        return ProjectView(projectViewModel: ProjectViewModel(project: project))
+        //let project = testData[0]
+//        return ProjectView(projectViewModel: ProjectViewModel(project: project))
+        return Text("")
     }
 }
 

@@ -6,13 +6,14 @@
 //
 
 import SwiftUI
-import FontAwesomeSwiftUI
+import FASwiftUI
 
 
 
 struct TaskListView: View {
     @ObservedObject var projectViewModel: ProjectViewModel
     @State var showForm: Bool = false
+    @State var showUpdateProjectForm: Bool = false
     @State var selectedTaskStatus: TaskStatus = .awaiting
     @State var progressValue: Float
     
@@ -42,15 +43,24 @@ struct TaskListView: View {
                 taskListOf(taskStatus: selectedTaskStatus).animation(.easeIn)
             }
         }
-        .sheet(isPresented: $showForm) {
-            withAnimation{
-                NewTaskForm(projectViewModel: projectViewModel)
-            }
-        }
+        
         .navigationBarTitle("\(projectViewModel.project.name)")
-        .navigationBarItems(trailing: Button(action: { showForm.toggle() }) {
-            Image(systemName: "plus")
-                .font(.title)
+        .navigationBarItems(trailing: HStack{
+            Button(action: { showUpdateProjectForm.toggle() }) {
+                FAText(iconName: "edit", size: 23)
+            }.padding(.trailing, 12).sheet(isPresented: $showUpdateProjectForm) {
+                withAnimation{
+                    UpdateProjectForm(projectViewModel: projectViewModel)
+                }
+            }
+
+            Button(action: { showForm.toggle() }) {
+                FAText(iconName: "plus", size: 26)
+            }.sheet(isPresented: $showForm) {
+                withAnimation{
+                    NewTaskForm(projectViewModel: projectViewModel)
+                }
+            }
         })
     }
     
@@ -68,7 +78,7 @@ struct TaskListView: View {
                     ForEach(filteredTasks) { task in
                         TaskView(task: task, onRemovePressed: { taskId in
                             withAnimation {
-                                projectViewModel.removeTask(withId: taskId)
+                                projectViewModel.remove(task: task)
                             }
                         }, onStatusChanged: { (taskId: String, selectedStatus: TaskStatus) in
                             withAnimation{
@@ -95,6 +105,6 @@ struct TaskListView: View {
 
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskListView(projectViewModel: ProjectViewModel(project: Project(name: "My project", tasks: [Task(id: "", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970), Task(id: "1", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970)])))
+        TaskListView(projectViewModel: ProjectViewModel(project: Project(name: "My project", tasks: [Task(id: "", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970), Task(id: "1", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970)], timestamp: Date().timeIntervalSince1970)))
     }
 }
