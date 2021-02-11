@@ -34,9 +34,11 @@ struct UpdateProjectForm: View {
     private func updateProject() {
         //    let project = Project(name: projectName, tasks: [], managerId: AuthService().user?.uid, timestamp: Date().timeIntervalSince1970)
         
-        //projectViewModel.add(project)
+        guard !projectName.isEmpty else {
+            return
+        }
         
-        projectViewModel.update(project: projectViewModel.project)
+        projectViewModel.update(withNewName: projectName)
         
         presentationMode.wrappedValue.dismiss()
     }

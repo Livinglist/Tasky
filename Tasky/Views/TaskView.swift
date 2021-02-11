@@ -14,15 +14,20 @@ struct TaskView: View {
     var onRemovePressed: (String) -> ()
     var onStatusChanged: (String, TaskStatus) ->()
     
+    init(task: Task, onRemovePressed: @escaping (String) -> (), onStatusChanged: @escaping (String, TaskStatus) ->()) {
+        self.onRemovePressed = onRemovePressed
+        self.onStatusChanged = onStatusChanged
+        self.task = task
+        if task.creatorId != nil {
+            self.userService.fetchUserBy(id: task.creatorId ?? "")
+        }
+    }
+    
     var body: some View {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd,yyyy"
         let dateFromTimestamp = Date(timeIntervalSince1970: TimeInterval(TimeInterval(self.task.timestamp)))
         let dateString = dateFormatter.string(from: dateFromTimestamp)
-
-        if task.creatorId != nil {
-            userService.fetchUserBy(id: task.creatorId ?? "")
-        }
         
         return GeometryReader { geometry in
             VStack(alignment: .leading) {

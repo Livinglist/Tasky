@@ -7,14 +7,32 @@
 
 import SwiftUI
 import CoreData
+import Firebase
 
 struct ContentView: View {
     @ObservedObject var authService = AuthService()
+    @State var userExists:Bool = false
+    @State var user: User?
+    
     var body: some View {
-        if self.authService.user == nil {
-            LoginView()
-        } else {
-            ProjectListView(authService: authService)
+        ZStack{
+            if self.user == nil {
+                LoginView().transition(.slide)
+            } else {
+                if self.userExists {
+                    ProjectListView(authService: authService).transition(.slide)
+                } else {
+                    EditNameView(authService: authService).transition(.slide)
+                }
+            }
+        }.onReceive(authService.$userExists){ userExists in
+            withAnimation{
+                self.userExists = userExists
+            }
+        }.onReceive(authService.$user){ user in
+            withAnimation{
+                self.user = user
+            }
         }
     }
 }

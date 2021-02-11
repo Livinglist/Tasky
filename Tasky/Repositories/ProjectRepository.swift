@@ -44,62 +44,7 @@ class ProjectRepository: ObservableObject {
             .store(in: &cancellables)
     }
     
-    var listFromFetchingProject = [DocumentSnapshot]()
-    
-    func fetchProjects(completetion:@escaping ([Project])->()){
-        let projectsRef = Firestore.firestore().collection("projects")
-        
-        projectsRef.getDocuments { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting projects: \(err)")
-            }else{
-                self.listFromFetchingProject = querySnapshot!.documents
-                
-                DispatchQueue.main.async {
-                    completetion(self.projects)
-                }
-            }
-        }
-    }
-    
-    func fetchProject(index: Int = 0){
-        let doc = listFromFetchingProject[index]
-        var project = try? doc.data(as: Project.self)
-        
-        fetchTasksFromDocRef(docRef: doc.reference){ (tasks: [Task]) in
-            project?.tasks = tasks
-        }
-    }
-    
-    func fetchTasksFromDocRef(docRef: DocumentReference, completion: @escaping (_ tasks: [Task])->()){
-        fetchTasks(docRef: docRef)
-        completionListner = {
-            completion(self.fetchedTasks)
-        }
-    }
-    
-    var completionListner: () -> () = {}
-    var fetchedTasks = [Task]()
-    func fetchTasks(docRef: DocumentReference){
-        DispatchQueue.main.async {
-            docRef.collection("tasks").getDocuments { (querySnapshot, err) in
-                if err != nil {
-                    print("Error fetching tasks")
-                    return
-                }
-                
-                self.fetchedTasks = querySnapshot?.documents.compactMap{ document in
-                    let task = try? document.data(as: Task.self)
-                    return task
-                } ?? []
-            }
-            
-            self.completionListner()
-        }
-        
-    }
-    
-    func get() {
+    func fetchProjectsWithoutTasks(){
         store.collection("projects").whereField("managerId", isEqualTo: userId).addSnapshotListener{ querySnapshot, error in
             if let error = error {
                 print("Error getting projects: \(error.localizedDescription)")
@@ -140,6 +85,45 @@ class ProjectRepository: ObservableObject {
         }
     }
     
+    func get() {
+        store.collection("projects").whereField("managerId", isEqualTo: userId).addSnapshotListener{ querySnapshot, error in
+            if let error = error {
+                print("Error getting projects: \(error.localizedDescription)")
+                return
+            }
+            
+            querySnapshot?.documents.compactMap { document in
+                var project = try? document.data(as: Project.self)
+                var tasks: [Task] = []
+                
+                self.store.collection("projects").document(project!.id!).collection("tasks").getDocuments { snapshots, err in
+                    if let err = err {
+                        print("Error getting projects: \(err.localizedDescription)")
+                        return
+                    }
+                    
+                    tasks = snapshots?.documents.compactMap { doc in
+                        let task = try? doc.data(as: Task.self)
+                        return task
+                    } ?? []
+                    
+                    project?.tasks = tasks
+                    
+                    self.projects.removeAll {
+                        if project == $0 {
+                            return true
+                        }
+                        return false
+                    }
+                    self.projects.append(project!)
+                }
+                
+                return project
+            } ?? []
+            
+        }
+    }
+    
     func add(_ project: Project) {
         print("adding project")
         do {
@@ -152,25 +136,23 @@ class ProjectRepository: ObservableObject {
             let docRef = try store.collection("projects").addDocument(from: newProject)
             
             let uuid = UUID().uuidString
-            let exampleTask = Task(id: uuid, title: "Your first task", content: "Get to know your project", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970, dueTimestamp: nil, assigneesId: [])
+            let exampleTask = Task(id: uuid, title: "Your first task", content: "Get to know your project", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970, dueTimestamp: nil, creatorId: project.managerId, assigneesId: [])
             
             try docRef.collection("tasks").document(uuid).setData(from: exampleTask)
             
-            self.get()
-            //            store.collection("projects").whereField("managerId", isEqualTo: userId).addSnapshotListener{ querySnapshot, error in
-            //                if let error = error {
-            //                    print("Error getting projects: \(error.localizedDescription)")
-            //                    return
-            //                }
-            //
-            //                self.projects = querySnapshot?.documents.compactMap { document in
-            //                    let map = try? document.data(as: Project.self)
-            //                    return map
-            //                } ?? []
-            //
-            //            }
+            //self.get()
         } catch {
             fatalError("Unable to add project: \(error.localizedDescription).")
+        }
+    }
+    
+    func add(task: Task, to project: Project){
+        guard let projectId = project.id else { return }
+        
+        do {
+            try store.collection("projects").document(projectId).collection("tasks").document(task.id).setData(from: task.self)
+        } catch {
+            fatalError("Unable to update project: \(error.localizedDescription).")
         }
     }
     
@@ -187,6 +169,17 @@ class ProjectRepository: ObservableObject {
         }
     }
     
+    func update(_ project: Project, withName newName: String) {
+        print("updating project name")
+        guard let projectId = project.id else { return }
+        
+        do {
+            try? store.collection("projects").document(projectId).updateData(["name" : newName])
+        } catch {
+            fatalError("Unable to update project: \(error.localizedDescription).")
+        }
+    }
+    
     func remove(task: Task, from project: Project){
         guard let projectId = project.id else { return }
         
@@ -194,6 +187,8 @@ class ProjectRepository: ObservableObject {
             if let error = error {
                 print("Unable to remove task: \(error.localizedDescription)")
             }
+            
+            print("removed task \(task.id) from \(project.id)")
         }
     }
     
@@ -201,10 +196,27 @@ class ProjectRepository: ObservableObject {
         print("removing project")
         guard let projectId = project.id else { return }
         
+        guard let index = self.projects.firstIndex(where: {$0.id == project.id}) else {
+            return
+        }
+
+        self.projects.remove(at: index)
+        
         store.collection("projects").document(projectId).delete { error in
             if let error = error {
                 print("Unable to remove project: \(error.localizedDescription)")
             }
+        }
+        
+        store.collection("projects").document(projectId).collection("tasks").getDocuments { querySnapshot, err in
+            if err != nil {
+                print("Error deleting tasks from Project \(projectId)")
+            }
+            
+            querySnapshot?.documents.forEach({ snapshot in
+                print("deleting \(snapshot.data())")
+                snapshot.reference.delete()
+            })
         }
     }
 }

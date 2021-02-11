@@ -9,13 +9,15 @@ import SwiftUI
 
 struct ProjectView: View {
     @ObservedObject var projectViewModel: ProjectViewModel
+    @ObservedObject var projectListViewModel: ProjectListViewModel
     @State var showContent: Bool = false
     @State var viewState = CGSize.zero
     @State var showAlert = false
     @State var progressValue:Float
     
-    init(projectViewModel: ProjectViewModel) {
+    init(projectViewModel: ProjectViewModel, projectListViewModel: ProjectListViewModel) {
         self.projectViewModel = projectViewModel
+        self.projectListViewModel = projectListViewModel
         let completedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
             if task.taskStatus == .completed {
                 return true
@@ -31,16 +33,20 @@ struct ProjectView: View {
     }
     
     var body: some View {
-        NavigationLink(destination: TaskListView(projectViewModel: projectViewModel)){
+        NavigationLink(destination: TaskListView(projectViewModel: projectViewModel, onDelete: { project in
+            print("first layer of ondelete")
+            projectListViewModel.delete(project: project)
+        })){
             GeometryReader { geometry in
                 VStack(alignment: .leading) {
                     HStack{
-                        Text("\(projectViewModel.project.name)").font(.title).foregroundColor(.black)
+                        Text("\(projectViewModel.project.name)").font(.title).foregroundColor(.black).lineLimit(1)
                         Spacer()
                     }.padding(.leading, 12).padding(.top, 8)
                     HStack{
                         Text("\(projectViewModel.project.tasks.count) tasks").font(.body).foregroundColor(.black).opacity(0.8)
                         Spacer()
+                        Image(systemName: "chevron.right").foregroundColor(Color(.systemGray4)).imageScale(.small).padding(.trailing, 12)
                     }.padding(.leading, 12)
                     Spacer()
                     //ProgressBar(value: $progressValue, color: Color(.)).frame(height: 24).padding()
@@ -107,11 +113,6 @@ struct ProjectView: View {
     //    }
     //    .rotation3DEffect(.degrees(180), axis: (x: 0.0, y: 1.0, z: 0.0))
     //  }
-    
-    func update(project: Project) {
-        projectViewModel.update(project: project)
-        showContent.toggle()
-    }
 }
 
 struct ProjectView_Previews: PreviewProvider {

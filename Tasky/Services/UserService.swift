@@ -20,7 +20,7 @@ class UserService: ObservableObject {
             
             self.user = try? docSnapshot?.data(as: TaskyUser.self)
             
-            print("the user of \(id) is \(self.user)")
+            //print("the user of \(id) is \(self.user)")
         }
     }
 }

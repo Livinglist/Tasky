@@ -11,24 +11,34 @@ import Combine
 
 
 class ProjectListViewModel: ObservableObject {
-
-  @Published var projectViewModels: [ProjectViewModel] = []
-
-  private var cancellables: Set<AnyCancellable> = []
-
-  @Published var projectRepository = ProjectRepository()
-
-  init() {
-    projectRepository.$projects.map { projects in
-        print(projects)
-        return projects.map(ProjectViewModel.init)
+    
+    @Published var projectViewModels: [ProjectViewModel] = []
+    
+    private var cancellables: Set<AnyCancellable> = []
+    
+    @Published var projectRepository = ProjectRepository()
+    
+    init() {
+        projectRepository.$projects.map { projects in
+            return projects.map(ProjectViewModel.init).sorted { (lfs, rhs) -> Bool in
+                let res = lfs.project.name.compare(rhs.project.name, options: NSString.CompareOptions.caseInsensitive, range: nil, locale: nil)
+                if res == .orderedAscending {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        }
+        .assign(to: \.projectViewModels, on: self)
+        .store(in: &cancellables)
     }
-    .assign(to: \.projectViewModels, on: self)
-    .store(in: &cancellables)
-  }
-
-  func add(_ project: Project) {
-    projectRepository.add(project)
-  }
+    
+    func add(_ project: Project) {
+        projectRepository.add(project)
+    }
+    
+    func delete(project: Project){
+        projectRepository.remove(project)
+    }
 }
 

@@ -7,27 +7,10 @@
 
 import SwiftUI
 
-fileprivate enum Constants {
-    static let radius: CGFloat = 16
-    static let indicatorHeight: CGFloat = 6
-    static let indicatorWidth: CGFloat = 60
-    static let snapRatio: CGFloat = 0.25
-    static let minHeightRatio: CGFloat = 0.3
-}
-
 struct TaskDetailSheet: View {
     @ObservedObject var userService: UserService = UserService()
     var task:Task
     var creatorName: String?
-    
-    private var indicator: some View {
-        RoundedRectangle(cornerRadius: Constants.radius)
-            .fill(Color.secondary)
-            .frame(
-                width: Constants.indicatorWidth,
-                height: Constants.indicatorHeight
-        )
-    }
     
     var body: some View {
         let dateFormatter = DateFormatter()
@@ -37,7 +20,7 @@ struct TaskDetailSheet: View {
         
         
         return VStack {
-            indicator.padding()
+            Indicator().padding()
             HStack{
                 if self.task.taskStatus == .completed {
                     Text("\(task.title)").font(.headline).strikethrough()

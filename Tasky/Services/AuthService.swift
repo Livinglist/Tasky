@@ -10,6 +10,7 @@ import Firebase
 
 class AuthService: ObservableObject {
     @Published var user: User?
+    @Published var userExists: Bool = false
     
     private var authenticationStateHandler: AuthStateDidChangeListenerHandle?
     
@@ -20,17 +21,58 @@ class AuthService: ObservableObject {
     init() {
         addListeners()
         self.user = Auth.auth().currentUser
+        if self.user != nil {
+            self.userExists = true
+        }
     }
     
-    static func signIn(withEmail email: String, password: String) {
+    //Check whether or not the user is first time user, if not we will ask user to enter their first and last name.
+    func checkUserExists(userId: String, user: User?){
+        let docRef = Firestore.firestore().collection("users").document(userId)
+        docRef.getDocument { (doc, error) in
+            if doc?.exists ?? false {
+                self.userExists = true
+                self.user = user
+                print("Document data: \(doc!.data()!)")
+            } else {
+                self.userExists = false
+                self.user = user
+                print("Document does not exist")
+            }
+        }
+    }
+    
+    func updateUserName(firstName: String, lastName: String){
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        Firestore.firestore().collection("users").document(userId).setData(["firstName": firstName, "lastName":lastName, "id":userId])
+        self.userExists = true
+    }
+    
+    private func addListeners() {
+        if let handle = authenticationStateHandler {
+            Auth.auth().removeStateDidChangeListener(handle)
+        }
         
+        authenticationStateHandler = Auth.auth()
+            .addStateDidChangeListener { _, user in
+                guard let uid = user?.uid else {
+                    self.user = nil
+                    self.userExists = false
+                    return
+                }
+                self.checkUserExists(userId: uid, user: user)
+            }
+    }
+}
+
+
+extension AuthService{
+    static func signIn(withEmail email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { (authResult : AuthDataResult?, error : Error?) in
             
         }
-        
-        //    if Auth.auth().currentUser == nil {
-        //      Auth.auth().signInAnonymously()
-        //    }
     }
     
     static func signIn(verificationID: String, verificationCode:String) {
@@ -51,14 +93,10 @@ class AuthService: ObservableObject {
                     }
                     
                 } else {
-                    
                     return
                 }
-                // ...
                 return
             }
-            // User is signed in
-            // ...
         }
         
     }
@@ -80,34 +118,7 @@ class AuthService: ObservableObject {
         try Auth.auth().signOut()
     }
     
-    //Check whether or not the user is first time user, if not we will ask user to enter their first and last name.
-    static func userExists(userId: String) -> Bool{
-        let docRef = Firestore.firestore().collection("users").document(userId)
-        var doc:DocumentSnapshot?
-        docRef.getDocument { (document, error) in
-            if document?.exists ?? false {
-                print("Document data: \(document!.data()!)")
-            } else {
-                print("Document does not exist")
-            }
-            
-            doc = document
-        }
-        
-        if doc?.exists ?? false {
-            return true
-        }
-        return false
-    }
-    
-    private func addListeners() {
-        if let handle = authenticationStateHandler {
-            Auth.auth().removeStateDidChangeListener(handle)
-        }
-        
-        authenticationStateHandler = Auth.auth()
-            .addStateDidChangeListener { _, user in
-                self.user = user
-            }
-    }
+//    static func fetchUserInfo()->TaskyUser{
+//
+//    }
 }

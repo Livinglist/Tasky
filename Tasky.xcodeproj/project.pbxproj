@@ -48,6 +48,9 @@
 		E5047FED25CB9EF300DD6C32 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5047FEC25CB9EF300DD6C32 /* Task.swift */; };
 		E5047FF225CB9F6200DD6C32 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5047FF125CB9F6200DD6C32 /* User.swift */; };
 		E525647F25CE3BC200EFCEC1 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */; };
+		E52D112D25D4918E006F44BB /* EditNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52D112C25D4918E006F44BB /* EditNameView.swift */; };
+		E52D113225D4A1A1006F44BB /* ProfileSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52D113125D4A1A1006F44BB /* ProfileSheet.swift */; };
+		E52D113E25D4AB1A006F44BB /* Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52D113D25D4AB1A006F44BB /* Indicator.swift */; };
 		E54ECFA325D378C700646421 /* FASwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E54ECFA225D378C700646421 /* FASwiftUI */; };
 		E54ECFA825D3793C00646421 /* icons.json in Resources */ = {isa = PBXBuildFile; fileRef = E54ECFA725D3793C00646421 /* icons.json */; };
 		E54ED00E25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf in Resources */ = {isa = PBXBuildFile; fileRef = E54ED00A25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf */; };
@@ -110,6 +113,9 @@
 		E5047FEC25CB9EF300DD6C32 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		E5047FF125CB9F6200DD6C32 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
+		E52D112C25D4918E006F44BB /* EditNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameView.swift; sourceTree = "<group>"; };
+		E52D113125D4A1A1006F44BB /* ProfileSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSheet.swift; sourceTree = "<group>"; };
+		E52D113D25D4AB1A006F44BB /* Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Indicator.swift; sourceTree = "<group>"; };
 		E54ECFA725D3793C00646421 /* icons.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = icons.json; sourceTree = "<group>"; };
 		E54ED00A25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Pro-Light-300.otf"; sourceTree = "<group>"; };
 		E54ED01325D37B2C00646421 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -260,6 +266,7 @@
 		5E984A1625C4026500AD938C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E52D113C25D4AB07006F44BB /* Components */,
 				5E984A2E25C404D400AD938C /* ProjectView.swift */,
 				5E984A5525C40A1C00AD938C /* ProjectListView.swift */,
 				5E984A5F25C40AAE00AD938C /* NewProjectForm.swift */,
@@ -268,10 +275,11 @@
 				E54FC37825CCCD8000DA0656 /* TaskView.swift */,
 				E54FC38D25CCD3DB00DA0656 /* TaskListView.swift */,
 				E54FC39225CCE35B00DA0656 /* NewTaskForm.swift */,
-				E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */,
 				E588450025D24C5D0008A371 /* EmailSignInForm.swift */,
 				E588450525D364ED0008A371 /* UpdateProjectForm.swift */,
 				E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */,
+				E52D112C25D4918E006F44BB /* EditNameView.swift */,
+				E52D113125D4A1A1006F44BB /* ProfileSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -291,6 +299,15 @@
 				5E984A3825C404F000AD938C /* ProjectRepository.swift */,
 			);
 			path = Repositories;
+			sourceTree = "<group>";
+		};
+		E52D113C25D4AB07006F44BB /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */,
+				E52D113D25D4AB1A006F44BB /* Indicator.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -453,18 +470,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				5E984A6025C40AAE00AD938C /* NewProjectForm.swift in Sources */,
+				E52D113225D4A1A1006F44BB /* ProfileSheet.swift in Sources */,
 				E588E8EF25D3D5F5005F3903 /* TaskDetailSheet.swift in Sources */,
 				E54FC39325CCE35B00DA0656 /* NewTaskForm.swift in Sources */,
 				5E9849BC25C401C300AD938C /* Persistence.swift in Sources */,
 				5E9849B525C401C200AD938C /* ContentView.swift in Sources */,
 				5E9849BF25C401C300AD938C /* Tasky.xcdatamodeld in Sources */,
 				5E984A3925C404F000AD938C /* ProjectRepository.swift in Sources */,
+				E52D112D25D4918E006F44BB /* EditNameView.swift in Sources */,
 				E5047FE225CB8A2C00DD6C32 /* PhoneLoginView.swift in Sources */,
 				5E984A5B25C40A4E00AD938C /* ProjectListViewModel.swift in Sources */,
 				E5047FF225CB9F6200DD6C32 /* User.swift in Sources */,
 				5E984A1D25C402AA00AD938C /* Project.swift in Sources */,
 				E54FC37925CCCD8000DA0656 /* TaskView.swift in Sources */,
 				E5047FED25CB9EF300DD6C32 /* Task.swift in Sources */,
+				E52D113E25D4AB1A006F44BB /* Indicator.swift in Sources */,
 				5E984A5625C40A1C00AD938C /* ProjectListView.swift in Sources */,
 				E588E8D525D383A3005F3903 /* UserService.swift in Sources */,
 				E525647F25CE3BC200EFCEC1 /* ProgressBar.swift in Sources */,
@@ -638,8 +658,8 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"Tasky/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tasky/Info.plist;
@@ -666,8 +686,8 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
-				DEVELOPMENT_ASSET_PATHS = "\"Tasky/Preview Content\"";
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tasky/Info.plist;

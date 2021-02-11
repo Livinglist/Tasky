@@ -23,9 +23,11 @@ struct TaskListView: View {
     @State var selectedTaskStatus: TaskStatus = .awaiting
     @State var showDeleteAlert: Bool = false
     @State var progressValue: Float
+    var onDelete: (Project)->()
     
-    init(projectViewModel: ProjectViewModel) {
+    init(projectViewModel: ProjectViewModel, onDelete: @escaping (Project)->()) {
         self.projectViewModel = projectViewModel
+        self.onDelete = onDelete
         let completedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
             if task.taskStatus == .completed {
                 return true
@@ -64,12 +66,6 @@ struct TaskListView: View {
                     Text("Edit")
                 }
             }
-//            .padding(.trailing, 12).sheet(isPresented: $showUpdateProjectForm) {
-//                withAnimation{
-//                    UpdateProjectForm(projectViewModel: projectViewModel)
-//                }
-//            }
-
             Button(action: { activeSheet = .newTaskForm }) {
                 Text("Add a task")
                 Image(systemName: "plus")
@@ -90,7 +86,8 @@ struct TaskListView: View {
             }
         }.alert(isPresented: $showDeleteAlert, content: {
             Alert(title: Text("Delete this project?"), message: Text("This project will be deleted permanently."), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Okay"), action: {
-                projectViewModel.delete()
+                self.onDelete(projectViewModel.project)
+                //projectViewModel.delete()
             }))
         }))
     }
@@ -142,6 +139,6 @@ struct TaskListView: View {
 
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskListView(projectViewModel: ProjectViewModel(project: Project(name: "My project", tasks: [Task(id: "", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970), Task(id: "1", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970)], timestamp: Date().timeIntervalSince1970)))
+        TaskListView(projectViewModel: ProjectViewModel(project: Project(name: "My project", tasks: [Task(id: "", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970), Task(id: "1", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970)], timestamp: Date().timeIntervalSince1970)), onDelete: {_ in})
     }
 }

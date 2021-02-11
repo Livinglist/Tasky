@@ -29,7 +29,7 @@ class ProjectViewModel: ObservableObject, Identifiable {
     
     func addTask(task: Task){
         self.project.tasks.append(task)
-        projectRepository.update(project)
+        projectRepository.add(task: task, to: self.project)
     }
     
     //    func removeTask(withId id: String){
@@ -58,14 +58,15 @@ class ProjectViewModel: ObservableObject, Identifiable {
     }
     
     func remove(task: Task){
+        guard let index = self.project.tasks.firstIndex(where: {$0.id == task.id}) else {
+            return
+        }
+        self.project.tasks.remove(at: index)
         projectRepository.remove(task: task, from: self.project)
     }
     
-    func update(project: Project) {
-        projectRepository.update(project)
-    }
-    
-    func delete() {
-        projectRepository.remove(project)
+    func update(withNewName newName: String) {
+        self.project.name = newName
+        projectRepository.update(self.project, withName: newName)
     }
 }
