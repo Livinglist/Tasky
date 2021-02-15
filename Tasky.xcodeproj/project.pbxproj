@@ -64,6 +64,7 @@
 		E588E8E525D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = E588E8E425D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf */; };
 		E588E8EA25D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = E588E8E925D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf */; };
 		E588E8EF25D3D5F5005F3903 /* TaskDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */; };
+		E5F1D03625DA5AE500B6DA2A /* ConfettiView in Frameworks */ = {isa = PBXBuildFile; productRef = E5F1D03525DA5AE500B6DA2A /* ConfettiView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 				5E9849F525C4024900AD938C /* FirebaseMessaging in Frameworks */,
 				E5047FDD25CB89FD00DD6C32 /* iPhoneNumberField in Frameworks */,
 				5E9849F125C4024900AD938C /* FirebaseAppDistribution-Beta in Frameworks */,
+				E5F1D03625DA5AE500B6DA2A /* ConfettiView in Frameworks */,
 				5E984A0125C4024900AD938C /* FirebaseStorage in Frameworks */,
 				5E984A0B25C4024900AD938C /* FirebaseRemoteConfig in Frameworks */,
 				5E984A0725C4024900AD938C /* FirebaseFunctions in Frameworks */,
@@ -342,6 +344,7 @@
 				5E984A0C25C4024900AD938C /* FirebaseStorageSwift-Beta */,
 				E5047FDC25CB89FD00DD6C32 /* iPhoneNumberField */,
 				E54ECFA225D378C700646421 /* FASwiftUI */,
+				E5F1D03525DA5AE500B6DA2A /* ConfettiView */,
 			);
 			productName = Tasky;
 			productReference = 5E9849AF25C401C200AD938C /* Tasky.app */;
@@ -418,6 +421,7 @@
 				5E9849EF25C4024900AD938C /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				E5047FDB25CB89FD00DD6C32 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				E54ECFA125D378C600646421 /* XCRemoteSwiftPackageReference "FASwiftUI" */,
+				E5F1D03425DA5AE500B6DA2A /* XCRemoteSwiftPackageReference "ConfettiView" */,
 			);
 			productRefGroup = 5E9849B025C401C200AD938C /* Products */;
 			projectDirPath = "";
@@ -856,6 +860,14 @@
 				minimumVersion = 1.0.4;
 			};
 		};
+		E5F1D03425DA5AE500B6DA2A /* XCRemoteSwiftPackageReference "ConfettiView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ziligy/ConfettiView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -933,6 +945,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E54ECFA125D378C600646421 /* XCRemoteSwiftPackageReference "FASwiftUI" */;
 			productName = FASwiftUI;
+		};
+		E5F1D03525DA5AE500B6DA2A /* ConfettiView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5F1D03425DA5AE500B6DA2A /* XCRemoteSwiftPackageReference "ConfettiView" */;
+			productName = ConfettiView;
 		};
 /* End XCSwiftPackageProductDependency section */
 

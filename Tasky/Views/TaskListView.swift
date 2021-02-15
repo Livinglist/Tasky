@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FASwiftUI
+import ConfettiView
 
 enum ActiveSheet: Identifiable {
     case newTaskForm, editProjectForm
@@ -22,8 +23,10 @@ struct TaskListView: View {
     @State var activeSheet: ActiveSheet?
     @State var selectedTaskStatus: TaskStatus = .awaiting
     @State var showDeleteAlert: Bool = false
+    @State var showConfetti: Bool = false
     @State var progressValue: Float
     var onDelete: (Project)->()
+    @State var timer:Timer?
     
     init(projectViewModel: ProjectViewModel, onDelete: @escaping (Project)->()) {
         self.projectViewModel = projectViewModel
@@ -47,15 +50,25 @@ struct TaskListView: View {
     
     var body: some View {
         GeometryReader{ geometry in
-            VStack{
-                ProgressBar(value: $progressValue).frame(height: 24).padding(.horizontal)
-                Picker(selection: $selectedTaskStatus, label: Text("Picker"), content: {
-                    Text("Awaiting").tag(TaskStatus.awaiting)
-                    Text("In Progress").tag(TaskStatus.inProgress)
-                    Text("Completed").tag(TaskStatus.completed)
-                    Text("Aborted").tag(TaskStatus.aborted)
-                }).pickerStyle(SegmentedPickerStyle()).padding(.horizontal, 16)
-                taskListOf(taskStatus: selectedTaskStatus).animation(.easeInOut(duration: 0.20))
+            ZStack{
+                VStack{
+                    ProgressBar(value: $progressValue).frame(height: 24).padding(.horizontal)
+                    Picker(selection: $selectedTaskStatus, label: Text("Picker"), content: {
+                        Text("Awaiting").tag(TaskStatus.awaiting)
+                        Text("In Progress").tag(TaskStatus.inProgress)
+                        Text("Completed").tag(TaskStatus.completed)
+                        Text("Aborted").tag(TaskStatus.aborted)
+                    }).pickerStyle(SegmentedPickerStyle()).padding(.horizontal, 16)
+                    taskListOf(taskStatus: selectedTaskStatus).animation(.easeInOut(duration: 0.20))
+                }
+                if showConfetti {
+                    ConfettiView( confetti: [
+                                    .text("🎉"),
+                                    .text("💪"),
+                                    .shape(.circle),
+                                    .shape(.triangle),
+                    ]).transition(.opacity)
+                }
             }
         }
         .navigationBarTitle("\(projectViewModel.project.name)")
@@ -111,6 +124,18 @@ struct TaskListView: View {
                         }, onStatusChanged: { (taskId: String, selectedStatus: TaskStatus) in
                             withAnimation{
                                 projectViewModel.updateTaskStatus(withId: taskId, to: selectedStatus)
+                                
+                                if selectedStatus == .completed {
+                                    showConfetti.toggle()
+                                    
+                                    self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                                        print("invoked")
+                                        withAnimation{
+                                            self.showConfetti.toggle()
+                                        }
+                                        
+                                    }
+                                }
                                 
                                 let completedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
                                     if task.taskStatus == .completed {
