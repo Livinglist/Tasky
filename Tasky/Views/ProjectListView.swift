@@ -14,6 +14,7 @@ struct ProjectListView: View {
     @ObservedObject var projectListViewModel = ProjectListViewModel()
     @State var showForm = false
     @State var showAlert = false
+    @State var showProfileSheet = false
     @State var fullName = ""
     
     init(authService: AuthService) {
@@ -22,6 +23,33 @@ struct ProjectListView: View {
             return
         }
         self.userService.fetchUserBy(id: uid)
+    }
+    
+    var leadingItem: some View {
+        HStack{
+            Menu(content: {
+                Button(action: { showProfileSheet = true }) {
+                    Text("Profile")
+                    Image(systemName: "person.crop.square")
+                }
+                Divider()
+                Button(action: { showAlert = true }) {
+                    Text("Sign Out")
+                    Image(systemName: "figure.walk")
+                }
+            }, label: {
+                Image("avatar")
+                    .resizable()
+                    .frame(width: 40, height: 40)
+                    .clipShape(Circle())
+            })
+            Text("\(fullName)")
+                .font(.body)
+                .foregroundColor(Color(.systemGray))
+        }.sheet(isPresented: $showProfileSheet){
+            ProfileSheet(authService: self.authService, userService: self.userService)
+        }
+
     }
     
     var body: some View {
@@ -39,40 +67,14 @@ struct ProjectListView: View {
                 }
             }
             .sheet(isPresented: $showForm) {
-                NewProjectForm(projectListViewModel: projectListViewModel)
+                NewProjectSheet(projectListViewModel: projectListViewModel)
             }
             .navigationBarTitle("My Projects")
-            .navigationBarItems(leading: HStack{
-                Menu(content: {
-                    Button(action: { }) {
-                        Text("Profile")
-                        Image(systemName: "person.crop.square")
-                    }
-                    Divider()
-                    Button(action: { showAlert = true }) {
-                        Text("Sign Out")
-                        Image(systemName: "figure.walk")
-                    }
-                }, label: {
-                    Image("avatar")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .clipShape(Circle())
-                })
-                Text("\(fullName)")
-                    .font(.body)
-                    .foregroundColor(Color(.systemGray))
-            } ,
+            .navigationBarItems(leading: leadingItem,
             trailing:
                 Button(action: { showForm.toggle() }) {
                     FAText(iconName: "plus", size: 26)
                 })
-            //            .navigationBarItems(leading: Button(action: {showAlert = true
-            //                                                      }) {
-            //                FAText(iconName: "sign-out", size: 24)
-            //            } ,trailing: Button(action: { showForm.toggle() }) {
-            //                FAText(iconName: "plus", size: 26)
-            //            })
         }.navigationBarBackButtonHidden(true)
         .navigationViewStyle(StackNavigationViewStyle())
         .alert(isPresented: $showAlert) {

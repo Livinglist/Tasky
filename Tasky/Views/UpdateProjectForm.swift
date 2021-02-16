@@ -1,5 +1,5 @@
 //
-//  NewProjectForm.swift
+//  NewProjectSheet.swift
 //  Tasky
 //
 //  Created by Jiaqi Feng on 1/29/21.
@@ -12,6 +12,10 @@ struct UpdateProjectForm: View {
     
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var projectViewModel: ProjectViewModel
+    
+    init(projectViewModel: ProjectViewModel) {
+        self.projectViewModel = projectViewModel
+    }
     
     var body: some View {
         VStack(alignment: .center, spacing: 30) {
@@ -29,16 +33,17 @@ struct UpdateProjectForm: View {
             Spacer()
         }
         .padding(EdgeInsets(top: 80, leading: 40, bottom: 0, trailing: 40))
+        .onAppear(perform: {
+            self.projectName = projectViewModel.project.name
+        })
     }
     
     private func updateProject() {
-        //    let project = Project(name: projectName, tasks: [], managerId: AuthService().user?.uid, timestamp: Date().timeIntervalSince1970)
-        
         guard !projectName.isEmpty else {
             return
         }
         
-        projectViewModel.update(withNewName: projectName)
+        projectViewModel.update(withNewName: projectName.trimmingCharacters(in: .whitespaces))
         
         presentationMode.wrappedValue.dismiss()
     }

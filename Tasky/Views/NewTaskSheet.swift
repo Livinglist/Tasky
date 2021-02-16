@@ -1,5 +1,5 @@
 //
-//  NewProjectForm.swift
+//  NewProjectSheet.swift
 //  Tasky
 //
 //  Created by Jiaqi Feng on 1/29/21.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NewTaskForm: View {
+struct NewTaskSheet: View {
     @State var title: String = ""
     @State var content: String = ""
     @State var selectedDate: Date = Date().advanced(by: 86400) //86400 seconds == 1 day
@@ -53,7 +53,7 @@ struct NewTaskForm: View {
 
 struct NewTaskForm_Previews: PreviewProvider {
     static var previews: some View {
-        NewTaskForm(projectViewModel: ProjectViewModel(project: Project(id: "", name: "", tasks: [], managerId: "",timestamp: Date().timeIntervalSince1970)))
+        NewTaskSheet(projectViewModel: ProjectViewModel(project: Project(id: "", name: "", tasks: [], managerId: "",timestamp: Date().timeIntervalSince1970)))
     }
 }
 

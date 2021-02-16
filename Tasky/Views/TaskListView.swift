@@ -9,18 +9,17 @@ import SwiftUI
 import FASwiftUI
 import ConfettiView
 
-enum ActiveSheet: Identifiable {
-    case newTaskForm, editProjectForm
+fileprivate enum ActiveSheet: Identifiable {
+    case newTaskSheet, editProjectSheet
     
     var id: Int {
         hashValue
     }
 }
 
-
 struct TaskListView: View {
     @ObservedObject var projectViewModel: ProjectViewModel
-    @State var activeSheet: ActiveSheet?
+    @State fileprivate var activeSheet: ActiveSheet?
     @State var selectedTaskStatus: TaskStatus = .awaiting
     @State var showDeleteAlert: Bool = false
     @State var showConfetti: Bool = false
@@ -73,13 +72,13 @@ struct TaskListView: View {
         }
         .navigationBarTitle("\(projectViewModel.project.name)")
         .navigationBarItems(trailing: Menu {
-            Button(action: { activeSheet = .editProjectForm }) {
+            Button(action: { activeSheet = .editProjectSheet }) {
                 HStack{
                     Image(systemName: "square.and.pencil")
                     Text("Edit")
                 }
             }
-            Button(action: { activeSheet = .newTaskForm }) {
+            Button(action: { activeSheet = .newTaskSheet }) {
                 Text("Add a task")
                 Image(systemName: "plus")
             }
@@ -92,9 +91,9 @@ struct TaskListView: View {
             Image(systemName: "ellipsis").font(.system(size: 24))
         }.sheet(item: $activeSheet){ item in
             switch item {
-            case .newTaskForm:
-                NewTaskForm(projectViewModel: projectViewModel)
-            case .editProjectForm:
+            case .newTaskSheet:
+                NewTaskSheet(projectViewModel: projectViewModel)
+            case .editProjectSheet:
                 UpdateProjectForm(projectViewModel: projectViewModel)
             }
         }.alert(isPresented: $showDeleteAlert, content: {

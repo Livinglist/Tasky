@@ -118,6 +118,17 @@ extension AuthService{
         try Auth.auth().signOut()
     }
     
+    static func changeName(to name: String){
+        guard let changeReq = Auth.auth().currentUser?.createProfileChangeRequest() else { return }
+        changeReq.displayName = name
+        changeReq.commitChanges { err in
+            guard err == nil else {
+                print("Failed to commit changes")
+                return
+            }
+        }
+    }
+    
 //    static func fetchUserInfo()->TaskyUser{
 //
 //    }

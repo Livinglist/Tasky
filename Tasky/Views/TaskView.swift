@@ -25,12 +25,24 @@ struct TaskView: View {
     
     var body: some View {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MMM dd,yyyy"
+        dateFormatter.dateFormat = "MMM dd, yyyy"
         let dateFromTimestamp = Date(timeIntervalSince1970: TimeInterval(TimeInterval(self.task.timestamp)))
         let dateString = dateFormatter.string(from: dateFromTimestamp)
         
+        let dueDateFormatter = DateFormatter()
+        dueDateFormatter.dateFormat = "MMM dd, yyyy"
+        let dueDateFromTimestamp = self.task.dueTimestamp == nil ? nil : Date(timeIntervalSince1970: TimeInterval(TimeInterval(self.task.dueTimestamp!)))
+        let dueDateString = dueDateFromTimestamp == nil ? nil : dateFormatter.string(from: dueDateFromTimestamp!)
+
+        
         return GeometryReader { geometry in
             VStack(alignment: .leading) {
+                //EmptyView().padding(.top, 8)
+                if dueDateString != nil {
+                    HStack{
+                        Text("due on \(dueDateString!)").font(.footnote).foregroundColor(.yellow).opacity(1.0).padding(.trailing, 12)
+                    }.padding(.leading, 12).padding(.top, 8)
+                }
                 HStack{
                     if self.task.taskStatus == .completed {
                         Text("\(task.title)").font(.headline).strikethrough().lineLimit(1)
@@ -38,7 +50,7 @@ struct TaskView: View {
                         Text("\(task.title)").font(.headline).lineLimit(1)
                     }
                     Spacer()
-                }.padding(.leading, 12).padding(.top, 8)
+                }.padding(.leading, 12).padding(.top, dueDateString == nil ? 8 : 0)
                 HStack{
                     Text("\(self.task.content)").font(.subheadline).foregroundColor(.black).opacity(0.8)
                     Spacer()
@@ -107,7 +119,7 @@ struct TaskView: View {
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading){
-            TaskView(task: Task(id: "", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
+            TaskView(task: Task(id: "", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970, dueTimestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
             TaskView(task: Task(id: "1", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
             TaskView(task: Task(id: "2", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
         }

@@ -27,9 +27,6 @@ struct ProjectView: View {
         let total = Float(projectViewModel.project.tasks.count)
         let val = completedCount/total
         self._progressValue = State(initialValue: val)
-        
-        print("inside view")
-        print(projectViewModel.project.tasks)
     }
     
     var body: some View {
@@ -58,61 +55,6 @@ struct ProjectView: View {
             }
         }
     }
-    
-    //  var frontView: some View {
-    //    VStack(alignment: .center) {
-    //      Spacer()
-    //      Text(projectViewModel.project.name)
-    //        .foregroundColor(.white)
-    //        .font(.system(size: 20))
-    //        .fontWeight(.bold)
-    //        .multilineTextAlignment(.center)
-    //        .padding(20.0)
-    //      Spacer()
-    //      if !projectViewModel.project.successful {
-    //        Text("You answered this one incorrectly before")
-    //          .foregroundColor(.white)
-    //          .font(.system(size: 11.0))
-    //          .fontWeight(.bold)
-    //          .padding()
-    //      }
-    //    }
-    //  }
-    //
-    //  var backView: some View {
-    //    VStack {
-    //      // 1
-    //      Spacer()
-    //      Text(projectViewModel.project.answer)
-    //        .foregroundColor(.white)
-    //        .font(.body)
-    //        .padding(20.0)
-    //        .multilineTextAlignment(.center)
-    //        .animation(.easeInOut)
-    //      Spacer()
-    //      // 2
-    //      HStack(spacing: 40) {
-    //        Button(action: markProjectAsSuccesful) {
-    //          Image(systemName: "hand.thumbsup.fill")
-    //            .padding()
-    //            .background(Color.green)
-    //            .font(.title)
-    //            .foregroundColor(.white)
-    //            .clipShape(Circle())
-    //        }
-    //        Button(action: markProjectAsUnsuccesful) {
-    //          Image(systemName: "hand.thumbsdown.fill")
-    //            .padding()
-    //            .background(Color.blue)
-    //            .font(.title)
-    //            .foregroundColor(.white)
-    //            .clipShape(Circle())
-    //        }
-    //      }
-    //      .padding()
-    //    }
-    //    .rotation3DEffect(.degrees(180), axis: (x: 0.0, y: 1.0, z: 0.0))
-    //  }
 }
 
 struct ProjectView_Previews: PreviewProvider {
