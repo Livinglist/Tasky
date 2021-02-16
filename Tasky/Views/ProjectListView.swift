@@ -70,7 +70,7 @@ struct ProjectListView: View {
                         VStack(spacing: 24) {
                             ForEach(projectListViewModel.projectViewModels) { projectViewModel in
                                 ProjectView(projectViewModel: projectViewModel, projectListViewModel: projectListViewModel)
-                                    .padding([.leading, .trailing]).padding(.bottom, 12)
+                                    .padding([.leading, .trailing]).padding(.bottom, 12).animation(.easeIn)
                             }
                         }.frame(width: geometry.size.width, height: 124.0*CGFloat(projectListViewModel.projectViewModels.count))
                     }

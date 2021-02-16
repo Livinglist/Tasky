@@ -47,6 +47,8 @@ struct TaskListView: View {
         let total = Float(projectViewModel.project.tasks.count) - abortedCount
         let val = total == 0 ? 0.0 : (completedCount/total)
         self._progressValue = State(initialValue: val)
+        
+        UserService.cache.removeAll()
     }
     
     var body: some View {
@@ -54,13 +56,13 @@ struct TaskListView: View {
             ZStack{
                 VStack{
                     ProgressBar(value: $progressValue).frame(height: 24).padding(.horizontal)
-                    Picker(selection: $selectedTaskStatus, label: Text("Picker"), content: {
+                    Picker(selection: $selectedTaskStatus.animation(), label: Text("Picker"), content: {
                         Text("Awaiting").tag(TaskStatus.awaiting)
                         Text("In Progress").tag(TaskStatus.inProgress)
                         Text("Completed").tag(TaskStatus.completed)
                         Text("Aborted").tag(TaskStatus.aborted)
                     }).pickerStyle(SegmentedPickerStyle()).padding(.horizontal, 16)
-                    taskListOf(taskStatus: selectedTaskStatus).animation(.easeInOut(duration: 0.20))
+                    taskListOf(taskStatus: selectedTaskStatus)
                 }
                 if showConfetti {
                     ConfettiView( confetti: [
@@ -124,43 +126,48 @@ struct TaskListView: View {
                             activeSheet = .updateTaskSheet
                             projectViewModel.selected(task: task)
                         }, onRemovePressed: {
-                            withAnimation {
-                                projectViewModel.remove(task: task)
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6){
+                                withAnimation(.easeInOut(duration: 0.20)) {
+                                    projectViewModel.remove(task: task)
+                                }
                             }
                         }, onStatusChanged: { selectedStatus in
-                            let taskId = task.id
-                            withAnimation{
-                                projectViewModel.updateTaskStatus(withId: taskId, to: selectedStatus)
-                                
-                                if selectedStatus == .completed {
-                                    showConfetti.toggle()
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6){
+                                let taskId = task.id
+                                withAnimation(.easeInOut(duration: 0.20)){
+                                    projectViewModel.updateTaskStatus(withId: taskId, to: selectedStatus)
                                     
-                                    self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-                                        withAnimation{
-                                            self.showConfetti.toggle()
-                                        }
+                                    if selectedStatus == .completed {
+                                        showConfetti.toggle()
                                         
+                                        self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                                            withAnimation{
+                                                self.showConfetti.toggle()
+                                            }
+                                            
+                                        }
                                     }
+                                    
+                                    let completedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
+                                        if task.taskStatus == .completed {
+                                            return true
+                                        }
+                                        return false
+                                    }.count)
+                                    let abortedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
+                                        if task.taskStatus == .aborted {
+                                            return true
+                                        }
+                                        return false
+                                    }.count)
+                                    let total = Float(projectViewModel.project.tasks.count) - abortedCount
+                                    let val = completedCount/total
+                                    self.progressValue = val
                                 }
-                                
-                                let completedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
-                                    if task.taskStatus == .completed {
-                                        return true
-                                    }
-                                    return false
-                                }.count)
-                                let abortedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
-                                    if task.taskStatus == .aborted {
-                                        return true
-                                    }
-                                    return false
-                                }.count)
-                                let total = Float(projectViewModel.project.tasks.count) - abortedCount
-                                let val = completedCount/total
-                                self.progressValue = val
                             }
+                            
                         })
-                        .padding([.leading, .trailing]).padding(.bottom, 8)
+                        .padding([.leading, .trailing]).padding(.bottom, 8).transition(.slide)
                     }
                 }.frame(width: geometry.size.width, height: 128.0*CGFloat(filteredTasks.count), alignment: .leading)
             }

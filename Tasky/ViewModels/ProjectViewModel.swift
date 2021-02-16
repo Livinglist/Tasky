@@ -61,7 +61,7 @@ class ProjectViewModel: ObservableObject, Identifiable {
         
         let updatedTask = Task(id: task.id, title: task.title, content: task.content, taskStatus: taskStatus, timestamp: task.timestamp, dueTimestamp: task.dueTimestamp, creatorId: task.creatorId, assigneesId: task.assigneesId)
         project.tasks.insert(updatedTask, at: index)
-        projectRepository.update(project)
+        projectRepository.update(project, task: updatedTask)
     }
     
     func remove(task: Task){

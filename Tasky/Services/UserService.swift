@@ -12,6 +12,10 @@ class UserService: ObservableObject {
     @Published var user: TaskyUser?
     
     func fetchUserBy(id: String){
+        if let user = UserService.cache[id] {
+            self.user = user
+        }
+        
         Firestore.firestore().collection("users").document(id).getDocument { (docSnapshot, err) in
             if let err = err {
                 print("Error fetching user \(id), error: \(err.localizedDescription)")
@@ -20,7 +24,13 @@ class UserService: ObservableObject {
             
             self.user = try? docSnapshot?.data(as: TaskyUser.self)
             
-            //print("the user of \(id) is \(self.user)")
+            guard self.user != nil else { return }
+            
+            UserService.cache[id] = self.user
         }
     }
+}
+
+extension UserService{
+    static var cache: [String: TaskyUser] = [:]
 }
