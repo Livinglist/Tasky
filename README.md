@@ -1,4 +1,4 @@
-# Tasky ![72](https://user-images.githubusercontent.com/7277662/108041712-c521e100-6ff3-11eb-9e2b-ab5286d47b22.png)
+# Tasky ![48](https://user-images.githubusercontent.com/7277662/108041817-eaaeea80-6ff3-11eb-9d05-8da57896cd6b.png)
 
 
 ![iOS](https://img.shields.io/badge/iOS-14%20-blue)
