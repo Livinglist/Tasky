@@ -13,7 +13,7 @@
 </p>
 
 
-Tasky is a task management app that allows user to manage their personal project using Kanban method. 
+Tasky is a task management app made with SwiftUI that allows user to manage their personal project using Kanban method. 
 
 What you can do now in Tasky:
 - Sign in with Apple or phone number to sync user-generated data.
