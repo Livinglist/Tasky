@@ -25,6 +25,17 @@ class ProjectRepository: ObservableObject {
     private var cancellables: Set<AnyCancellable> = []
     
     init() {
+        //        authenticationService.$user
+        //            .compactMap { user in
+        //                if user?.uid.isEmpty ?? true {
+        //                    return self.testUserId
+        //                }else{
+        //                    return user?.uid
+        //                }
+        //            }
+        //            .assign(to: \.userId, on: self)
+        //            .store(in: &cancellables)
+        
         authenticationService.$user
             .compactMap { user in
                 if user?.uid.isEmpty ?? true {
@@ -32,8 +43,10 @@ class ProjectRepository: ObservableObject {
                 }else{
                     return user?.uid
                 }
-            }
-            .assign(to: \.userId, on: self)
+            }.receive(on: DispatchQueue.main)
+            .sink(receiveValue: {
+                self.userId = $0
+            })
             .store(in: &cancellables)
         
         authenticationService.$user
@@ -205,7 +218,7 @@ class ProjectRepository: ObservableObject {
         guard let index = self.projects.firstIndex(where: {$0.id == project.id}) else {
             return
         }
-
+        
         self.projects.remove(at: index)
         
         store.collection("projects").document(projectId).delete { error in
