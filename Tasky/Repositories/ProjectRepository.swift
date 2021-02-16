@@ -120,7 +120,6 @@ class ProjectRepository: ObservableObject {
                 
                 return project
             } ?? []
-            
         }
     }
     
@@ -157,7 +156,7 @@ class ProjectRepository: ObservableObject {
     }
     
     func update(_ project: Project) {
-        print("updating project")
+        print("updating all tasks in the project")
         guard let projectId = project.id else { return }
         
         do {
@@ -169,15 +168,22 @@ class ProjectRepository: ObservableObject {
         }
     }
     
+    func update(_ project: Project, task: Task){
+        print("updating a task in the project")
+        guard let projectId = project.id else { return }
+        
+        do {
+            try store.collection("projects").document(projectId).collection("tasks").document(task.id).setData(from: task.self)
+        } catch {
+            fatalError("Unable to update project: \(error.localizedDescription).")
+        }
+    }
+    
     func update(_ project: Project, withName newName: String) {
         print("updating project name")
         guard let projectId = project.id else { return }
         
-        do {
-            try? store.collection("projects").document(projectId).updateData(["name" : newName])
-        } catch {
-            fatalError("Unable to update project: \(error.localizedDescription).")
-        }
+        store.collection("projects").document(projectId).updateData(["name" : newName])
     }
     
     func remove(task: Task, from project: Project){
@@ -188,7 +194,7 @@ class ProjectRepository: ObservableObject {
                 print("Unable to remove task: \(error.localizedDescription)")
             }
             
-            print("removed task \(task.id) from \(project.id)")
+            print("removed task \(task.id) from \(String(describing: project.id))")
         }
     }
     

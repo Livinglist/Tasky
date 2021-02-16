@@ -38,3 +38,5 @@ struct Task: Identifiable, Codable, Equatable{
             lhs.id == rhs.id
     }
 }
+
+let testTask = Task(id: "", title: "", content: "", taskStatus: .awaiting, timestamp: 0, dueTimestamp: nil, creatorId: nil, assigneesId: [])

@@ -11,10 +11,12 @@ struct TaskView: View {
     @ObservedObject var userService: UserService = UserService()
     @State var showDetailSheet: Bool = false
     var task: Task
-    var onRemovePressed: (String) -> ()
-    var onStatusChanged: (String, TaskStatus) ->()
+    var onEditPressed: () -> ()
+    var onRemovePressed: () -> ()
+    var onStatusChanged: (TaskStatus) ->()
     
-    init(task: Task, onRemovePressed: @escaping (String) -> (), onStatusChanged: @escaping (String, TaskStatus) ->()) {
+    init(task: Task, onEditPressed: @escaping () -> (),onRemovePressed: @escaping () -> (), onStatusChanged: @escaping (TaskStatus) ->()) {
+        self.onEditPressed = onEditPressed
         self.onRemovePressed = onRemovePressed
         self.onStatusChanged = onStatusChanged
         self.task = task
@@ -33,6 +35,12 @@ struct TaskView: View {
         dueDateFormatter.dateFormat = "MMM dd, yyyy"
         let dueDateFromTimestamp = self.task.dueTimestamp == nil ? nil : Date(timeIntervalSince1970: TimeInterval(TimeInterval(self.task.dueTimestamp!)))
         let dueDateString = dueDateFromTimestamp == nil ? nil : dateFormatter.string(from: dueDateFromTimestamp!)
+        
+        var color = Color.orange
+        
+        if task.taskStatus == .aborted {
+            color = Color.gray
+        }
 
         
         return GeometryReader { geometry in
@@ -61,15 +69,15 @@ struct TaskView: View {
                     Text("created on \(dateString) by \(self.userService.user?.firstName ?? "") \(self.userService.user?.lastName ?? "")").font(.footnote).foregroundColor(.black).opacity(0.5).padding(.trailing, 12).padding(.bottom, 8)
                 }.padding(.leading, 12)
             }
-            .background(Color.orange)
+            .background(color)
             .cornerRadius(8)
             .frame(width: geometry.size.width, height: 120)
             .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
-            .shadow(color: Color(.orange).opacity(0.3), radius: 3, x: 2, y: 2)
+            .shadow(color: color.opacity(0.3), radius: 3, x: 2, y: 2)
             .contextMenu {
                 if self.task.taskStatus != TaskStatus.awaiting{
                     Button(action: {
-                        onStatusChanged(self.task.id, TaskStatus.awaiting)
+                        onStatusChanged(TaskStatus.awaiting)
                     }) {
                         Text("Await")
                         Image(systemName: "tortoise")
@@ -77,7 +85,7 @@ struct TaskView: View {
                 }
                 if self.task.taskStatus != TaskStatus.inProgress{
                     Button(action: {
-                        onStatusChanged(self.task.id, TaskStatus.inProgress)
+                        onStatusChanged(TaskStatus.inProgress)
                     }) {
                         Text("In Progress")
                         Image(systemName: "hourglass")
@@ -85,7 +93,7 @@ struct TaskView: View {
                 }
                 if self.task.taskStatus != TaskStatus.completed{
                     Button(action: {
-                        onStatusChanged(self.task.id, TaskStatus.completed)
+                        onStatusChanged(TaskStatus.completed)
                     }) {
                         Text("Complete")
                         Image(systemName: "checkmark.shield")
@@ -93,7 +101,7 @@ struct TaskView: View {
                 }
                 if self.task.taskStatus != TaskStatus.aborted{
                     Button(action: {
-                        onStatusChanged(self.task.id, TaskStatus.aborted)
+                        onStatusChanged(TaskStatus.aborted)
                     }) {
                         Text("Abort")
                         Image(systemName: "xmark.shield")
@@ -101,7 +109,14 @@ struct TaskView: View {
                 }
                 Divider()
                 Button(action: {
-                    onRemovePressed(self.task.id)
+                    onEditPressed()
+                }) {
+                    Text("Edit")
+                    Image(systemName: "pencil")
+                }
+                Divider()
+                Button(action: {
+                    onRemovePressed()
                 }) {
                     Text("Remove")
                     Image(systemName: "trash")
@@ -119,9 +134,9 @@ struct TaskView: View {
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .leading){
-            TaskView(task: Task(id: "", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970, dueTimestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
-            TaskView(task: Task(id: "1", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
-            TaskView(task: Task(id: "2", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onRemovePressed: { _ in }, onStatusChanged: {_,_ in })
+            TaskView(task: Task(id: "", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970, dueTimestamp: Date().timeIntervalSince1970), onEditPressed: {}, onRemovePressed: { }, onStatusChanged: {_ in })
+            TaskView(task: Task(id: "1", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onEditPressed: {}, onRemovePressed: {  }, onStatusChanged: {_ in })
+            TaskView(task: Task(id: "2", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onEditPressed: {}, onRemovePressed: {  }, onStatusChanged: {_ in })
         }
     }
 }

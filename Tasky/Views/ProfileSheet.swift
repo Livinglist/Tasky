@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwURL
 
 fileprivate enum ActiveSheet: Identifiable {
     case updateNameSheet, imagePickerSheet
@@ -18,9 +19,13 @@ fileprivate enum ActiveSheet: Identifiable {
 struct ProfileSheet: View {
     @ObservedObject var authService: AuthService
     @ObservedObject var userService: UserService
+    @ObservedObject var avatarService: AvatarService
     @State fileprivate var activeSheet: ActiveSheet?
     @State var image: Image?
     @State private var inputImage: UIImage?
+    var imageSelected:Bool {
+        self.inputImage != nil
+    }
     
     var body: some View {
         VStack{
@@ -31,11 +36,15 @@ struct ProfileSheet: View {
                     Image(systemName: "pencil.circle")
                 }
             }, label: {
-                Image("avatar")
-                    .resizable()
-                    .frame(width: 160, height: 160)
-                    .clipShape(Circle())
+                RemoteImageView(url: avatarService.avatarUrl ?? URL(string: "https://www.americasfinestlabels.com/images/CCS400FO.jpg")!, placeholderImage: Image("placeholder"), transition: .custom(transition: .opacity, animation: .easeOut(duration: 0.5))).imageProcessing({image in
+                    return image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: 160, height: 160)
+                        .clipShape(Circle())
+                }).frame(width: 160, height: 160)
             })
+            Color.clear.frame(height: 24)
             ZStack(alignment: .topTrailing){
                 HStack{
                     Text("\(self.userService.user?.firstName ?? "")")
@@ -46,18 +55,18 @@ struct ProfileSheet: View {
                 Button(action: {
                     activeSheet = .updateNameSheet
                 }) {
-                    Image(systemName: "pencil.circle")
+                    Image(systemName: "pencil")
                         .frame(width: 24, height: 24)
                         .foregroundColor(Color.black)
                         .background(Color.white)
                         .clipShape(Circle())
                         .offset(x: 20, y: -12)
-                        .shadow(color: Color(.black).opacity(0.8), radius: 3, x: 2, y: 2)
+                        .shadow(color: Color(.black).opacity(0.6), radius: 2, x: 1, y: 1)
                 }
             }
             Spacer()
         }.sheet(item: $activeSheet, onDismiss: {
-            if activeSheet == .imagePickerSheet {
+            if imageSelected {
                 loadImage()
             }
         }){ item in
@@ -73,8 +82,12 @@ struct ProfileSheet: View {
     }
     
     func loadImage() {
+        print("loading image")
         guard let inputImage = inputImage else { return }
-        image = Image(uiImage: inputImage)
+        guard let uid = authService.user?.uid else { return }
+        let compressedData = inputImage.jpegData(compressionQuality: 0.5)!
+        avatarService.uploadAvatar(data: compressedData, userId: uid)
+        //image = Image(uiImage: inputImage)
     }
 }
 

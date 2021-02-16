@@ -59,6 +59,10 @@
 		E54FC38E25CCD3DB00DA0656 /* TaskListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54FC38D25CCD3DB00DA0656 /* TaskListView.swift */; };
 		E54FC39325CCE35B00DA0656 /* NewTaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54FC39225CCE35B00DA0656 /* NewTaskSheet.swift */; };
 		E56BF67125DB51B9005DD5E7 /* UpdateNameSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BF67025DB51B9005DD5E7 /* UpdateNameSheet.swift */; };
+		E56BF67F25DB7798005DD5E7 /* AvatarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BF67E25DB7798005DD5E7 /* AvatarService.swift */; };
+		E56BF68525DB78E9005DD5E7 /* SwURL in Frameworks */ = {isa = PBXBuildFile; productRef = E56BF68425DB78E9005DD5E7 /* SwURL */; };
+		E56BF68B25DB9795005DD5E7 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = E56BF68A25DB9795005DD5E7 /* PartialSheet */; };
+		E56BF69025DB9EE8005DD5E7 /* UpdateTaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BF68F25DB9EE8005DD5E7 /* UpdateTaskSheet.swift */; };
 		E588450125D24C5D0008A371 /* EmailSignInForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588450025D24C5D0008A371 /* EmailSignInForm.swift */; };
 		E588450625D364ED0008A371 /* UpdateProjectForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588450525D364ED0008A371 /* UpdateProjectForm.swift */; };
 		E588E8D525D383A3005F3903 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588E8D425D383A3005F3903 /* UserService.swift */; };
@@ -127,6 +131,8 @@
 		E54FC38D25CCD3DB00DA0656 /* TaskListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListView.swift; sourceTree = "<group>"; };
 		E54FC39225CCE35B00DA0656 /* NewTaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskSheet.swift; sourceTree = "<group>"; };
 		E56BF67025DB51B9005DD5E7 /* UpdateNameSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNameSheet.swift; sourceTree = "<group>"; };
+		E56BF67E25DB7798005DD5E7 /* AvatarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarService.swift; sourceTree = "<group>"; };
+		E56BF68F25DB9EE8005DD5E7 /* UpdateTaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTaskSheet.swift; sourceTree = "<group>"; };
 		E588450025D24C5D0008A371 /* EmailSignInForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInForm.swift; sourceTree = "<group>"; };
 		E588450525D364ED0008A371 /* UpdateProjectForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProjectForm.swift; sourceTree = "<group>"; };
 		E588E8D425D383A3005F3903 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -141,6 +147,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E56BF68B25DB9795005DD5E7 /* PartialSheet in Frameworks */,
 				5E9849F525C4024900AD938C /* FirebaseMessaging in Frameworks */,
 				E5047FDD25CB89FD00DD6C32 /* iPhoneNumberField in Frameworks */,
 				5E9849F125C4024900AD938C /* FirebaseAppDistribution-Beta in Frameworks */,
@@ -157,6 +164,7 @@
 				5E984A0525C4024900AD938C /* FirebaseDatabase in Frameworks */,
 				5E9849FD25C4024900AD938C /* FirebaseAuth in Frameworks */,
 				5E9849FB25C4024900AD938C /* FirebaseInAppMessaging-Beta in Frameworks */,
+				E56BF68525DB78E9005DD5E7 /* SwURL in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +295,7 @@
 				E52D112C25D4918E006F44BB /* EditNameView.swift */,
 				E52D113125D4A1A1006F44BB /* ProfileSheet.swift */,
 				E56BF67025DB51B9005DD5E7 /* UpdateNameSheet.swift */,
+				E56BF68F25DB9EE8005DD5E7 /* UpdateTaskSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -296,6 +305,7 @@
 			children = (
 				5E984A3325C404E500AD938C /* AuthService.swift */,
 				E588E8D425D383A3005F3903 /* UserService.swift */,
+				E56BF67E25DB7798005DD5E7 /* AvatarService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -351,6 +361,8 @@
 				E5047FDC25CB89FD00DD6C32 /* iPhoneNumberField */,
 				E54ECFA225D378C700646421 /* FASwiftUI */,
 				E5F1D03525DA5AE500B6DA2A /* ConfettiView */,
+				E56BF68425DB78E9005DD5E7 /* SwURL */,
+				E56BF68A25DB9795005DD5E7 /* PartialSheet */,
 			);
 			productName = Tasky;
 			productReference = 5E9849AF25C401C200AD938C /* Tasky.app */;
@@ -428,6 +440,8 @@
 				E5047FDB25CB89FD00DD6C32 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				E54ECFA125D378C600646421 /* XCRemoteSwiftPackageReference "FASwiftUI" */,
 				E5F1D03425DA5AE500B6DA2A /* XCRemoteSwiftPackageReference "ConfettiView" */,
+				E56BF68325DB78E9005DD5E7 /* XCRemoteSwiftPackageReference "SwURL" */,
+				E56BF68925DB9795005DD5E7 /* XCRemoteSwiftPackageReference "PartialSheet" */,
 			);
 			productRefGroup = 5E9849B025C401C200AD938C /* Products */;
 			projectDirPath = "";
@@ -505,10 +519,12 @@
 				E588450625D364ED0008A371 /* UpdateProjectForm.swift in Sources */,
 				E588450125D24C5D0008A371 /* EmailSignInForm.swift in Sources */,
 				E54FC38E25CCD3DB00DA0656 /* TaskListView.swift in Sources */,
+				E56BF67F25DB7798005DD5E7 /* AvatarService.swift in Sources */,
 				5E984A2A25C404B800AD938C /* ProjectViewModel.swift in Sources */,
 				5E9849B325C401C200AD938C /* TaskyApp.swift in Sources */,
 				5E984A4E25C4091800AD938C /* AppDelegate.swift in Sources */,
 				5E984A3425C404E500AD938C /* AuthService.swift in Sources */,
+				E56BF69025DB9EE8005DD5E7 /* UpdateTaskSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -670,7 +686,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
@@ -698,7 +714,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
@@ -868,6 +884,22 @@
 				minimumVersion = 1.0.4;
 			};
 		};
+		E56BF68325DB78E9005DD5E7 /* XCRemoteSwiftPackageReference "SwURL" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/cmtrounce/SwURL";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+		E56BF68925DB9795005DD5E7 /* XCRemoteSwiftPackageReference "PartialSheet" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AndreaMiotto/PartialSheet";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.11;
+			};
+		};
 		E5F1D03425DA5AE500B6DA2A /* XCRemoteSwiftPackageReference "ConfettiView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ziligy/ConfettiView";
@@ -953,6 +985,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E54ECFA125D378C600646421 /* XCRemoteSwiftPackageReference "FASwiftUI" */;
 			productName = FASwiftUI;
+		};
+		E56BF68425DB78E9005DD5E7 /* SwURL */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E56BF68325DB78E9005DD5E7 /* XCRemoteSwiftPackageReference "SwURL" */;
+			productName = SwURL;
+		};
+		E56BF68A25DB9795005DD5E7 /* PartialSheet */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E56BF68925DB9795005DD5E7 /* XCRemoteSwiftPackageReference "PartialSheet" */;
+			productName = PartialSheet;
 		};
 		E5F1D03525DA5AE500B6DA2A /* ConfettiView */ = {
 			isa = XCSwiftPackageProductDependency;

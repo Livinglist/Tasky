@@ -10,12 +10,14 @@ import FASwiftUI
 import ConfettiView
 
 fileprivate enum ActiveSheet: Identifiable {
-    case newTaskSheet, editProjectSheet
+    case newTaskSheet, editProjectSheet, updateTaskSheet
     
     var id: Int {
         hashValue
     }
 }
+
+var selectedTask: Task = testTask
 
 struct TaskListView: View {
     @ObservedObject var projectViewModel: ProjectViewModel
@@ -62,10 +64,10 @@ struct TaskListView: View {
                 }
                 if showConfetti {
                     ConfettiView( confetti: [
-                                    .text("🎉"),
-                                    .text("💪"),
-                                    .shape(.circle),
-                                    .shape(.triangle),
+                        .text("🎉"),
+                        .text("💪"),
+                        .shape(.circle),
+                        .shape(.triangle),
                     ]).transition(.opacity)
                 }
             }
@@ -85,7 +87,7 @@ struct TaskListView: View {
             Divider()
             Button(action: { showDeleteAlert = true }) {
                 Text("Delete")
-                    Image(systemName: "trash")
+                Image(systemName: "trash")
             }
         } label:{
             Image(systemName: "ellipsis").font(.system(size: 24))
@@ -95,6 +97,8 @@ struct TaskListView: View {
                 NewTaskSheet(projectViewModel: projectViewModel)
             case .editProjectSheet:
                 UpdateProjectForm(projectViewModel: projectViewModel)
+            case .updateTaskSheet:
+                UpdateTaskSheet(projectViewModel: projectViewModel)
             }
         }.alert(isPresented: $showDeleteAlert, content: {
             Alert(title: Text("Delete this project?"), message: Text("This project will be deleted permanently."), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Okay"), action: {
@@ -116,11 +120,15 @@ struct TaskListView: View {
             ScrollView(.vertical) {
                 VStack{
                     ForEach(filteredTasks) { task in
-                        TaskView(task: task, onRemovePressed: { taskId in
+                        TaskView(task: task, onEditPressed: {
+                            activeSheet = .updateTaskSheet
+                            projectViewModel.selected(task: task)
+                        }, onRemovePressed: {
                             withAnimation {
                                 projectViewModel.remove(task: task)
                             }
-                        }, onStatusChanged: { (taskId: String, selectedStatus: TaskStatus) in
+                        }, onStatusChanged: { selectedStatus in
+                            let taskId = task.id
                             withAnimation{
                                 projectViewModel.updateTaskStatus(withId: taskId, to: selectedStatus)
                                 
@@ -128,7 +136,6 @@ struct TaskListView: View {
                                     showConfetti.toggle()
                                     
                                     self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
-                                        print("invoked")
                                         withAnimation{
                                             self.showConfetti.toggle()
                                         }

@@ -14,6 +14,7 @@ import AuthenticationServices
 struct LoginView: View {
     @Environment(\.colorScheme) var colorScheme
     @State var currentNonce:String?
+    @State var showPhoneLoginSheet: Bool = false
     
     //Hashing function using CryptoKit
     func sha256(_ input: String) -> String {
@@ -61,7 +62,9 @@ struct LoginView: View {
     var body: some View {
         NavigationView{
             VStack{
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/){
+                Image(uiImage: getAppIcon()).resizable().scaledToFit().frame(width: 120, height: 120).cornerRadius(26).shadow(radius: /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+                Color.clear.frame(height: 36)
+                Button(action: { showPhoneLoginSheet.toggle() }){
                     HStack{
                         FAText(iconName: "phone", size: 14).foregroundColor(.white)
                         Text("Sign in with Phone").foregroundColor(.white)
@@ -76,7 +79,7 @@ struct LoginView: View {
                     }.frame(width: 280, height: 45, alignment: .center).background(Color(.systemBlue)).overlay(
                         RoundedRectangle(cornerRadius: 0)
                             .stroke(Color.blue, lineWidth: 0))
-                }.cornerRadius(6.0)
+                }.cornerRadius(6.0).disabled(true)
                 SignInWithAppleButton(
                     //Request
                     onRequest: { request in
@@ -123,9 +126,21 @@ struct LoginView: View {
                 ).frame(width: 280, height: 45, alignment: .center).signInWithAppleButtonStyle(colorScheme == .dark ? .white : .black)
                 
             }
+        }.sheet(isPresented: $showPhoneLoginSheet){
+            PhoneLoginView()
         }
-        
-        
+    }
+    
+    
+    func getAppIcon() -> UIImage {
+       var appIcon: UIImage! {
+         guard let iconsDictionary = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String:Any],
+         let primaryIconsDictionary = iconsDictionary["CFBundlePrimaryIcon"] as? [String:Any],
+         let iconFiles = primaryIconsDictionary["CFBundleIconFiles"] as? [String],
+         let lastIcon = iconFiles.last else { return nil }
+         return UIImage(named: lastIcon)
+       }
+      return appIcon
     }
     
     struct LoginView_Previews: PreviewProvider {

@@ -19,9 +19,9 @@ struct EditNameView: View {
                 TextField("Last Name", text: $lastName)
             }
             Button(action: saveChnages) {
-                    Text("Save")
-                      .foregroundColor(.blue)
-                  }
+                Text("Save")
+                    .foregroundColor(.blue)
+            }
         }
     }
     
