@@ -13,7 +13,7 @@ struct Project: Identifiable, Codable, Equatable {
     var name: String
     var tasks: [Task]
     var managerId: String?
-    var participantsId: [String]?
+    var collaboratorIds: [String]?
     var timestamp: Double
     
     static func == (lhs: Self, rhs: Self) -> Bool {
@@ -22,7 +22,7 @@ struct Project: Identifiable, Codable, Equatable {
 }
 
 #if DEBUG
-let testProject = Project(id: UUID().uuidString, name: "Huge Project", tasks: [], managerId: nil, participantsId: [], timestamp: Date().timeIntervalSince1970)
+let testProject = Project(id: UUID().uuidString, name: "Huge Project", tasks: [], managerId: nil, collaboratorIds: [], timestamp: Date().timeIntervalSince1970)
 
 let testData = (1...10).map { i in
     Project(name: "Project #\(i)", tasks: [Task(id: "\(i)", title: "Task \(i)", content: "content of a task", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970)], managerId: "test", timestamp: NSDate().timeIntervalSince1970)

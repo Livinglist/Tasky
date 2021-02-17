@@ -30,7 +30,7 @@ struct ProjectView: View {
     }
     
     var body: some View {
-        NavigationLink(destination: TaskListView(projectViewModel: projectViewModel, onDelete: { project in
+        NavigationLink(destination: TaskListView(projectListViewModel: projectListViewModel,projectViewModel: projectViewModel, onDelete: { project in
             print("first layer of ondelete")
             projectListViewModel.delete(project: project)
         })){

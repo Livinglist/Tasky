@@ -134,14 +134,56 @@ class ProjectRepository: ObservableObject {
                 return project
             } ?? []
         }
+        
+        store.collection("projects").whereField("collaboratorIds", arrayContains: userId).addSnapshotListener{ querySnapshot, error in
+            if let error = error {
+                print("Error getting projects: \(error.localizedDescription)")
+                return
+            }
+            
+            querySnapshot?.documents.compactMap { document in
+                var project = try? document.data(as: Project.self)
+                var tasks: [Task] = []
+                
+                self.store.collection("projects").document(project!.id!).collection("tasks").getDocuments { snapshots, err in
+                    if let err = err {
+                        print("Error getting projects: \(err.localizedDescription)")
+                        return
+                    }
+                    
+                    tasks = snapshots?.documents.compactMap { doc in
+                        let task = try? doc.data(as: Task.self)
+                        return task
+                    } ?? []
+                    
+                    project?.tasks = tasks
+                    
+                    self.projects.removeAll {
+                        if project == $0 {
+                            return true
+                        }
+                        return false
+                    }
+                    self.projects.append(project!)
+                }
+                
+                return project
+            } ?? []
+        }
     }
     
-    func add(_ project: Project) {
-        print("adding project")
+    
+}
+
+extension ProjectRepository {
+    static func add(_ project: Project) {
+        let store = Firestore.firestore()
+        let userId = AuthService.currentUser!.uid
+        
         do {
             var newProject = project
             if userId.isEmpty{
-                newProject.managerId = testUserId
+                newProject.managerId = ""
             }else{
                 newProject.managerId = userId
             }
@@ -158,7 +200,9 @@ class ProjectRepository: ObservableObject {
         }
     }
     
-    func add(task: Task, to project: Project){
+    static func add(task: Task, to project: Project){
+        let store = Firestore.firestore()
+        
         guard let projectId = project.id else { return }
         
         do {
@@ -168,8 +212,21 @@ class ProjectRepository: ObservableObject {
         }
     }
     
-    func update(_ project: Project) {
-        print("updating all tasks in the project")
+    static func addCollaborator(userId: String, to projectId: String){
+        let store = Firestore.firestore()
+        
+        store.collection("projects").document(projectId).updateData(["collaboratorIds" : FieldValue.arrayUnion([userId])])
+    }
+    
+    static func removeCollaborator(userId: String, from projectId: String){
+        let store = Firestore.firestore()
+        
+        store.collection("projects").document(projectId).updateData(["collaboratorIds" : FieldValue.arrayRemove([userId])])
+    }
+    
+    static func update(_ project: Project) {
+        let store = Firestore.firestore()
+        
         guard let projectId = project.id else { return }
         
         do {
@@ -181,8 +238,9 @@ class ProjectRepository: ObservableObject {
         }
     }
     
-    func update(_ project: Project, task: Task){
-        print("updating a task in the project")
+    static func update(_ project: Project, task: Task){
+        let store = Firestore.firestore()
+        
         guard let projectId = project.id else { return }
         
         do {
@@ -192,14 +250,17 @@ class ProjectRepository: ObservableObject {
         }
     }
     
-    func update(_ project: Project, withName newName: String) {
-        print("updating project name")
+    static func update(_ project: Project, withName newName: String) {
+        let store = Firestore.firestore()
+        
         guard let projectId = project.id else { return }
         
         store.collection("projects").document(projectId).updateData(["name" : newName])
     }
     
-    func remove(task: Task, from project: Project){
+    static func remove(task: Task, from project: Project){
+        let store = Firestore.firestore()
+        
         guard let projectId = project.id else { return }
         
         store.collection("projects").document(projectId).collection("tasks").document(task.id).delete { error in
@@ -212,13 +273,14 @@ class ProjectRepository: ObservableObject {
     }
     
     func remove(_ project: Project) {
-        print("removing project")
+        let store = Firestore.firestore()
+        
         guard let projectId = project.id else { return }
         
         guard let index = self.projects.firstIndex(where: {$0.id == project.id}) else {
             return
         }
-        
+
         self.projects.remove(at: index)
         
         store.collection("projects").document(projectId).delete { error in

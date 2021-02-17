@@ -70,6 +70,8 @@
 		E588E8E525D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf in Resources */ = {isa = PBXBuildFile; fileRef = E588E8E425D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf */; };
 		E588E8EA25D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf in Resources */ = {isa = PBXBuildFile; fileRef = E588E8E925D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf */; };
 		E588E8EF25D3D5F5005F3903 /* TaskDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */; };
+		E5A1833A25DCA18900E1616D /* PeopleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1833925DCA18900E1616D /* PeopleSheet.swift */; };
+		E5A1833F25DCAE2800E1616D /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1833E25DCAE2800E1616D /* Avatar.swift */; };
 		E5F1D03625DA5AE500B6DA2A /* ConfettiView in Frameworks */ = {isa = PBXBuildFile; productRef = E5F1D03525DA5AE500B6DA2A /* ConfettiView */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +142,8 @@
 		E588E8E425D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Pro-Regular-400.otf"; sourceTree = "<group>"; };
 		E588E8E925D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Font Awesome 5 Pro-Solid-900.otf"; sourceTree = "<group>"; };
 		E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailSheet.swift; sourceTree = "<group>"; };
+		E5A1833925DCA18900E1616D /* PeopleSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleSheet.swift; sourceTree = "<group>"; };
+		E5A1833E25DCAE2800E1616D /* Avatar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Avatar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,22 +284,17 @@
 		5E984A1625C4026500AD938C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E5E3DF4825DC9E5D00846739 /* Sheets */,
 				E52D113C25D4AB07006F44BB /* Components */,
 				5E984A2E25C404D400AD938C /* ProjectView.swift */,
 				5E984A5525C40A1C00AD938C /* ProjectListView.swift */,
-				5E984A5F25C40AAE00AD938C /* NewProjectSheet.swift */,
 				5E984A6825C4898F00AD938C /* LoginView.swift */,
 				E5047FE125CB8A2C00DD6C32 /* PhoneLoginView.swift */,
 				E54FC37825CCCD8000DA0656 /* TaskView.swift */,
 				E54FC38D25CCD3DB00DA0656 /* TaskListView.swift */,
-				E54FC39225CCE35B00DA0656 /* NewTaskSheet.swift */,
 				E588450025D24C5D0008A371 /* EmailSignInForm.swift */,
 				E588450525D364ED0008A371 /* UpdateProjectForm.swift */,
-				E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */,
 				E52D112C25D4918E006F44BB /* EditNameView.swift */,
-				E52D113125D4A1A1006F44BB /* ProfileSheet.swift */,
-				E56BF67025DB51B9005DD5E7 /* UpdateNameSheet.swift */,
-				E56BF68F25DB9EE8005DD5E7 /* UpdateTaskSheet.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -324,8 +323,23 @@
 				E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */,
 				E52D113D25D4AB1A006F44BB /* Indicator.swift */,
 				E5203D4025DB494400F25C53 /* ImagePicker.swift */,
+				E5A1833E25DCAE2800E1616D /* Avatar.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		E5E3DF4825DC9E5D00846739 /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				5E984A5F25C40AAE00AD938C /* NewProjectSheet.swift */,
+				E54FC39225CCE35B00DA0656 /* NewTaskSheet.swift */,
+				E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */,
+				E52D113125D4A1A1006F44BB /* ProfileSheet.swift */,
+				E56BF67025DB51B9005DD5E7 /* UpdateNameSheet.swift */,
+				E56BF68F25DB9EE8005DD5E7 /* UpdateTaskSheet.swift */,
+				E5A1833925DCA18900E1616D /* PeopleSheet.swift */,
+			);
+			path = Sheets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -501,6 +515,7 @@
 				5E9849BC25C401C300AD938C /* Persistence.swift in Sources */,
 				5E9849B525C401C200AD938C /* ContentView.swift in Sources */,
 				5E9849BF25C401C300AD938C /* Tasky.xcdatamodeld in Sources */,
+				E5A1833A25DCA18900E1616D /* PeopleSheet.swift in Sources */,
 				5E984A3925C404F000AD938C /* ProjectRepository.swift in Sources */,
 				E52D112D25D4918E006F44BB /* EditNameView.swift in Sources */,
 				E5047FE225CB8A2C00DD6C32 /* PhoneLoginView.swift in Sources */,
@@ -510,6 +525,7 @@
 				E54FC37925CCCD8000DA0656 /* TaskView.swift in Sources */,
 				E5047FED25CB9EF300DD6C32 /* Task.swift in Sources */,
 				E52D113E25D4AB1A006F44BB /* Indicator.swift in Sources */,
+				E5A1833F25DCAE2800E1616D /* Avatar.swift in Sources */,
 				5E984A5625C40A1C00AD938C /* ProjectListView.swift in Sources */,
 				E5203D4125DB494400F25C53 /* ImagePicker.swift in Sources */,
 				E588E8D525D383A3005F3903 /* UserService.swift in Sources */,
@@ -686,7 +702,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
@@ -696,7 +712,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.2;
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = jiaqifeng.tasky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -714,7 +730,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 8;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
@@ -724,7 +740,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.1;
+				MARKETING_VERSION = 0.0.2;
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = jiaqifeng.tasky;
 				PRODUCT_NAME = "$(TARGET_NAME)";

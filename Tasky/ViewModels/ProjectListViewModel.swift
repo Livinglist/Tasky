@@ -34,11 +34,20 @@ class ProjectListViewModel: ObservableObject {
     }
     
     func add(_ project: Project) {
-        projectRepository.add(project)
+        ProjectRepository.add(project)
     }
     
     func delete(project: Project){
         projectRepository.remove(project)
+    }
+    
+    func remove(id: String){
+        projectViewModels.removeAll { model in
+            if model.project.id == id {
+                return true
+            }
+            return false
+        }
     }
 }
 

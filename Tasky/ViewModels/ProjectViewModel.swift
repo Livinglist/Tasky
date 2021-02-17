@@ -10,9 +10,8 @@ import Combine
 
 
 class ProjectViewModel: ObservableObject, Identifiable {
-    private let projectRepository = ProjectRepository()
-    
     @Published var project: Project
+    
     var selectedTask: Task
     
     private var cancellables: Set<AnyCancellable> = []
@@ -31,7 +30,17 @@ class ProjectViewModel: ObservableObject, Identifiable {
     
     func addTask(task: Task){
         self.project.tasks.append(task)
-        projectRepository.add(task: task, to: self.project)
+        ProjectRepository.add(task: task, to: self.project)
+    }
+    
+    func addCollaborator(userId: String){
+        guard let projectId = self.project.id else { return }
+        ProjectRepository.addCollaborator(userId: userId, to: projectId)
+    }
+    
+    func removeCollaborator(userId: String){
+        guard let projectId = self.project.id else { return }
+        ProjectRepository.removeCollaborator(userId: userId, from: projectId)
     }
     
     func updateTask(task: Task){
@@ -46,7 +55,7 @@ class ProjectViewModel: ObservableObject, Identifiable {
         
         let updatedTask = Task(id: task.id, title: task.title, content: task.content, taskStatus: task.taskStatus, timestamp: task.timestamp, dueTimestamp: task.dueTimestamp, creatorId: task.creatorId, assigneesId: task.assigneesId)
         project.tasks.insert(updatedTask, at: index)
-        projectRepository.update(project, task: updatedTask)
+        ProjectRepository.update(project, task: updatedTask)
     }
     
     func updateTaskStatus(withId id: String, to taskStatus: TaskStatus){
@@ -61,7 +70,7 @@ class ProjectViewModel: ObservableObject, Identifiable {
         
         let updatedTask = Task(id: task.id, title: task.title, content: task.content, taskStatus: taskStatus, timestamp: task.timestamp, dueTimestamp: task.dueTimestamp, creatorId: task.creatorId, assigneesId: task.assigneesId)
         project.tasks.insert(updatedTask, at: index)
-        projectRepository.update(project, task: updatedTask)
+        ProjectRepository.update(project, task: updatedTask)
     }
     
     func remove(task: Task){
@@ -69,12 +78,12 @@ class ProjectViewModel: ObservableObject, Identifiable {
             return
         }
         self.project.tasks.remove(at: index)
-        projectRepository.remove(task: task, from: self.project)
+        ProjectRepository.remove(task: task, from: self.project)
     }
     
     func update(withNewName newName: String) {
         self.project.name = newName
-        projectRepository.update(self.project, withName: newName)
+        ProjectRepository.update(self.project, withName: newName)
     }
     
     func selected(task: Task){

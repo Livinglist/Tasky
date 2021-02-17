@@ -35,6 +35,8 @@ struct UpdateNameSheet: View {
             return
         }
         
+        UserService.cache.removeValue(forKey: authService.user!.uid)
+        
         authService.updateUserName(firstName: firstName, lastName: lastName)
         
         presentationMode.wrappedValue.dismiss()

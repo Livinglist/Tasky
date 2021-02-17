@@ -53,7 +53,8 @@ struct NewTaskSheet: View {
 
 struct NewTaskForm_Previews: PreviewProvider {
     static var previews: some View {
-        NewTaskSheet(projectViewModel: ProjectViewModel(project: Project(id: "", name: "", tasks: [], managerId: "",timestamp: Date().timeIntervalSince1970)))
+        EmptyView()
+//        NewTaskSheet(projectViewModel: ProjectViewModel(project: Project(id: "", name: "", tasks: [], managerId: "",timestamp: Date().timeIntervalSince1970), projectRepo: ProjectRepository))
     }
 }
 
