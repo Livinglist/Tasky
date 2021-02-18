@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwURL
 import SPAlert
 
 

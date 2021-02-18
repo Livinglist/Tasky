@@ -6,9 +6,7 @@
 //
 
 import SwiftUI
-import SwURL
 import SDWebImageSwiftUI
-import SDWebImageSVGCoder
 
 struct Avatar: View, Equatable {
     static func == (lhs: Avatar, rhs: Avatar) -> Bool {
@@ -22,7 +20,6 @@ struct Avatar: View, Equatable {
         print("init Avatar")
         self.userId = userId
         avatarService.fetchAvatar(userId: userId)
-        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
     
     var body: some View {
