@@ -35,7 +35,7 @@ struct NewProjectSheet: View {
     }
     
     private func addProject() {
-        let project = Project(name: projectName, tasks: [], managerId: AuthService().user?.uid, timestamp: Date().timeIntervalSince1970)
+        let project = Project(name: projectName, tasks: [], managerId: AuthService.currentUser?.uid, timestamp: Date().timeIntervalSince1970)
         
         projectListViewModel.add(project)
         
@@ -45,7 +45,7 @@ struct NewProjectSheet: View {
 
 struct NewProjectForm_Previews: PreviewProvider {
     static var previews: some View {
-        NewProjectSheet(projectListViewModel: ProjectListViewModel())
+        EmptyView()
     }
 }
 

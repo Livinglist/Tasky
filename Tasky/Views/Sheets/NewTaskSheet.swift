@@ -43,7 +43,7 @@ struct NewTaskSheet: View {
             return
         }
         
-        let task = Task(id: UUID().uuidString, title: title, content: content, taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970, dueTimestamp: enableDueDate ? selectedDate.timeIntervalSince1970: nil, creatorId: AuthService().user?.uid)
+        let task = Task(id: UUID().uuidString, title: title, content: content, taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970, dueTimestamp: enableDueDate ? selectedDate.timeIntervalSince1970: nil, creatorId: AuthService.currentUser?.uid)
         
         projectViewModel.addTask(task: task)
         

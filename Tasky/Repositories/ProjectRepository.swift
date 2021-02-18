@@ -20,11 +20,11 @@ class ProjectRepository: ObservableObject {
     
     var userId = ""
     
-    private let authenticationService = AuthService()
+    private let authenticationService:AuthService
     
     private var cancellables: Set<AnyCancellable> = []
     
-    init() {
+    init(authService: AuthService) {
         //        authenticationService.$user
         //            .compactMap { user in
         //                if user?.uid.isEmpty ?? true {
@@ -35,6 +35,8 @@ class ProjectRepository: ObservableObject {
         //            }
         //            .assign(to: \.userId, on: self)
         //            .store(in: &cancellables)
+        self.authenticationService = authService
+        
         
         authenticationService.$user
             .compactMap { user in
@@ -178,15 +180,16 @@ class ProjectRepository: ObservableObject {
 extension ProjectRepository {
     static func add(_ project: Project) {
         let store = Firestore.firestore()
-        let userId = AuthService.currentUser!.uid
+        //let userId = AuthService.currentUser!.uid
         
         do {
-            var newProject = project
-            if userId.isEmpty{
-                newProject.managerId = ""
-            }else{
-                newProject.managerId = userId
-            }
+            let newProject = project
+            print("managerId is \(newProject.managerId)")
+//            if userId.isEmpty{
+//                newProject.managerId = ""
+//            }else{
+//                newProject.managerId = userId
+//            }
             let docRef = try store.collection("projects").addDocument(from: newProject)
             
             let uuid = UUID().uuidString

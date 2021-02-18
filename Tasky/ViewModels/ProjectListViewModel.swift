@@ -16,9 +16,11 @@ class ProjectListViewModel: ObservableObject {
     
     private var cancellables: Set<AnyCancellable> = []
     
-    @Published var projectRepository = ProjectRepository()
+    @Published var projectRepository:ProjectRepository
     
-    init() {
+    init(authService: AuthService) {
+        self.projectRepository = ProjectRepository(authService: authService)
+        
         projectRepository.$projects.map { projects in
             return projects.map(ProjectViewModel.init).sorted { (lfs, rhs) -> Bool in
                 let res = lfs.project.name.compare(rhs.project.name, options: NSString.CompareOptions.caseInsensitive, range: nil, locale: nil)

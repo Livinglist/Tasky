@@ -12,7 +12,7 @@ import FASwiftUI
 struct ProjectListView: View {
     @ObservedObject var authService: AuthService
     @ObservedObject var userService: UserService = UserService()
-    @ObservedObject var projectListViewModel = ProjectListViewModel()
+    @ObservedObject var projectListViewModel:ProjectListViewModel
     @State var showForm = false
     @State var showAlert = false
     @State var showProfileSheet = false
@@ -20,6 +20,7 @@ struct ProjectListView: View {
     
     init(authService: AuthService) {
         self.authService = authService
+        self.projectListViewModel = ProjectListViewModel(authService: authService)
         guard let uid = authService.user?.uid else {
             return
         }
@@ -95,7 +96,7 @@ struct ProjectListView: View {
 
 struct ProjectListView_Previews: PreviewProvider {
     static var previews: some View {
-        ProjectListView(authService: AuthService())
+        EmptyView()
     }
 }
 

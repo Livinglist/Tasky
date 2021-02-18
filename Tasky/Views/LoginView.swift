@@ -72,14 +72,14 @@ struct LoginView: View {
                         RoundedRectangle(cornerRadius: 0)
                             .stroke(Color.blue, lineWidth: 0))
                 }.cornerRadius(6.0).padding(.bottom, 6)
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/){
-                    HStack{
-                        FAText(iconName: "google", size: 14).foregroundColor(.white)
-                        Text("Sign in with Gmail").foregroundColor(.white)
-                    }.frame(width: 280, height: 45, alignment: .center).background(Color(.systemBlue)).overlay(
-                        RoundedRectangle(cornerRadius: 0)
-                            .stroke(Color.blue, lineWidth: 0))
-                }.cornerRadius(6.0).disabled(true)
+//                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/){
+//                    HStack{
+//                        FAText(iconName: "google", size: 14).foregroundColor(.white)
+//                        Text("Sign in with Gmail").foregroundColor(.white)
+//                    }.frame(width: 280, height: 45, alignment: .center).background(Color(.systemBlue)).overlay(
+//                        RoundedRectangle(cornerRadius: 0)
+//                            .stroke(Color.blue, lineWidth: 0))
+//                }.cornerRadius(6.0).disabled(true)
                 SignInWithAppleButton(
                     //Request
                     onRequest: { request in

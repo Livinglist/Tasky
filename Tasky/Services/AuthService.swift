@@ -69,7 +69,7 @@ class AuthService: ObservableObject {
 
 
 extension AuthService{
-    static var currentUser = Auth.auth().currentUser
+    static var currentUser:User? { Auth.auth().currentUser }
     
     static func signIn(withEmail email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { (authResult : AuthDataResult?, error : Error?) in
