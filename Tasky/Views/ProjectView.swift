@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjectView: View {
+struct ProjectView: View{
     @ObservedObject var projectViewModel: ProjectViewModel
     @ObservedObject var projectListViewModel: ProjectListViewModel
     @State var showContent: Bool = false
@@ -46,6 +46,14 @@ struct ProjectView: View {
                         Image(systemName: "chevron.right").foregroundColor(Color(.systemGray4)).imageScale(.small).padding(.trailing, 12)
                     }.padding(.leading, 12)
                     Spacer()
+                    ScrollView(.horizontal){
+                        HStack{
+                            Avatar(userId: projectViewModel.project.managerId!).equatable()
+                            ForEach(projectViewModel.project.collaboratorIds ?? [], id: \.self){ id in
+                                Avatar(userId: id).equatable().padding(.leading, 0)
+                            }
+                        }.padding([.leading, .bottom], 12)
+                    }
                     //ProgressBar(value: $progressValue, color: Color(.)).frame(height: 24).padding()
                 }
                 .frame(width: geometry.size.width, height: 120)

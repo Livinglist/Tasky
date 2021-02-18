@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwURL
+import SDWebImageSwiftUI
 
 fileprivate enum ActiveSheet: Identifiable {
     case updateNameSheet, imagePickerSheet
@@ -19,7 +19,7 @@ fileprivate enum ActiveSheet: Identifiable {
 struct ProfileSheet: View {
     @ObservedObject var authService: AuthService
     @ObservedObject var userService: UserService
-    @ObservedObject var avatarService: AvatarService
+    @ObservedObject var avatarService: AvatarService = AvatarService()
     @State fileprivate var activeSheet: ActiveSheet?
     @State var image: Image?
     @State private var inputImage: UIImage?
@@ -36,13 +36,16 @@ struct ProfileSheet: View {
                     Image(systemName: "pencil.circle")
                 }
             }, label: {
-                RemoteImageView(url: avatarService.avatarUrl ?? URL(string: "https://www.americasfinestlabels.com/images/CCS400FO.jpg")!, placeholderImage: Image("placeholder"), transition: .custom(transition: .opacity, animation: .easeOut(duration: 0.5))).imageProcessing({image in
-                    return image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 160, height: 160)
-                        .clipShape(Circle())
-                }).frame(width: 160, height: 160)
+                WebImage(url: avatarService.avatarUrl ?? URL(string: "https://www.americasfinestlabels.com/images/CCS400FO.jpg")!)
+                    // Supports options and context, like `.delayPlaceholder` to show placeholder only when error
+                    .onSuccess { image, data, cacheType in
+                    }
+                    .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+                    .placeholder(Image("placeholder")) // Placeholder Image
+                    .transition(.fade(duration: 0.5)) // Fade Transition with duration
+                    .scaledToFill()
+                    .clipShape(Circle())
+                    .frame(width: 160, height: 160, alignment: .center)
             })
             Color.clear.frame(height: 24)
             ZStack(alignment: .topTrailing){

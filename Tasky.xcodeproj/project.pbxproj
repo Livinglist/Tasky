@@ -46,7 +46,7 @@
 		E5047FDD25CB89FD00DD6C32 /* iPhoneNumberField in Frameworks */ = {isa = PBXBuildFile; productRef = E5047FDC25CB89FD00DD6C32 /* iPhoneNumberField */; };
 		E5047FE225CB8A2C00DD6C32 /* PhoneLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5047FE125CB8A2C00DD6C32 /* PhoneLoginView.swift */; };
 		E5047FED25CB9EF300DD6C32 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5047FEC25CB9EF300DD6C32 /* Task.swift */; };
-		E5047FF225CB9F6200DD6C32 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5047FF125CB9F6200DD6C32 /* User.swift */; };
+		E5047FF225CB9F6200DD6C32 /* TaskyUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5047FF125CB9F6200DD6C32 /* TaskyUser.swift */; };
 		E5203D4125DB494400F25C53 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5203D4025DB494400F25C53 /* ImagePicker.swift */; };
 		E525647F25CE3BC200EFCEC1 /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */; };
 		E52D112D25D4918E006F44BB /* EditNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52D112C25D4918E006F44BB /* EditNameView.swift */; };
@@ -60,7 +60,6 @@
 		E54FC39325CCE35B00DA0656 /* NewTaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54FC39225CCE35B00DA0656 /* NewTaskSheet.swift */; };
 		E56BF67125DB51B9005DD5E7 /* UpdateNameSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BF67025DB51B9005DD5E7 /* UpdateNameSheet.swift */; };
 		E56BF67F25DB7798005DD5E7 /* AvatarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BF67E25DB7798005DD5E7 /* AvatarService.swift */; };
-		E56BF68525DB78E9005DD5E7 /* SwURL in Frameworks */ = {isa = PBXBuildFile; productRef = E56BF68425DB78E9005DD5E7 /* SwURL */; };
 		E56BF68B25DB9795005DD5E7 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = E56BF68A25DB9795005DD5E7 /* PartialSheet */; };
 		E56BF69025DB9EE8005DD5E7 /* UpdateTaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BF68F25DB9EE8005DD5E7 /* UpdateTaskSheet.swift */; };
 		E588450125D24C5D0008A371 /* EmailSignInForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588450025D24C5D0008A371 /* EmailSignInForm.swift */; };
@@ -73,6 +72,8 @@
 		E5A1833A25DCA18900E1616D /* PeopleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1833925DCA18900E1616D /* PeopleSheet.swift */; };
 		E5A1833F25DCAE2800E1616D /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1833E25DCAE2800E1616D /* Avatar.swift */; };
 		E5C6FAF425DE2A72003CB408 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = E5C6FAF325DE2A72003CB408 /* SPAlert */; };
+		E5C6FAFD25DE3136003CB408 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = E5C6FAFC25DE3136003CB408 /* SDWebImageSwiftUI */; };
+		E5C6FB0625DE424D003CB408 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = E5C6FB0525DE424D003CB408 /* SDWebImageSVGCoder */; };
 		E5F1D03625DA5AE500B6DA2A /* ConfettiView in Frameworks */ = {isa = PBXBuildFile; productRef = E5F1D03525DA5AE500B6DA2A /* ConfettiView */; };
 /* End PBXBuildFile section */
 
@@ -121,7 +122,7 @@
 		5E984A6825C4898F00AD938C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		E5047FE125CB8A2C00DD6C32 /* PhoneLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneLoginView.swift; sourceTree = "<group>"; };
 		E5047FEC25CB9EF300DD6C32 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
-		E5047FF125CB9F6200DD6C32 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E5047FF125CB9F6200DD6C32 /* TaskyUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskyUser.swift; sourceTree = "<group>"; };
 		E5203D4025DB494400F25C53 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		E525647E25CE3BC200EFCEC1 /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		E52D112C25D4918E006F44BB /* EditNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNameView.swift; sourceTree = "<group>"; };
@@ -152,8 +153,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5C6FAFD25DE3136003CB408 /* SDWebImageSwiftUI in Frameworks */,
 				E56BF68B25DB9795005DD5E7 /* PartialSheet in Frameworks */,
 				5E9849F525C4024900AD938C /* FirebaseMessaging in Frameworks */,
+				E5C6FB0625DE424D003CB408 /* SDWebImageSVGCoder in Frameworks */,
 				E5047FDD25CB89FD00DD6C32 /* iPhoneNumberField in Frameworks */,
 				5E9849F125C4024900AD938C /* FirebaseAppDistribution-Beta in Frameworks */,
 				E5F1D03625DA5AE500B6DA2A /* ConfettiView in Frameworks */,
@@ -170,7 +173,6 @@
 				5E984A0525C4024900AD938C /* FirebaseDatabase in Frameworks */,
 				5E9849FD25C4024900AD938C /* FirebaseAuth in Frameworks */,
 				5E9849FB25C4024900AD938C /* FirebaseInAppMessaging-Beta in Frameworks */,
-				E56BF68525DB78E9005DD5E7 /* SwURL in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -269,7 +271,7 @@
 			children = (
 				5E984A1C25C402AA00AD938C /* Project.swift */,
 				E5047FEC25CB9EF300DD6C32 /* Task.swift */,
-				E5047FF125CB9F6200DD6C32 /* User.swift */,
+				E5047FF125CB9F6200DD6C32 /* TaskyUser.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -377,9 +379,10 @@
 				E5047FDC25CB89FD00DD6C32 /* iPhoneNumberField */,
 				E54ECFA225D378C700646421 /* FASwiftUI */,
 				E5F1D03525DA5AE500B6DA2A /* ConfettiView */,
-				E56BF68425DB78E9005DD5E7 /* SwURL */,
 				E56BF68A25DB9795005DD5E7 /* PartialSheet */,
 				E5C6FAF325DE2A72003CB408 /* SPAlert */,
+				E5C6FAFC25DE3136003CB408 /* SDWebImageSwiftUI */,
+				E5C6FB0525DE424D003CB408 /* SDWebImageSVGCoder */,
 			);
 			productName = Tasky;
 			productReference = 5E9849AF25C401C200AD938C /* Tasky.app */;
@@ -457,9 +460,10 @@
 				E5047FDB25CB89FD00DD6C32 /* XCRemoteSwiftPackageReference "iPhoneNumberField" */,
 				E54ECFA125D378C600646421 /* XCRemoteSwiftPackageReference "FASwiftUI" */,
 				E5F1D03425DA5AE500B6DA2A /* XCRemoteSwiftPackageReference "ConfettiView" */,
-				E56BF68325DB78E9005DD5E7 /* XCRemoteSwiftPackageReference "SwURL" */,
 				E56BF68925DB9795005DD5E7 /* XCRemoteSwiftPackageReference "PartialSheet" */,
 				E5C6FAF225DE2A71003CB408 /* XCRemoteSwiftPackageReference "SPAlert" */,
+				E5C6FAFB25DE3136003CB408 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				E5C6FB0425DE424D003CB408 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 			);
 			productRefGroup = 5E9849B025C401C200AD938C /* Products */;
 			projectDirPath = "";
@@ -524,7 +528,7 @@
 				E52D112D25D4918E006F44BB /* EditNameView.swift in Sources */,
 				E5047FE225CB8A2C00DD6C32 /* PhoneLoginView.swift in Sources */,
 				5E984A5B25C40A4E00AD938C /* ProjectListViewModel.swift in Sources */,
-				E5047FF225CB9F6200DD6C32 /* User.swift in Sources */,
+				E5047FF225CB9F6200DD6C32 /* TaskyUser.swift in Sources */,
 				5E984A1D25C402AA00AD938C /* Project.swift in Sources */,
 				E54FC37925CCCD8000DA0656 /* TaskView.swift in Sources */,
 				E5047FED25CB9EF300DD6C32 /* Task.swift in Sources */,
@@ -904,14 +908,6 @@
 				minimumVersion = 1.0.4;
 			};
 		};
-		E56BF68325DB78E9005DD5E7 /* XCRemoteSwiftPackageReference "SwURL" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/cmtrounce/SwURL";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.4.0;
-			};
-		};
 		E56BF68925DB9795005DD5E7 /* XCRemoteSwiftPackageReference "PartialSheet" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AndreaMiotto/PartialSheet";
@@ -926,6 +922,22 @@
 			requirement = {
 				kind = upToNextMajorVersion;
 				minimumVersion = 3.0.3;
+			};
+		};
+		E5C6FAFB25DE3136003CB408 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
+		E5C6FB0425DE424D003CB408 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.0;
 			};
 		};
 		E5F1D03425DA5AE500B6DA2A /* XCRemoteSwiftPackageReference "ConfettiView" */ = {
@@ -1014,11 +1026,6 @@
 			package = E54ECFA125D378C600646421 /* XCRemoteSwiftPackageReference "FASwiftUI" */;
 			productName = FASwiftUI;
 		};
-		E56BF68425DB78E9005DD5E7 /* SwURL */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E56BF68325DB78E9005DD5E7 /* XCRemoteSwiftPackageReference "SwURL" */;
-			productName = SwURL;
-		};
 		E56BF68A25DB9795005DD5E7 /* PartialSheet */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = E56BF68925DB9795005DD5E7 /* XCRemoteSwiftPackageReference "PartialSheet" */;
@@ -1028,6 +1035,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E5C6FAF225DE2A71003CB408 /* XCRemoteSwiftPackageReference "SPAlert" */;
 			productName = SPAlert;
+		};
+		E5C6FAFC25DE3136003CB408 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5C6FAFB25DE3136003CB408 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+		E5C6FB0525DE424D003CB408 /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5C6FB0425DE424D003CB408 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
 		};
 		E5F1D03525DA5AE500B6DA2A /* ConfettiView */ = {
 			isa = XCSwiftPackageProductDependency;

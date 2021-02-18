@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import SDWebImageSVGCoder
 
 @main
 struct TaskyApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     
     let persistenceController = PersistenceController.shared
+    
+    init() {
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
+    }
 
     var body: some Scene {
         WindowGroup {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TaskyUser: Identifiable, Codable {
+struct TaskyUser: Identifiable, Codable, Equatable {
     var id: String
     var firstName: String
     var lastName: String

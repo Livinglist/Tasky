@@ -13,6 +13,7 @@ class AvatarService: ObservableObject {
     @Published var avatarUrl: URL?
     
     func fetchAvatar(userId: String){
+        print("fetching avatar")
         let storage = Storage.storage()
         let storageRef = storage.reference()
 

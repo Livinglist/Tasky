@@ -6,13 +6,12 @@
 //
 
 import SwiftUI
-import SwURL
+import SDWebImageSwiftUI
 import FASwiftUI
 
 struct ProjectListView: View {
     @ObservedObject var authService: AuthService
     @ObservedObject var userService: UserService = UserService()
-    @ObservedObject var avatarService: AvatarService = AvatarService()
     @ObservedObject var projectListViewModel = ProjectListViewModel()
     @State var showForm = false
     @State var showAlert = false
@@ -25,7 +24,6 @@ struct ProjectListView: View {
             return
         }
         self.userService.fetchUserBy(id: uid)
-        self.avatarService.fetchAvatar(userId: uid)
     }
     
     var leadingItem: some View {
@@ -41,23 +39,15 @@ struct ProjectListView: View {
                     Image(systemName: "figure.walk")
                 }
             }, label: {
-                RemoteImageView(url: avatarService.avatarUrl ?? URL(string: "https://www.americasfinestlabels.com/images/CCS400FO.jpg")!, placeholderImage: Image("placeholder"), transition: .custom(transition: .opacity, animation: .easeOut(duration: 0.5))).imageProcessing({image in
-                    return image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 40, height: 40)
-                        .clipShape(Circle())
-                }).frame(width: 40, height: 40)
-                //                Image("avatar")
-                //                    .resizable()
-                //                    .frame(width: 40, height: 40)
-                //                    .clipShape(Circle())
+                if authService.user != nil {
+                    Avatar(userId: authService.user!.uid).equatable()
+                }
             }).frame(width: 40, height: 40)
             Text("\(fullName)")
                 .font(.body)
                 .foregroundColor(Color(.systemGray))
         }.sheet(isPresented: $showProfileSheet){
-            ProfileSheet(authService: self.authService, userService: self.userService, avatarService: self.avatarService)
+            ProfileSheet(authService: self.authService, userService: self.userService)
         }
         
     }

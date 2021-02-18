@@ -9,6 +9,33 @@ import SwiftUI
 import SwURL
 import SPAlert
 
+
+struct PeopleListView: View, Equatable{
+    static func == (lhs: PeopleListView, rhs: PeopleListView) -> Bool {
+        lhs.users == rhs.users
+    }
+    
+    let users: [TaskyUser]
+    let onPressed: (TaskyUser)->()
+    
+    var body: some View {
+        List{
+            ForEach(users) { user in
+                HStack{
+                    Avatar(userId: user.id)
+                    Text("\(user.firstName) \(user.lastName)")
+                    Spacer()
+                    Button(action: {
+                        onPressed(user)
+                    }, label: {
+                        Image(systemName: "plus.circle").font(.system(size: 24)).foregroundColor(.blue)
+                    })
+                }
+            }
+        }
+    }
+}
+
 struct PeopleSheet: View {
     @Environment(\.presentationMode) var presentationMode
     @ObservedObject var projectViewModel: ProjectViewModel
@@ -67,21 +94,11 @@ struct PeopleSheet: View {
                 }
             }.padding()
             
-            List{
-                ForEach(userService.resultUsers) { user in
-                    HStack{
-                        Avatar(userId: user.id)
-                        Text("\(user.firstName) \(user.lastName)")
-                        Spacer()
-                        Button(action: {
-                            selectedUser = user
-                            showAlert.toggle()
-                        }, label: {
-                            Image(systemName: "plus.circle").font(.system(size: 24)).foregroundColor(.blue)
-                        })
-                    }
-                }
-            }
+            PeopleListView(users: userService.resultUsers, onPressed: { user in
+                selectedUser = user
+                showAlert.toggle()
+            }).equatable()
+            
         }.alert(isPresented: $showAlert, content: {
             Alert(title: Text("Add \(selectedUser.fullName) as collaborator?"), message: Text(""), primaryButton: .default(Text("Cancel")), secondaryButton: .default(Text("Yes"), action: {
                 self.projectViewModel.addCollaborator(userId: selectedUser.id)

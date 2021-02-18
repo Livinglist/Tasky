@@ -7,25 +7,50 @@
 
 import SwiftUI
 import SwURL
+import SDWebImageSwiftUI
+import SDWebImageSVGCoder
 
-struct Avatar: View {
+struct Avatar: View, Equatable {
+    static func == (lhs: Avatar, rhs: Avatar) -> Bool {
+        lhs.userId == rhs.userId
+    }
+    
     @ObservedObject var avatarService: AvatarService = AvatarService()
     let userId:String
     
     init(userId: String) {
+        print("init Avatar")
         self.userId = userId
+        avatarService.fetchAvatar(userId: userId)
+        SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     }
     
     var body: some View {
-        RemoteImageView(url: avatarService.avatarUrl ?? URL(string: "https://www.americasfinestlabels.com/images/CCS400FO.jpg")!, placeholderImage: Image("placeholder"), transition: .custom(transition: .opacity, animation: .easeOut(duration: 0.5))).imageProcessing({image in
-            return image
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 40, height: 40)
+        if avatarService.avatarUrl == nil {
+            WebImage(url: URL(string: "https://avatars.dicebear.com/4.5/api/jdenticon/\(userId).svg")!)
+                // Supports options and context, like `.delayPlaceholder` to show placeholder only when error
+                .onSuccess { image, data, cacheType in
+                }
+                .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+                .placeholder(Image("placeholder")) // Placeholder Image
+                .transition(.fade(duration: 0.5)) // Fade Transition with duration
+                .scaledToFit()
+                .background(Color.white)
                 .clipShape(Circle())
-        }).frame(width: 40, height: 40).onAppear(perform: {
-            avatarService.fetchAvatar(userId: self.userId)
-        })
+                .frame(width: 40, height: 40, alignment: .center)
+        } else {
+            WebImage(url: avatarService.avatarUrl!)
+                // Supports options and context, like `.delayPlaceholder` to show placeholder only when error
+                .onSuccess { image, data, cacheType in
+                }
+                .resizable() // Resizable like SwiftUI.Image, you must use this modifier or the view will use the image bitmap size
+                .placeholder(Image("placeholder")) // Placeholder Image
+                .transition(.fade(duration: 0.5)) // Fade Transition with duration
+                .scaledToFill()
+                .clipShape(Circle())
+                .frame(width: 40, height: 40, alignment: .center)
+        }
+        
     }
 }
 
