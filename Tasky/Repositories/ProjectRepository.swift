@@ -210,6 +210,7 @@ extension ProjectRepository {
         
         do {
             try store.collection("projects").document(projectId).collection("tasks").document(task.id).setData(from: task.self)
+            store.collection("projects").document(projectId).updateData(["mock":Date().timeIntervalSince1970])
         } catch {
             fatalError("Unable to update project: \(error.localizedDescription).")
         }
@@ -248,6 +249,7 @@ extension ProjectRepository {
         
         do {
             try store.collection("projects").document(projectId).collection("tasks").document(task.id).setData(from: task.self)
+            store.collection("projects").document(projectId).updateData(["mock":Date().timeIntervalSince1970])
         } catch {
             fatalError("Unable to update project: \(error.localizedDescription).")
         }
@@ -272,6 +274,8 @@ extension ProjectRepository {
             }
             
             print("removed task \(task.id) from \(String(describing: project.id))")
+            
+            store.collection("projects").document(projectId).updateData(["mock":Date().timeIntervalSince1970])
         }
     }
     
