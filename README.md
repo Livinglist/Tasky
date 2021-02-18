@@ -22,7 +22,5 @@ What you can do now in Tasky:
 - Create projects.
 - Create tasks with title, content and a due data.
 - Change status of tasks.
-
-Todo:
-- Allow user to search for other users using username.
-- Allow user to add other users as collaborators in projects.
+- Search for other users using username.
+- Add other users as collaborators in projects.
