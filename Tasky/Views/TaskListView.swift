@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import StoreKit
 import SPAlert
 import FASwiftUI
 import ConfettiView
@@ -210,6 +211,9 @@ struct TaskListView: View {
                                     let total = Float(projectViewModel.project.tasks.count) - abortedCount
                                     let val = completedCount/total
                                     self.progressValue = val
+                                }
+                                if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                                    SKStoreReviewController.requestReview(in: scene)
                                 }
                             }
                             
