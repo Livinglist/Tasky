@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwURL
+import SPAlert
 
 struct PeopleSheet: View {
     @Environment(\.presentationMode) var presentationMode
@@ -84,6 +85,7 @@ struct PeopleSheet: View {
         }.alert(isPresented: $showAlert, content: {
             Alert(title: Text("Add \(selectedUser.fullName) as collaborator?"), message: Text(""), primaryButton: .default(Text("Cancel")), secondaryButton: .default(Text("Yes"), action: {
                 self.projectViewModel.addCollaborator(userId: selectedUser.id)
+                SPAlert.present(title: "Added to Project", preset: .done, haptic: .success)
                 presentationMode.wrappedValue.dismiss()
             }))
         })

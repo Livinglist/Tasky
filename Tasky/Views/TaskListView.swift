@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SPAlert
 import FASwiftUI
 import ConfettiView
 
@@ -134,25 +135,24 @@ struct TaskListView: View {
             switch item {
             case .deleteProjectAlert:
                 return Alert(title: Text("Delete this project?"), message: Text("This project will be deleted permanently."), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Okay"), action: {
-                self.onDelete(projectViewModel.project)
-                //projectViewModel.delete()
-            }))
+                    self.onDelete(projectViewModel.project)
+                }))
             case .removeCollabAlert:
                 return Alert(title: Text("Remove yourself from this project?"), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Okay"), action: {
-                projectViewModel.removeCollaborator(userId: AuthService.currentUser!.uid)
-                    
+                    projectViewModel.removeCollaborator(userId: AuthService.currentUser!.uid)
                     //For some reasons, line above does not notify viewmodel with the change.
                     //Below is the walk-around.
                     projectListViewModel.remove(id: self.projectViewModel.project.id!)
-            }))
+                }))
             }
         }).actionSheet(isPresented: $showActionSheet){
             ActionSheet(title: Text("\(selectedCollaborator!.fullName)"), buttons: [
                 .destructive(Text("Remove")) {
                     projectViewModel.removeCollaborator(userId: selectedCollaborator!.id)
+                    SPAlert.present(message: "Removed from Project", haptic: .error)
                 },
-                    .cancel()
-                ])
+                .cancel()
+            ])
         }
         )
     }
@@ -262,6 +262,6 @@ struct TaskListView: View {
 struct TaskListView_Previews: PreviewProvider {
     static var previews: some View {
         EmptyView()
-//        TaskListView(projectViewModel: ProjectViewModel(project: Project(name: "My project", tasks: [Task(id: "", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970), Task(id: "1", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970)], timestamp: Date().timeIntervalSince1970)), onDelete: {_ in})
+        //        TaskListView(projectViewModel: ProjectViewModel(project: Project(name: "My project", tasks: [Task(id: "", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970), Task(id: "1", title: "This is a task", content: "something needs to be done before blablabla", taskStatus: .awaiting, timestamp: NSDate().timeIntervalSince1970)], timestamp: Date().timeIntervalSince1970)), onDelete: {_ in})
     }
 }

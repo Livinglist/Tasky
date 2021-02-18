@@ -72,6 +72,7 @@
 		E588E8EF25D3D5F5005F3903 /* TaskDetailSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588E8EE25D3D5F5005F3903 /* TaskDetailSheet.swift */; };
 		E5A1833A25DCA18900E1616D /* PeopleSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1833925DCA18900E1616D /* PeopleSheet.swift */; };
 		E5A1833F25DCAE2800E1616D /* Avatar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1833E25DCAE2800E1616D /* Avatar.swift */; };
+		E5C6FAF425DE2A72003CB408 /* SPAlert in Frameworks */ = {isa = PBXBuildFile; productRef = E5C6FAF325DE2A72003CB408 /* SPAlert */; };
 		E5F1D03625DA5AE500B6DA2A /* ConfettiView in Frameworks */ = {isa = PBXBuildFile; productRef = E5F1D03525DA5AE500B6DA2A /* ConfettiView */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +163,7 @@
 				5E984A0D25C4024900AD938C /* FirebaseStorageSwift-Beta in Frameworks */,
 				5E984A0325C4024900AD938C /* FirebaseFirestore in Frameworks */,
 				5E9849F925C4024900AD938C /* FirebaseFirestoreSwift-Beta in Frameworks */,
+				E5C6FAF425DE2A72003CB408 /* SPAlert in Frameworks */,
 				5E9849F325C4024900AD938C /* FirebaseInstallations in Frameworks */,
 				5E9849F725C4024900AD938C /* FirebaseDynamicLinks in Frameworks */,
 				E54ECFA325D378C700646421 /* FASwiftUI in Frameworks */,
@@ -377,6 +379,7 @@
 				E5F1D03525DA5AE500B6DA2A /* ConfettiView */,
 				E56BF68425DB78E9005DD5E7 /* SwURL */,
 				E56BF68A25DB9795005DD5E7 /* PartialSheet */,
+				E5C6FAF325DE2A72003CB408 /* SPAlert */,
 			);
 			productName = Tasky;
 			productReference = 5E9849AF25C401C200AD938C /* Tasky.app */;
@@ -456,6 +459,7 @@
 				E5F1D03425DA5AE500B6DA2A /* XCRemoteSwiftPackageReference "ConfettiView" */,
 				E56BF68325DB78E9005DD5E7 /* XCRemoteSwiftPackageReference "SwURL" */,
 				E56BF68925DB9795005DD5E7 /* XCRemoteSwiftPackageReference "PartialSheet" */,
+				E5C6FAF225DE2A71003CB408 /* XCRemoteSwiftPackageReference "SPAlert" */,
 			);
 			productRefGroup = 5E9849B025C401C200AD938C /* Products */;
 			projectDirPath = "";
@@ -702,7 +706,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
@@ -712,7 +716,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = jiaqifeng.tasky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -730,7 +734,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
@@ -740,7 +744,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.2;
+				MARKETING_VERSION = 0.0.3;
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = jiaqifeng.tasky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -916,6 +920,14 @@
 				minimumVersion = 2.1.11;
 			};
 		};
+		E5C6FAF225DE2A71003CB408 /* XCRemoteSwiftPackageReference "SPAlert" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/varabeis/SPAlert.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.3;
+			};
+		};
 		E5F1D03425DA5AE500B6DA2A /* XCRemoteSwiftPackageReference "ConfettiView" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ziligy/ConfettiView";
@@ -1011,6 +1023,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = E56BF68925DB9795005DD5E7 /* XCRemoteSwiftPackageReference "PartialSheet" */;
 			productName = PartialSheet;
+		};
+		E5C6FAF325DE2A72003CB408 /* SPAlert */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E5C6FAF225DE2A71003CB408 /* XCRemoteSwiftPackageReference "SPAlert" */;
+			productName = SPAlert;
 		};
 		E5F1D03525DA5AE500B6DA2A /* ConfettiView */ = {
 			isa = XCSwiftPackageProductDependency;
