@@ -4,7 +4,7 @@
 ![iOS](https://img.shields.io/badge/iOS-14%20-blue)
 
 <p align="center">
-  <img width="280" alt="Screen Shot 2020-03-03 at 1 22 57 PM" src="https://user-images.githubusercontent.com/7277662/108040499-3b254880-6ff2-11eb-8aa2-8b155d5477b9.png"> 
+  <img width="280" alt="Screen Shot 2020-03-03 at 1 22 57 PM" src="https://user-images.githubusercontent.com/7277662/108316723-24a5fb00-7172-11eb-841c-a36a6dffb8b3.png"> 
   <img width="280" alt="Screen Shot 2020-08-20 at 6 16 26 PM" src="https://user-images.githubusercontent.com/7277662/108165747-f0660800-70a7-11eb-8006-0e5f35f68fa4.png">
     <img width="280" alt="Screen Shot 2020-08-20 at 6 16 26 PM" src="https://user-images.githubusercontent.com/7277662/108167198-2b693b00-70aa-11eb-88dc-c4837b9f54e3.png">
 <img width="280" alt="Screen Shot 2020-08-20 at 6 16 43 PM" src="https://user-images.githubusercontent.com/7277662/108040509-3e203900-6ff2-11eb-8501-d3913e5f9782.png">
