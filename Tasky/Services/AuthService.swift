@@ -112,7 +112,7 @@ extension AuthService{
                 print(error?.localizedDescription as Any)
                 return
             }
-            print("signed in")
+            print("signed in \(authResult?.user.displayName)")
         }
     }
     
@@ -130,8 +130,4 @@ extension AuthService{
             }
         }
     }
-    
-//    static func fetchUserInfo()->TaskyUser{
-//
-//    }
 }

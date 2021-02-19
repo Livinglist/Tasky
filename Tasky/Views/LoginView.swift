@@ -108,10 +108,15 @@ struct LoginView: View {
                                     return
                                 }
                                 
+                                let firstName = appleIDCredential.fullName?.givenName
+                                let lastName = appleIDCredential.fullName?.familyName
+                                
+                                UserDefaults.standard.setValue(firstName, forKey: "firstName")
+                                UserDefaults.standard.setValue(lastName, forKey: "lastName")
+                                
                                 let credential = OAuthProvider.credential(withProviderID: "apple.com",idToken: idTokenString,rawNonce: nonce)
                                 
                                 AuthService.signIn(withCredential: credential)
-                                
                                 
                                 print("\(String(describing: Auth.auth().currentUser?.uid))")
                             default:

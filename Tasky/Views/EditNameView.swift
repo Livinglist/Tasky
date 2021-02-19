@@ -22,7 +22,14 @@ struct EditNameView: View {
                 Text("Save")
                     .foregroundColor(.blue)
             }
-        }
+        }.onAppear(perform: {
+            guard let givenName = UserDefaults.standard.string(forKey: "firstName") else { return }
+            let familyName = UserDefaults.standard.string(forKey: "lastName") ?? "I"
+            
+            firstName = givenName
+            lastName = familyName
+            saveChnages()
+        })
     }
     
     func saveChnages(){
@@ -36,7 +43,6 @@ struct EditNameView: View {
 
 struct UserDetailSheet_Previews: PreviewProvider {
     static var previews: some View {
-        //UserDetailSheet()
-        Text("")
+        EmptyView()
     }
 }
