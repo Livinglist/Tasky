@@ -27,3 +27,4 @@ What you can do now in Tasky:
 - Change status of tasks.
 - Search for other users using username.
 - Add other users as collaborators in projects.
+- Add tags to task.
