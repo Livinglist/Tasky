@@ -3,6 +3,8 @@
 
 ![iOS](https://img.shields.io/badge/iOS-14%20-blue)
 [![App Store](https://img.shields.io/itunes/v/1552534120?label=App%20Store)](https://apps.apple.com/us/app/tasky-task-made-easy/id1552534120)
+[![App Store](https://img.shields.io/badge/Price-Free-orange)](https://img.shields.io/badge/Price-Free-orange)
+
 
 <p align="center">
   <img width="280" alt="Screen Shot 2020-03-03 at 1 22 57 PM" src="https://user-images.githubusercontent.com/7277662/108316723-24a5fb00-7172-11eb-841c-a36a6dffb8b3.png"> 
