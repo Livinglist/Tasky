@@ -12,7 +12,15 @@ import FASwiftUI
 import ConfettiView
 
 fileprivate enum ActiveSheet: Identifiable {
-    case newTaskSheet, editProjectSheet, updateTaskSheet, peopleSheet
+    case newTaskSheet, newTagSheet, editProjectSheet, updateTaskSheet, peopleSheet
+    
+    var id: Int {
+        hashValue
+    }
+}
+
+fileprivate enum ActiveActionSheet: Identifiable {
+    case collabActionSheet, tagActionSheet
     
     var id: Int {
         hashValue
@@ -20,7 +28,7 @@ fileprivate enum ActiveSheet: Identifiable {
 }
 
 fileprivate enum ActiveAlert: Identifiable {
-    case deleteProjectAlert, removeCollabAlert
+    case deleteProjectAlert, removeCollabAlert, removeTagAlert
     
     var id: Int {
         hashValue
@@ -34,12 +42,13 @@ struct TaskListView: View {
     @ObservedObject var userService: UserService = UserService()
     @ObservedObject var projectViewModel: ProjectViewModel
     @State fileprivate var activeSheet: ActiveSheet?
+    @State fileprivate var activeActionSheet: ActiveActionSheet?
     @State fileprivate var activeAlert: ActiveAlert?
     @State var selectedTaskStatus: TaskStatus = .awaiting
     @State var showConfetti: Bool = false
-    @State var showActionSheet: Bool = false
     @State var progressValue: Float
     @State var selectedCollaborator: TaskyUser?
+    @State var selectedTag: String?
     var onDelete: (Project)->()
     @State var timer:Timer?
     
@@ -95,6 +104,7 @@ struct TaskListView: View {
         }
         .navigationBarTitle("\(projectViewModel.project.name)")
         .navigationBarItems(trailing: HStack{
+            tagMenu
             collabMenu
             Menu {
                 Button(action: { activeSheet = .editProjectSheet }) {
@@ -125,6 +135,8 @@ struct TaskListView: View {
             switch item {
             case .newTaskSheet:
                 NewTaskSheet(projectViewModel: projectViewModel)
+            case .newTagSheet:
+                NewTagSheet(projectViewModel: projectViewModel)
             case .editProjectSheet:
                 UpdateProjectForm(projectViewModel: projectViewModel)
             case .updateTaskSheet:
@@ -139,22 +151,37 @@ struct TaskListView: View {
                     self.onDelete(projectViewModel.project)
                 }))
             case .removeCollabAlert:
-                return Alert(title: Text("Remove yourself from this project?"), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Okay"), action: {
+                return Alert(title: Text("Remove yourself from this project?"), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Yes"), action: {
                     projectViewModel.removeCollaborator(userId: AuthService.currentUser!.uid)
                     //For some reasons, line above does not notify viewmodel with the change.
                     //Below is the walk-around.
                     projectListViewModel.remove(id: self.projectViewModel.project.id!)
                 }))
+            case .removeTagAlert:
+                return Alert(title: Text("Remove \(selectedTag!) from this project?"), primaryButton: .default(Text("Cancel")), secondaryButton: .destructive(Text("Yes"), action: {
+                    projectViewModel.removeTag(label: selectedTag!)
+                    SPAlert.present(message: "Tag removed from Project", haptic: .error)
+                }))
             }
-        }).actionSheet(isPresented: $showActionSheet){
-            ActionSheet(title: Text("\(selectedCollaborator!.fullName)"), buttons: [
-                .destructive(Text("Remove")) {
-                    projectViewModel.removeCollaborator(userId: selectedCollaborator!.id)
-                    SPAlert.present(message: "Removed from Project", haptic: .error)
-                },
-                .cancel()
-            ])
-        }
+        }).actionSheet(item: $activeActionSheet, content: { item in
+            switch item {
+            case .collabActionSheet:
+                return ActionSheet(title: Text("\(selectedCollaborator!.fullName)"), buttons: [
+                    .destructive(Text("Remove")) {
+                        projectViewModel.removeCollaborator(userId: selectedCollaborator!.id)
+                        SPAlert.present(message: "Removed from Project", haptic: .error)
+                    },
+                    .cancel()
+                ])
+            case .tagActionSheet:
+                return ActionSheet(title: Text("\(selectedTag!)"), buttons: [
+                    .destructive(Text("Remove \(selectedTag!)")) {
+                        self.activeAlert = .removeTagAlert
+                    },
+                    .cancel()
+                ])
+            }
+        })
         )
     }
     
@@ -170,7 +197,7 @@ struct TaskListView: View {
             ScrollView(.vertical) {
                 VStack{
                     ForEach(filteredTasks) { task in
-                        TaskView(task: task, onEditPressed: {
+                        TaskView(task: task, projectViewModel: projectViewModel,onEditPressed: {
                             activeSheet = .updateTaskSheet
                             projectViewModel.selected(task: task)
                         }, onRemovePressed: {
@@ -225,7 +252,35 @@ struct TaskListView: View {
         }
     }
     
-    var collabMenu:some View {
+    var tagMenu : some View{
+        let project = projectViewModel.project
+        
+        return Menu {
+            if project.tags != nil {
+                ForEach(project.tags!.sorted(by: >), id: \.key){ key, value in
+                    Button(action: {
+                        self.selectedTag = key
+                        self.activeActionSheet = .tagActionSheet
+                    }) {
+                        Text("\(key)")
+                    }
+                }
+            }
+            
+            if AuthService.currentUser!.uid == projectViewModel.project.managerId {
+                Divider()
+                Button(action: { self.activeSheet = .newTagSheet }) {
+                    Text("Add tag")
+                    Image(systemName: "plus.circle")
+                }
+            }
+            
+        } label:{
+            Image(systemName: "tag.fill").font(.system(size: 22)).foregroundColor(.blue)
+        }
+    }
+    
+    var collabMenu : some View {
         let participants = self.projectViewModel.project.collaboratorIds
         
         return Menu {
@@ -241,7 +296,7 @@ struct TaskListView: View {
                     Button(action: {
                         if AuthService.currentUser!.uid == projectViewModel.project.managerId {
                             self.selectedCollaborator = taskyUser
-                            self.showActionSheet.toggle()
+                            self.activeActionSheet = .collabActionSheet
                         }
                     }) {
                         Text("\(taskyUser.fullName)")

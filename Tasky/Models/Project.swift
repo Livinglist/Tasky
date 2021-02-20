@@ -15,6 +15,7 @@ struct Project: Identifiable, Codable, Equatable {
     var managerId: String?
     var collaboratorIds: [String]?
     var timestamp: Double
+    var tags: [String: String]?
     
     static func == (lhs: Self, rhs: Self) -> Bool {
             lhs.id == rhs.id

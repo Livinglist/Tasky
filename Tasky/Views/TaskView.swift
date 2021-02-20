@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TaskView: View {
+    @ObservedObject var projectViewModel:ProjectViewModel
     @ObservedObject var userService: UserService = UserService()
     @State var showDetailSheet: Bool = false
     var task: Task
@@ -15,7 +16,8 @@ struct TaskView: View {
     var onRemovePressed: () -> ()
     var onStatusChanged: (TaskStatus) ->()
     
-    init(task: Task, onEditPressed: @escaping () -> (),onRemovePressed: @escaping () -> (), onStatusChanged: @escaping (TaskStatus) ->()) {
+    init(task: Task, projectViewModel: ProjectViewModel,onEditPressed: @escaping () -> (),onRemovePressed: @escaping () -> (), onStatusChanged: @escaping (TaskStatus) ->()) {
+        self.projectViewModel = projectViewModel
         self.onEditPressed = onEditPressed
         self.onRemovePressed = onRemovePressed
         self.onStatusChanged = onStatusChanged
@@ -64,6 +66,15 @@ struct TaskView: View {
                     Spacer()
                 }.padding(.leading, 12)
                 Spacer()
+                HStack{
+                    if task.tags != nil {
+                        ForEach(task.tags!.sorted(by: >), id: \.key){ key, value in
+                            Chip(color: Color(value), label: key) {
+                                
+                            }
+                        }
+                    }
+                }.padding(.leading, 12).padding(.vertical, 0)
                 HStack{
                     Spacer()
                     Text("created on \(dateString) by \(self.userService.user?.firstName ?? "") \(self.userService.user?.lastName ?? "")").font(.footnote).foregroundColor(.black).opacity(0.5).padding(.trailing, 12).padding(.bottom, 8)
@@ -125,7 +136,7 @@ struct TaskView: View {
                 self.showDetailSheet.toggle()
             }.sheet(isPresented: $showDetailSheet){
                 let fullName = "\(self.userService.user?.firstName ?? "") \(self.userService.user?.lastName ?? "")"
-                TaskDetailSheet(task: self.task, creatorName: fullName)
+                TaskDetailSheet(projectViewModel: projectViewModel, task: self.task, creatorName: fullName)
             }
         }
     }
@@ -133,10 +144,11 @@ struct TaskView: View {
 
 struct TaskView_Previews: PreviewProvider {
     static var previews: some View {
-        VStack(alignment: .leading){
-            TaskView(task: Task(id: "", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970, dueTimestamp: Date().timeIntervalSince1970), onEditPressed: {}, onRemovePressed: { }, onStatusChanged: {_ in })
-            TaskView(task: Task(id: "1", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onEditPressed: {}, onRemovePressed: {  }, onStatusChanged: {_ in })
-            TaskView(task: Task(id: "2", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onEditPressed: {}, onRemovePressed: {  }, onStatusChanged: {_ in })
-        }
+        EmptyView()
+//        VStack(alignment: .leading){
+//            TaskView(task: Task(id: "", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970, dueTimestamp: Date().timeIntervalSince1970), onEditPressed: {}, onRemovePressed: { }, onStatusChanged: {_ in })
+//            TaskView(task: Task(id: "1", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onEditPressed: {}, onRemovePressed: {  }, onStatusChanged: {_ in })
+//            TaskView(task: Task(id: "2", title: "My task", content: "To get something done.", taskStatus: .awaiting, timestamp: Date().timeIntervalSince1970), onEditPressed: {}, onRemovePressed: {  }, onStatusChanged: {_ in })
+//        }
     }
 }

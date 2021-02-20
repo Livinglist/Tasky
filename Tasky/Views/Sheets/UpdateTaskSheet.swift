@@ -58,7 +58,7 @@ struct UpdateTaskSheet: View {
             return
         }
         
-        let updatedTask = Task(id: self.task.id, title: title, content: content, taskStatus: self.task.taskStatus, timestamp: self.task.timestamp, dueTimestamp: enableDueDate ? selectedDate.timeIntervalSince1970: nil, creatorId: self.task.creatorId)
+        let updatedTask = Task(id: self.task.id, title: title, content: content, taskStatus: self.task.taskStatus, timestamp: self.task.timestamp, dueTimestamp: enableDueDate ? selectedDate.timeIntervalSince1970: nil, creatorId: self.task.creatorId, tags: self.task.tags)
         
         projectViewModel.updateTask(task: updatedTask)
         

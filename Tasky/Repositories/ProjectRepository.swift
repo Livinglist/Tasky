@@ -216,6 +216,56 @@ extension ProjectRepository {
         }
     }
     
+    static func addTag(label: String, colorString: String, to project: Project){
+        let store = Firestore.firestore()
+        
+        guard let projectId = project.id else { return }
+        
+        store.collection("projects").document(projectId).setData(["tags":[label: colorString]], merge: true)
+    }
+    
+    static func addTag(to task: Task, in project: Project, label: String, colorString: String){
+        let store = Firestore.firestore()
+        
+        guard let projectId = project.id else { return }
+        
+        store.collection("projects").document(projectId).collection("tasks").document(task.id).setData(["tags":[label: colorString]], merge: true)
+        store.collection("projects").document(projectId).updateData(["mock":Date().timeIntervalSince1970])
+    }
+    
+    static func removeTag(label: String, from project: Project){
+        let store = Firestore.firestore()
+        
+        guard let projectId = project.id else { return }
+        
+        var map = project.tags!
+        map.removeValue(forKey: label)
+        
+        for task in project.tasks.filter({ t in
+            return t.tags?.keys.contains(label) ?? false
+        }) {
+            var subMap = task.tags!
+            subMap.removeValue(forKey: label)
+            
+            store.collection("projects").document(projectId).collection("tasks").document(task.id).updateData(["tags" : subMap])
+        }
+        
+        store.collection("projects").document(projectId).updateData(["tags":map])
+    }
+    
+    static func removeTag(label: String, from task: Task, in project: Project){
+        let store = Firestore.firestore()
+        
+        guard let projectId = project.id else { return }
+        
+        var subMap = task.tags!
+        subMap.removeValue(forKey: label)
+        
+        store.collection("projects").document(projectId).collection("tasks").document(task.id).updateData(["tags": subMap])
+        
+        store.collection("projects").document(projectId).updateData(["mock":Date().timeIntervalSince1970])
+    }
+    
     static func addCollaborator(userId: String, to projectId: String){
         let store = Firestore.firestore()
         
