@@ -47,11 +47,24 @@ struct TaskView: View {
         
         return GeometryReader { geometry in
             VStack(alignment: .leading) {
-                //EmptyView().padding(.top, 8)
-                if dueDateString != nil {
+                if dueDateString != nil || task.tags != nil {
                     HStack{
-                        Text("due on \(dueDateString!)").font(.footnote).foregroundColor(.yellow).opacity(1.0).padding(.trailing, 12)
-                    }.padding(.leading, 12).padding(.top, 8)
+                        if dueDateString != nil {
+                            Text("due on \(dueDateString!)").font(.footnote).foregroundColor(.yellow).opacity(1.0)
+                        }else{
+                            Text("").font(.footnote).foregroundColor(.yellow).opacity(1.0)
+                        }
+                        Spacer()
+                        if task.tags != nil {
+                            ForEach(task.tags!.sorted(by: >), id: \.key){ key, value in
+                                SmallChip(color: Color(value), label: key) {
+
+                                }
+                            }
+                        }
+                    }.padding(.horizontal, 12).padding(.top, 8)
+                } else {
+                    EmptyView().padding(.top, 0)
                 }
                 HStack{
                     if self.task.taskStatus == .completed {
@@ -60,21 +73,21 @@ struct TaskView: View {
                         Text("\(task.title)").font(.headline).lineLimit(1)
                     }
                     Spacer()
-                }.padding(.leading, 12).padding(.top, dueDateString == nil ? 8 : 0)
+                }.padding(.leading, 12).padding(.top, 0)
                 HStack{
                     Text("\(self.task.content)").font(.subheadline).foregroundColor(.black).opacity(0.8)
                     Spacer()
                 }.padding(.leading, 12)
                 Spacer()
-                HStack{
-                    if task.tags != nil {
-                        ForEach(task.tags!.sorted(by: >), id: \.key){ key, value in
-                            Chip(color: Color(value), label: key) {
-                                
-                            }
-                        }
-                    }
-                }.padding(.leading, 12).padding(.vertical, 0)
+//                HStack{
+//                    if task.tags != nil {
+//                        ForEach(task.tags!.sorted(by: >), id: \.key){ key, value in
+//                            SmallChip(color: Color(value), label: key) {
+//
+//                            }
+//                        }
+//                    }
+//                }.padding(.leading, 12).padding(.vertical, 0)
                 HStack{
                     Spacer()
                     Text("created on \(dateString) by \(self.userService.user?.firstName ?? "") \(self.userService.user?.lastName ?? "")").font(.footnote).foregroundColor(.black).opacity(0.5).padding(.trailing, 12).padding(.bottom, 8)
