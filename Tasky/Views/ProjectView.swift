@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ProjectView: View{
+struct ProjectView: View{    
     @ObservedObject var projectViewModel: ProjectViewModel
     @ObservedObject var projectListViewModel: ProjectListViewModel
     @State var showContent: Bool = false

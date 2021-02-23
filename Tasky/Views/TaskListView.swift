@@ -391,11 +391,13 @@ struct TaskListView: View {
                             
                         }, onChipPressed: { pressedTag in
                             self.pressedTag = pressedTag
-                            self.activeSheet = .testSheet
+                            withAnimation{
+                                self.activeSheet = .testSheet
+                            }
                         }).frame(height: 120)
                         .padding([.leading, .trailing]).padding(.bottom, 8)//.background(Color.red)
                     }
-                }.frame(width: geometry.size.width, height: 128.0*CGFloat(tasks.count), alignment: .leading).padding(.top, 0)
+                }.transition(.fade).frame(width: geometry.size.width, height: 128.0*CGFloat(tasks.count), alignment: .leading).padding(.top, 0)
             }.frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
         }
     }

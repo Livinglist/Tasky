@@ -325,7 +325,7 @@ extension ProjectRepository {
             
             print("removed task \(task.id) from \(String(describing: project.id))")
             
-            store.collection("projects").document(projectId).updateData(["mock":Date().timeIntervalSince1970])
+            //store.collection("projects").document(projectId).updateData(["mock":Date().timeIntervalSince1970])
         }
     }
     

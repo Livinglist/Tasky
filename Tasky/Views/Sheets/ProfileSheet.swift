@@ -27,6 +27,12 @@ struct ProfileSheet: View {
         self.inputImage != nil
     }
     
+    init(authService: AuthService, userService: UserService) {
+        self.authService = authService
+        self.userService = userService
+        self.avatarService.fetchAvatar(userId: authService.user?.uid ?? "")
+    }
+    
     var body: some View {
         VStack{
             Indicator().padding()
@@ -35,8 +41,13 @@ struct ProfileSheet: View {
                     Text("Edit")
                     Image(systemName: "pencil.circle")
                 }
+                Divider()
+                Button(action: { avatarService.deleteAvatar(userId: authService.user?.uid ?? "") }) {
+                    Text("Delete")
+                    Image(systemName: "trash")
+                }
             }, label: {
-                WebImage(url: avatarService.avatarUrl ?? URL(string: "https://www.americasfinestlabels.com/images/CCS400FO.jpg")!)
+                WebImage(url: avatarService.avatarUrl!)
                     // Supports options and context, like `.delayPlaceholder` to show placeholder only when error
                     .onSuccess { image, data, cacheType in
                     }
@@ -44,6 +55,7 @@ struct ProfileSheet: View {
                     .placeholder(Image("placeholder")) // Placeholder Image
                     .transition(.fade(duration: 0.5)) // Fade Transition with duration
                     .scaledToFill()
+                    .background(Color.white)
                     .clipShape(Circle())
                     .frame(width: 160, height: 160, alignment: .center)
             })
@@ -79,9 +91,7 @@ struct ProfileSheet: View {
             case .updateNameSheet:
                 UpdateNameSheet(authService: authService, userService: userService)
             }
-        }.onAppear(perform: {
-            userService.fetchUserBy(id: authService.user?.uid ?? "")
-        })
+        }
     }
     
     func loadImage() {
