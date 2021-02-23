@@ -39,6 +39,8 @@ struct NewTagSheet: View {
     }
     
     func addTag(){
+        guard !label.isEmpty else { return }
+        
         projectViewModel.addTag(label: label, colorString: colorString)
         presentationMode.wrappedValue.dismiss()
     }
