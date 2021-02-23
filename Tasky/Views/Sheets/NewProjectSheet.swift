@@ -35,6 +35,8 @@ struct NewProjectSheet: View {
     }
     
     private func addProject() {
+        guard !projectName.isEmpty else { return }
+        
         let project = Project(name: projectName, tasks: [], managerId: AuthService.currentUser?.uid, timestamp: Date().timeIntervalSince1970)
         
         projectListViewModel.add(project)
