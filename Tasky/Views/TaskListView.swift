@@ -12,7 +12,7 @@ import FASwiftUI
 import ConfettiView
 
 fileprivate enum ActiveSheet: Identifiable {
-    case newTaskSheet, newTagSheet, editProjectSheet, updateTaskSheet, peopleSheet
+    case newTaskSheet, newTagSheet, editProjectSheet, updateTaskSheet, peopleSheet, testSheet
     
     var id: Int {
         hashValue
@@ -49,6 +49,7 @@ struct TaskListView: View {
     @State var progressValue: Float
     @State var selectedCollaborator: TaskyUser?
     @State var selectedTag: String?
+    @State var pressedTag: String?
     var onDelete: (Project)->()
     @State var timer:Timer?
     
@@ -77,6 +78,71 @@ struct TaskListView: View {
         guard let ids = projectViewModel.project.collaboratorIds else { return }
         
         self.userService.fetchUsersBy(ids: ids)
+    }
+    
+    var tagMenu : some View{
+        let project = projectViewModel.project
+        
+        return Menu {
+            if project.tags != nil {
+                ForEach(project.tags!.sorted(by: >), id: \.key){ key, value in
+                    Button(action: {
+                        self.selectedTag = key
+                        self.activeActionSheet = .tagActionSheet
+                    }) {
+                        Text("\(key)")
+                    }
+                }
+            }
+            
+            if AuthService.currentUser!.uid == projectViewModel.project.managerId {
+                Divider()
+                Button(action: { self.activeSheet = .newTagSheet }) {
+                    Text("Add tag")
+                    Image(systemName: "plus.circle")
+                }
+            }
+            
+        } label:{
+            Image(systemName: "tag.fill").font(.system(size: 22)).foregroundColor(.blue)
+        }
+    }
+    
+    var collabMenu : some View {
+        let participants = self.projectViewModel.project.collaboratorIds
+        
+        return Menu {
+            Button(action: {
+                
+            }) {
+                Text("\(self.userService.user!.fullName)")
+                Image(systemName: "binoculars.fill")
+            }
+            
+            if participants != nil {
+                ForEach(self.userService.resultUsers){ taskyUser in
+                    Button(action: {
+                        if AuthService.currentUser!.uid == projectViewModel.project.managerId {
+                            self.selectedCollaborator = taskyUser
+                            self.activeActionSheet = .collabActionSheet
+                        }
+                    }) {
+                        Text("\(taskyUser.fullName)")
+                    }
+                }
+            }
+            
+            if AuthService.currentUser!.uid == projectViewModel.project.managerId {
+                Divider()
+                Button(action: { self.activeSheet = .peopleSheet }) {
+                    Text("Add collaborator")
+                    Image(systemName: "person.fill.badge.plus")
+                }
+            }
+            
+        } label:{
+            Image(systemName: "person.2.fill").font(.system(size: 22)).foregroundColor(.blue)
+        }
     }
     
     var body: some View {
@@ -143,6 +209,8 @@ struct TaskListView: View {
                 UpdateTaskSheet(projectViewModel: projectViewModel)
             case .peopleSheet:
                 PeopleSheet(projectViewModel: projectViewModel)
+            case .testSheet:
+                buildTaskSheet()
             }
         }.alert(item: $activeAlert, content: { item in
             switch item {
@@ -182,7 +250,9 @@ struct TaskListView: View {
                 ])
             }
         })
-        )
+        ).onReceive(pressedTag.publisher) { t in
+            //print("received, is \(t)")
+        }
     }
     
     func taskListOf(taskStatus: TaskStatus) -> some View {
@@ -244,6 +314,10 @@ struct TaskListView: View {
                                 }
                             }
                             
+                        }, onChipPressed: { pressedTag in
+                            self.pressedTag = pressedTag
+                            print("pressedTag is \(pressedTag)")
+                            self.activeSheet = .testSheet
                         })
                         .padding([.leading, .trailing]).padding(.bottom, 8).transition(.slide)
                     }
@@ -252,69 +326,84 @@ struct TaskListView: View {
         }
     }
     
-    var tagMenu : some View{
-        let project = projectViewModel.project
+    func buildTaskSheet() -> some View {
+        var tasks = getTasks(withTag: pressedTag ?? "")
         
-        return Menu {
-            if project.tags != nil {
-                ForEach(project.tags!.sorted(by: >), id: \.key){ key, value in
-                    Button(action: {
-                        self.selectedTag = key
-                        self.activeActionSheet = .tagActionSheet
-                    }) {
-                        Text("\(key)")
+        tasks.sort(by:{ lhs, rhs in
+            return lhs.taskStatus.rawValue < rhs.taskStatus.rawValue
+        })
+        
+        return GeometryReader{geometry in
+            ScrollView(.vertical){
+                Indicator().padding()
+                HStack{
+                    Text("\(tasks.count) tasks found with").font(.callout)
+                    SmallChip(color: Color(self.projectViewModel.project.tags![pressedTag!]!), label: pressedTag!, onPressed: {})
+                }
+                VStack(alignment: .leading, spacing: 0){
+                    ForEach(tasks) { task in
+                        TaskView(task: task, projectViewModel: projectViewModel,onEditPressed: {
+                            activeSheet = .updateTaskSheet
+                            projectViewModel.selected(task: task)
+                        }, onRemovePressed: {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6){
+                                withAnimation(.easeInOut(duration: 0.20)) {
+                                    projectViewModel.remove(task: task)
+                                }
+                            }
+                        }, onStatusChanged: { selectedStatus in
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.6){
+                                let taskId = task.id
+                                withAnimation(.easeInOut(duration: 0.20)){
+                                    projectViewModel.updateTaskStatus(withId: taskId, to: selectedStatus)
+                                    
+                                    if selectedStatus == .completed {
+                                        showConfetti.toggle()
+                                        
+                                        self.timer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { _ in
+                                            withAnimation{
+                                                self.showConfetti.toggle()
+                                            }
+                                            
+                                        }
+                                    }
+                                    
+                                    let completedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
+                                        if task.taskStatus == .completed {
+                                            return true
+                                        }
+                                        return false
+                                    }.count)
+                                    let abortedCount = Float(projectViewModel.project.tasks.filter { task -> Bool in
+                                        if task.taskStatus == .aborted {
+                                            return true
+                                        }
+                                        return false
+                                    }.count)
+                                    let total = Float(projectViewModel.project.tasks.count) - abortedCount
+                                    let val = completedCount/total
+                                    self.progressValue = val
+                                }
+                                if let scene = UIApplication.shared.connectedScenes.first(where: { $0.activationState == .foregroundActive }) as? UIWindowScene {
+                                    SKStoreReviewController.requestReview(in: scene)
+                                }
+                            }
+                            
+                        }, onChipPressed: { pressedTag in
+                            self.pressedTag = pressedTag
+                            self.activeSheet = .testSheet
+                        }).frame(height: 120)
+                        .padding([.leading, .trailing]).padding(.bottom, 8)//.background(Color.red)
                     }
-                }
-            }
-            
-            if AuthService.currentUser!.uid == projectViewModel.project.managerId {
-                Divider()
-                Button(action: { self.activeSheet = .newTagSheet }) {
-                    Text("Add tag")
-                    Image(systemName: "plus.circle")
-                }
-            }
-            
-        } label:{
-            Image(systemName: "tag.fill").font(.system(size: 22)).foregroundColor(.blue)
+                }.frame(width: geometry.size.width, height: 128.0*CGFloat(tasks.count), alignment: .leading).padding(.top, 0)
+            }.frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
         }
     }
     
-    var collabMenu : some View {
-        let participants = self.projectViewModel.project.collaboratorIds
-        
-        return Menu {
-            Button(action: {
-                
-            }) {
-                Text("\(self.userService.user!.fullName)")
-                Image(systemName: "binoculars.fill")
-            }
-            
-            if participants != nil {
-                ForEach(self.userService.resultUsers){ taskyUser in
-                    Button(action: {
-                        if AuthService.currentUser!.uid == projectViewModel.project.managerId {
-                            self.selectedCollaborator = taskyUser
-                            self.activeActionSheet = .collabActionSheet
-                        }
-                    }) {
-                        Text("\(taskyUser.fullName)")
-                    }
-                }
-            }
-            
-            if AuthService.currentUser!.uid == projectViewModel.project.managerId {
-                Divider()
-                Button(action: { self.activeSheet = .peopleSheet }) {
-                    Text("Add collaborator")
-                    Image(systemName: "person.fill.badge.plus")
-                }
-            }
-            
-        } label:{
-            Image(systemName: "person.2.fill").font(.system(size: 22)).foregroundColor(.blue)
-        }
+    func getTasks(withTag tag: String) -> [Task]{
+        return self.projectViewModel.project.tasks.filter({ t in
+            return t.tags?.contains(where: { key, val in key == tag}) ?? false
+        })
     }
 }
 
