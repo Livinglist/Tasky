@@ -4,6 +4,7 @@
 ![iOS](https://img.shields.io/badge/iOS-14%20-blue)
 [![App Store](https://img.shields.io/itunes/v/1552534120?label=App%20Store)](https://apps.apple.com/us/app/tasky-task-made-easy/id1552534120)
 [![App Store](https://img.shields.io/badge/Price-Free-orange)](https://img.shields.io/badge/Price-Free-orange)
+[![Visits Badge](https://badges.pufler.dev/visits/livinglist/Tasky)](https://badges.pufler.dev)
 [![GitHub](https://img.shields.io/github/stars/livinglist/Tasky?style=social)](https://img.shields.io/github/stars/livinglist/Tasky?style=social)
 
 
