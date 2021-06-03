@@ -62,6 +62,7 @@
 		E56BF67F25DB7798005DD5E7 /* AvatarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BF67E25DB7798005DD5E7 /* AvatarService.swift */; };
 		E56BF68B25DB9795005DD5E7 /* PartialSheet in Frameworks */ = {isa = PBXBuildFile; productRef = E56BF68A25DB9795005DD5E7 /* PartialSheet */; };
 		E56BF69025DB9EE8005DD5E7 /* UpdateTaskSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56BF68F25DB9EE8005DD5E7 /* UpdateTaskSheet.swift */; };
+		E57C3C2526689CE500F7015E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E57C3C2426689CE500F7015E /* GoogleService-Info.plist */; };
 		E588450125D24C5D0008A371 /* EmailSignInForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588450025D24C5D0008A371 /* EmailSignInForm.swift */; };
 		E588450625D364ED0008A371 /* UpdateProjectForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588450525D364ED0008A371 /* UpdateProjectForm.swift */; };
 		E588E8D525D383A3005F3903 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E588E8D425D383A3005F3903 /* UserService.swift */; };
@@ -139,6 +140,7 @@
 		E56BF67025DB51B9005DD5E7 /* UpdateNameSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateNameSheet.swift; sourceTree = "<group>"; };
 		E56BF67E25DB7798005DD5E7 /* AvatarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarService.swift; sourceTree = "<group>"; };
 		E56BF68F25DB9EE8005DD5E7 /* UpdateTaskSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTaskSheet.swift; sourceTree = "<group>"; };
+		E57C3C2426689CE500F7015E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E588450025D24C5D0008A371 /* EmailSignInForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailSignInForm.swift; sourceTree = "<group>"; };
 		E588450525D364ED0008A371 /* UpdateProjectForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateProjectForm.swift; sourceTree = "<group>"; };
 		E588E8D425D383A3005F3903 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 		5E9849B125C401C200AD938C /* Tasky */ = {
 			isa = PBXGroup;
 			children = (
+				E57C3C2426689CE500F7015E /* GoogleService-Info.plist */,
 				E588E8E925D3A1A1005F3903 /* Font Awesome 5 Pro-Solid-900.otf */,
 				E588E8E425D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf */,
 				E588E8DF25D3A186005F3903 /* Font Awesome 5 Brands-Regular-400.otf */,
@@ -489,6 +492,7 @@
 			files = (
 				E54ED00E25D37AC400646421 /* Font Awesome 5 Pro-Light-300.otf in Resources */,
 				5E9849BA25C401C300AD938C /* Preview Assets.xcassets in Resources */,
+				E57C3C2526689CE500F7015E /* GoogleService-Info.plist in Resources */,
 				E588E8E525D3A199005F3903 /* Font Awesome 5 Pro-Regular-400.otf in Resources */,
 				5E9849E625C4021000AD938C /* GoogleService-Info.plist in Resources */,
 				E54ECFA825D3793C00646421 /* icons.json in Resources */,
@@ -718,7 +722,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
@@ -728,7 +732,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.4;
+				MARKETING_VERSION = 0.0.5;
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = jiaqifeng.tasky;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -746,7 +750,7 @@
 				CODE_SIGN_ENTITLEMENTS = Tasky/Tasky.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "Tasky/avatar.png Tasky/Preview\\ Content";
 				DEVELOPMENT_TEAM = QMWX3X2NF7;
 				ENABLE_PREVIEWS = YES;
@@ -756,7 +760,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0.4;
+				MARKETING_VERSION = 0.0.5;
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = jiaqifeng.tasky;
 				PRODUCT_NAME = "$(TARGET_NAME)";

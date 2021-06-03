@@ -16,26 +16,28 @@ struct NewTaskSheet: View {
     @ObservedObject var projectViewModel: ProjectViewModel
     
     var body: some View {
-        Form{
-            Section{
-                TextField("Title", text: $title)
-                TextEditor(text: $content).frame(height: 120)
-            }
-            
-            Section{
-                Toggle(isOn: $enableDueDate, label: {
-                    Text("With Due Date")
-                })
-                if enableDueDate {
-                    DatePicker("", selection: $selectedDate)
+        NavigationView{
+            Form{
+                Section{
+                    TextField("Title", text: $title)
+                    TextEditor(text: $content).frame(height: 120)
                 }
-            }
-            
-            Button(action: addTask) {
-                    Text("Add New Task")
-                      .foregroundColor(.blue)
-                  }
-        }
+                
+                Section{
+                    Toggle(isOn: $enableDueDate, label: {
+                        Text("With Due Date")
+                    })
+                    if enableDueDate {
+                        DatePicker("", selection: $selectedDate)
+                    }
+                }
+                
+                Button(action: addTask) {
+                        Text("Add New Task")
+                          .foregroundColor(.blue)
+                      }
+            }.padding(EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).navigationBarTitle("").navigationBarHidden(true)
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func addTask() {

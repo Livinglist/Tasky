@@ -112,7 +112,9 @@ class UserService: ObservableObject {
                     for doc in snapshots.documents {
                         guard let user = try? doc.data(as: TaskyUser.self) else { continue }
                         
-                        self.resultUsers.append(user)
+                        if !self.resultUsers.contains(user){
+                            self.resultUsers.append(user)
+                        }
                     }
                 }
             }

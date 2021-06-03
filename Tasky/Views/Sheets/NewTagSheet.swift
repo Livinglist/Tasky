@@ -32,16 +32,15 @@ struct NewTagSheet: View {
                 Button(action: addTag, label: {
                     Text("Add tag")
                 })
-            }.navigationBarTitle("").navigationBarHidden(true)
-            
-        }
-        
+            }.padding(EdgeInsets(top: 24.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).navigationBarTitle("").navigationBarHidden(true)
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     func addTag(){
         guard !label.isEmpty else { return }
         
         projectViewModel.addTag(label: label, colorString: colorString)
+        
         presentationMode.wrappedValue.dismiss()
     }
 }

@@ -21,36 +21,38 @@ struct UpdateTaskSheet: View {
     }
     
     var body: some View {
-        Form{
-            Section{
-                TextField("Title", text: $title)
-                TextEditor(text: $content).frame(height: 120)
-            }
-            
-            Section{
-                Toggle(isOn: $enableDueDate, label: {
-                    Text("With Due Date")
-                })
-                if enableDueDate {
-                    DatePicker("", selection: $selectedDate)
+        NavigationView{
+            Form{
+                Section{
+                    TextField("Title", text: $title)
+                    TextEditor(text: $content).frame(height: 120)
                 }
-            }
-            
-            Button(action: updateTask) {
-                    Text("Save changes")
-                      .foregroundColor(.blue)
-                  }
-        }.onAppear(perform: {
-            self.task = projectViewModel.selectedTask
-            self.title = task.title
-            self.content = task.content
-            if task.dueTimestamp == nil {
-                enableDueDate = false
-            } else {
-                enableDueDate = true
-                selectedDate = Date(timeIntervalSince1970: task.dueTimestamp!)
-            }
-        })
+                
+                Section{
+                    Toggle(isOn: $enableDueDate, label: {
+                        Text("With Due Date")
+                    })
+                    if enableDueDate {
+                        DatePicker("", selection: $selectedDate)
+                    }
+                }
+                
+                Button(action: updateTask) {
+                        Text("Save changes")
+                          .foregroundColor(.blue)
+                      }
+            }.padding(EdgeInsets(top: 0.0, leading: 0.0, bottom: 0.0, trailing: 0.0)).navigationBarTitle("").navigationBarHidden(true).onAppear(perform: {
+                self.task = projectViewModel.selectedTask
+                self.title = task.title
+                self.content = task.content
+                if task.dueTimestamp == nil {
+                    enableDueDate = false
+                } else {
+                    enableDueDate = true
+                    selectedDate = Date(timeIntervalSince1970: task.dueTimestamp!)
+                }
+            })
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
     
     private func updateTask() {

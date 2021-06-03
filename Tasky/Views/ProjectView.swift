@@ -61,7 +61,7 @@ struct ProjectView: View{
                 .cornerRadius(8)
                 .shadow(color: Color(.orange).opacity(0.3), radius: 3, x: 2, y: 2)
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 
